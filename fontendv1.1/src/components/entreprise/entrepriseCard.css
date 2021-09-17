@@ -1,0 +1,33 @@
+.entreprise-card-container .card{
+    padding:1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.entreprise-infos{
+
+}
+
+.entreprise-infos .col-informations {
+    
+}
+
+.entreprise-infos .col-informations .title-h >h5{
+    
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+.entreprise-infos .qualifications ul{
+    height: 2em;
+    max-height:2em;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin:auto;
+}
+
+.entreprise-buttons-container >button{
+
+}

@@ -1,0 +1,70 @@
+/*
+style de la page eventDetails 
+*/
+
+.header-entreprise-detail-container{
+    height: 30em;
+    margin-top: 8em;
+    padding-top: 3em;
+}
+
+.container-entreprise-header{
+    height: 40em;
+    position: relative;
+}
+
+
+.header-entreprise-detail-container .img-entreprise{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.header-title-container{
+    height:20%;
+    background-color: rgba(15, 14, 14, 0.308);
+    position: absolute;
+    top: 13em;
+    width:100%;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+} 
+
+.header-title-container > div{
+    background-color: rgba(0, 0, 0, 0.363);
+    text-align: center;
+    padding: 2em 0em;
+    color: white;
+    font-family:'open sans', 'Helvetica Neue';
+}
+
+.header-title-container > div h1{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.header-styled-description{
+    height:10em;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    top: -10em;
+
+}
+
+
+
+
+.header-styled-container button:first-child{
+   
+    
+}
+
+.header-styled-container button:last-child{
+   
+}
+
+
+
+

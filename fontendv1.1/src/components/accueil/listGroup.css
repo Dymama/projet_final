@@ -1,0 +1,43 @@
+.info-event-container{
+    padding:1em;
+    margin:auto;
+    
+
+}
+
+.info-event-container h2{
+    color:purple;
+    font-weight:bold;
+}
+
+.list-ul-container{
+    margin-top: 2em;
+    text-align: center;
+}
+
+.list-ul{
+    margin:auto;
+}
+
+.list-ul li{
+    margin:0.8em 0em;
+}
+
+.list-ul li svg{
+    color: purple;
+}
+
+.list-ul li span{
+    margin-left:2em;
+}
+
+@media screen and (max-width:768px) {
+    .list-ul-container{
+        text-align:center;
+    }
+    
+    .list-ul{
+        margin:auto;
+    }
+    
+}

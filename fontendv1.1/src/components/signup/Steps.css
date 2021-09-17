@@ -1,0 +1,54 @@
+.steps-form-container{
+    background: #ffffff;
+}
+
+.steps-container{
+    
+}
+
+.form-container{
+    background-color:#ffffff;
+}
+
+.btn-style{
+    background:purple;
+    color:#fff;
+    padding:0.8em 3em;
+    border-radius: 2em;
+}
+
+.btn-style:focus{
+    background:purple;
+    color:#fff;
+    padding:0.8em 3em;
+    border-radius: 2em;
+}
+
+.btn-style:hover{
+    background:rgb(163, 6, 163);
+    color:#fff;
+    padding:0.8em 3em;
+    border-radius: 2em;
+}
+
+
+.btn-send{
+    background:#008031;
+    color:#fff;
+    padding:0.8em 3em;
+    border-radius: 2em;
+}
+
+.btn-send:focus{
+    background:#008031;
+    color:#fff;
+    padding:0.8em 3em;
+    border-radius: 2em;
+}
+
+.btn-send:hover{
+    background:#09a143;
+    color:#fff;
+    padding:0.8em 3em;
+    border-radius: 2em;
+}

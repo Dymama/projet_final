@@ -1,0 +1,33 @@
+.main-header{
+    box-shadow: 5px 5px 13px #e4e3e3,-5px -5px 13px #e4e3e3;
+    padding: 1em 0 ;
+}
+
+.btn-blue{
+    background:#226cce;
+    color: white;
+    border-radius: 2em;
+    border:0;
+}
+.btn-blue:active{
+    background:#2770cf;
+    color: white;
+    border-radius: 2em;
+    border:0;
+}
+.btn-blue:hover{
+    background:#4570a8;
+    color: white;
+    border-radius: 2em;
+    border:0;
+}
+
+.d-flex-nav{
+  margin-left: 3em;
+    display: flex;
+}
+.d-flex .i-navitem{
+    display: flex;
+    justify-self: end;
+}
+

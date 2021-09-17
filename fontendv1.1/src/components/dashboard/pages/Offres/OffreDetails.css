@@ -1,0 +1,68 @@
+
+
+.img-container-details-offres{
+
+}
+
+.img-container-details-offres img{
+    height:10em;
+    width: 100%;
+    float:center;
+}
+
+.body-details-offres:before{
+    content: "";
+    height:2px;
+    width: 100%;
+    background-color: rgba(139, 136, 136, 0.788);
+    display: block;
+}
+
+.cbg-danger{
+    background-color: #c00000;
+    color: white;
+}
+
+.cbg-danger:hover{
+    background-color: #af3737;
+    color: white;
+}
+
+.cbg-danger:focus{
+    background-color: #c00000;
+    color: white;
+}
+
+.b-radius{
+    border-radius: 2em;
+}
+
+.b-radius-left{
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+
+.b-radius-right{
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+
+.color-danger{
+    color: #c00000;
+}
+
+
+.btn-postuler-offre{
+
+}
+
+.btn-annuler-offre{
+    
+}
+
+@media only screen and (max-width:768px) {
+    .btn-offre-span{
+        display: none;
+    }
+    
+}

@@ -1,0 +1,188 @@
+
+.before-body-container{
+    /* background: url("../../../assets/images/eventDetails/bgEventD.png") no-repeat;
+    background-size: cover; */
+    
+}
+
+.btn-participer{
+    background-color:#170936;
+    padding:1em 3em ;
+    color:#fff;
+}
+
+.btn-annuler{
+    background-color:#a4a7a7;
+    padding:1em 3em ;
+    color:rgb(255, 255, 255);
+}
+
+.btn-annuler:hover{
+    background-color:rgb(140, 145, 141);
+    padding:1em 3em ;
+    color:rgb(255, 255, 255);
+}
+
+.btn-annuler:focus{
+    background-color:#a4a7a7;
+    padding:1em 3em ;
+    color:rgb(255, 255, 255);
+}
+
+
+
+.btn-participer:hover{
+    background-color:#000000;
+    color:#fff;
+}
+
+
+.btn-participer:focus{
+    background-color:#000000;
+    padding:1em 3em ;
+    color:#fff;
+}
+
+.body-chronogramme{
+   padding: 2em;
+   background-color: rgb(6, 6, 41);
+    
+    margin-top: 3em;
+    color: #fff;
+    font-family:'Open Sans',sans-serif;
+}
+
+.body-chronogramme >h1{
+    color: rgb(255, 255, 255);
+    font-family:'Open Sans',sans-serif;
+    margin-bottom: 0em;
+}
+
+.body-chronogramme .bottom-style{
+    margin:auto;
+    text-align: center;
+    width: 40%;
+    background-color:rgb(153, 4, 4);
+    height: 10px;
+    margin-bottom: 4em;
+}
+
+.description-event-detail{
+    
+}
+.text-description-event{
+
+
+}
+
+
+.plus-info-description-event{
+   display: flex;
+   justify-content: space-around;
+}
+
+.row-description .div-container-h3 {
+   margin: auto;
+   padding: auto; 
+
+}
+
+.h1-description-event{
+    color: purple;
+    margin-bottom: 0.5em;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: capitalize;
+}
+
+
+.video-card-event {
+    border-radius: 2em;
+    padding:1em;
+    border-right: 0.5em solid purple;
+}
+
+.video-card-event:hover {
+    
+}
+
+.container-card-infos-events{
+    padding: 1em;
+    
+}
+
+.container-card-infos-events .card{
+    height: 15em;
+    background:rgb(72, 72, 77);
+    
+}
+
+
+/* stylisation du contenant des poste dans events details */
+
+.poste-event-details{
+    margin-top: 7em;
+}
+
+.poste-event-details >h1{
+    color: purple;
+    margin-bottom: 1em;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.poste-event-postes{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+/* fin */
+
+/* entreprise container stylisation */
+.page-seconde-container{
+    background-color:rgb(6, 6, 41);
+     background-position-x: left;
+     padding-top:1em;
+     margin-top: 5em;
+     position: relative;
+     padding-bottom: 2em;
+     z-index: 9;
+ }
+ .page-seconde-container::before{
+    content:'';
+    display: block;
+    background-color:rgba(252, 252, 252, 0.568);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform-origin: (0,0);
+    transform: skewY(2deg);
+    z-index: 1;
+
+ }
+ 
+  
+
+.entreprises-event-details{
+    position: relative;
+    z-index:9;
+}
+ 
+
+.entreprises-event-details >h1{
+    color: rgb(255, 255, 255);
+    margin-bottom: 1em;
+    margin-top: 1em;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+ 
+/* fin */
+
+

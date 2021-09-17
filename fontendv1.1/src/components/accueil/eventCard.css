@@ -1,0 +1,139 @@
+
+.event-img{
+    height:15em;
+}
+
+.event-card-accueil{
+    margin:auto;
+    /* box-shadow:2px 2px 5px #dadada,-2px -2px 5px #dadada ; */
+    height: 30em;
+    width:25em;
+    background: #fff;
+    z-index: 999;
+
+}
+
+.event-card-accueil:hover{
+    transition:all 10ms ease-in-out;
+    cursor: pointer;
+    /* box-shadow:5px 5px 8px #dadada,-5px -5px 8px #dadada ; */
+    transform: translateY(3px);
+    -webkit-transform: translateY(3px);
+    -moz-transform: translateY(3px);
+    -ms-transform: translateY(3px);
+    -o-transform: translateY(3px);
+    -webkit-transition:all 10ms ease-in-out;
+    -moz-transition:all 10ms ease-in-out;
+    -ms-transition:all 10ms ease-in-out;
+    -o-transition:all 10ms ease-in-out;
+}
+
+
+.event-card-accueil .event-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
+    text-align:center;
+}
+
+.event-card-accueil .card-img-style-event p{
+    
+    width: 50%;
+    position: relative;
+    background: purple;
+    color: white;
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
+    padding:10px;
+
+}
+.event-card-accueil .cardImg-overlay{
+    background: rgba(7, 6, 6, 0.623);
+}
+
+.event-card-accueil .cardBody{
+    opacity: 1;
+    z-index: 999;
+    /* background: white; */
+}
+
+.event-card-accueil .event-description{
+    height: 4.7em;
+    display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+.event-card-accueil .count-down-container-accueil{
+    color: white;
+    position: absolute;
+    background: rgb(255, 255, 255);
+    opacity: 0.7;
+    margin-top: 5em;
+    width:23em;
+    padding: 10px 0px;
+    height: 6em;
+}
+
+.event-card-accueil .eventPlus-infos{
+    font-size: 14px;
+    color: purple;
+}
+
+.event-card-accueil .card-style-heure{
+    color: #000;
+    font-weight: bolder;
+}
+
+
+/*   adaptation ecran compris entre 991 et 768 */
+@media  screen and (max-width:991px) {
+
+    .event-card-accueil .event-card{
+        border-radius:5px;
+        box-shadow:0.1px 0.1px 5px 0.1px ;
+        -webkit-border-radius:5px;
+        -moz-border-radius:5px;
+        -ms-border-radius:5px;
+        -o-border-radius:5px;
+}
+.event-card-accueil .event-img{
+        height:15em;
+    }
+    
+    .event-card-accueil .eventPlus-infos{
+    font-size: 14px;
+    color: purple;
+}
+
+.event-card-accueil .event-description{
+    font-size: 14px;
+}
+
+}
+
+/* adaptation ecran moins de 768 */
+@media  screen and (max-width:768px) {
+
+    .event-card-accueil  .event-card{
+        border-radius:5px;
+        margin:2em 0em;
+        box-shadow:0.1px 0.1px 5px 0.1px ;
+        -webkit-border-radius:5px;
+        -moz-border-radius:5px;
+        -ms-border-radius:5px;
+        -o-border-radius:5px;
+}
+
+.event-card-accueil  .event-img{
+        height:8em;
+    }
+    
+    .event-card-accueil .eventPlus-infos{
+    font-size: 12px;
+    color: purple;
+}
+
+}

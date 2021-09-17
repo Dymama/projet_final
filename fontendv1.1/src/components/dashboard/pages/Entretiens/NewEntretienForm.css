@@ -1,0 +1,25 @@
+
+
+
+.btn-send-new-entretien{
+    background: rgb(19, 29, 87);
+    color: #fff;
+    font-weight: bolder;
+
+}
+
+.btn-send-new-entretien:hover{
+    background: rgb(26, 43, 139);
+    
+}
+
+
+.btn-send-new-entretien:active{
+    background: rgb(15, 20, 49);
+    
+}
+
+.btn-send-new-entretien:active{
+    background: rgb(15, 20, 49);
+    
+}

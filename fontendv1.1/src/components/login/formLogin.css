@@ -1,0 +1,59 @@
+.first label{
+  
+    margin-top: 1em;
+    padding: 0.5em;
+}
+.first input{
+  border: 1px solid purple;
+  margin-top: 0em;
+  padding: 0.5em;
+  border-radius:2em;
+  -webkit-border-radius:2em;
+  -moz-border-radius:2em;
+  -ms-border-radius:2em;
+  -o-border-radius:2em;
+}
+
+
+.btn-login-style{
+    background:purple;
+    padding:10px 50px;
+    color:white;
+    border-radius:2em;
+    text-decoration: none;
+    
+  }
+  
+  .btn-login-style:hover{
+    background:rgb(85, 10, 85);
+    color:white;
+  }
+  
+  .btn-login-style:active{
+    outline: none;
+    transform: scaleY(1);
+    background:rgb(85, 10, 85);
+  }
+  
+
+@media screen and (max-width:992px) {
+        
+    
+    .text-pass-oublie{
+        font-size:12px;
+    }
+    .btn-login-style{
+        padding:10px 10px;
+        font-size:12px;
+      }
+      
+
+    
+}
+
+@media screen and (max-width:768px) {
+  
+    .text-pass-oublie{
+        font-size:14px;
+    }
+}

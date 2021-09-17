@@ -1,0 +1,130 @@
+[0520/204128.584:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0522/154806.835:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0523/055209.109:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0523/222825.795:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0526/103039.348:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0527/130416.277:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0528/104100.323:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0529/041253.177:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0529/095549.676:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0530/113635.687:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0531/113523.696:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0616/024140.553:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0616/095921.118:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0617/014624.929:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0617/015626.805:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0617/074731.550:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0617/120415.467:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0617/222300.693:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0618/122023.229:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0618/215522.530:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0619/075549.727:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0619/102215.080:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0619/103217.111:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0620/162448.884:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0625/101124.516:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/101124.578:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0625/101124.578:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/101124.578:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/141917.595:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/141922.358:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0625/141922.868:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/141922.890:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/182146.825:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/182146.917:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0625/182146.918:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0625/182146.919:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0626/003538.906:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0626/003538.931:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0626/003538.932:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0626/003538.933:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0626/191529.247:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0626/191529.356:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0626/191529.358:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0626/191529.358:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0702/101559.887:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0703/195015.305:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0704/190646.110:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0704/211416.879:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0705/080846.877:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0705/122558.179:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0706/112610.482:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0706/195013.173:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0707/055340.869:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0707/113515.631:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0707/132903.528:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0708/045102.839:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0708/105206.660:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0709/001816.588:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0709/065504.425:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0709/110835.709:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0709/124347.786:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0709/163018.324:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0710/013114.585:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0710/140752.290:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0711/101428.159:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0711/102435.187:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0712/011818.248:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0712/115152.073:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0712/122105.184:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0712/141135.770:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0726/151904.891:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0726/151905.205:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0726/151905.326:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0726/151905.326:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0727/002618.091:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0727/002618.165:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0727/002618.166:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0727/002618.167:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0727/101223.965:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0728/103630.395:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+<<<<<<< HEAD
+[0803/153055.671:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0803/165654.209:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0804/102622.810:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0804/133554.338:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0804/140116.708:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0804/173709.539:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0804/190230.597:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0805/102256.590:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0806/063859.372:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0806/100752.248:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0807/114802.420:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0808/110209.696:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0809/120603.039:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0809/153512.080:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0810/012153.014:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0810/101743.448:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0810/202108.973:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0811/120215.198:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0811/124028.408:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0811/143556.075:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0811/155848.677:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0812/043651.137:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0812/115050.042:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0813/012008.855:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0813/111228.967:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/014114.350:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0814/015115.185:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0814/015115.919:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\0550bc49-574d-4c33-8de5-4f1ffe88aea5: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015116.141:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\2b8a533a-bf6d-4372-9a1e-7575822bfa86: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015116.143:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\3b811131-7f57-4968-8611-5b6d8c37ecbe: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015116.941:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\43259f11-3834-4941-8dce-5e9aba8c80a0: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015120.574:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\56f4e063-be24-406f-aa88-52e326a00d15: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015121.591:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\6727b372-0cad-4066-a6be-2351e1d4dc15: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015121.796:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\a0117f88-933d-4c60-b1fd-80bdd17e93ad: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015121.960:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\a4884ec9-bd56-49d3-9642-39650285baee: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015122.214:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\a53db501-5459-4723-807d-349c1eb7c53a: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015123.041:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\d0a77c08-4d94-48cd-865a-08ab44041f99: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015123.293:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\e649bfaf-3ba7-4e94-8b0d-6a3b12e53f3e: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015123.632:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\e8d3ff1a-c78d-412a-8b75-ddb308342d74: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015123.695:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\user\AppData\Local\CryptoTab Browser\User Data\Crashpad\attachments\ea746859-350e-4941-9d2a-60d3f98e1485: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015124.448:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0814/015124.449:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0814/015124.449:ERROR:crash_report_database_win.cc(455)] unexpected header
+=======
+>>>>>>> 2fcf8496b551cbcddf549afaac7cc20e1d36d18b
+[0815/160254.764:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0815/160255.123:ERROR:directory_reader_win.cc(43)] FindFirstFile: Le chemin d’accès spécifié est introuvable. (0x3)
+[0815/160255.125:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0815/160255.125:ERROR:crash_report_database_win.cc(455)] unexpected header

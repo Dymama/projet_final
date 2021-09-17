@@ -1,0 +1,38 @@
+
+.allconferences-table-container{
+
+}
+
+.body-allconference{
+
+}
+
+.allconference-btn-control-container{
+
+}
+
+.allconf-btn{
+    border-top-right-radius: 2em;
+    border-top-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    background:#fff !important;
+    border:1px solid purple;
+    color:purple !important;
+    margin: 0em 1em;
+    transition: all 0.5s ease-in-out;
+}
+
+.allconf-btn:hover{
+    background:purple !important;
+    color:#fff !important;
+    transition: all 0.5s ease-in-out;
+}
+
+.allconf-btn:focus{
+    background:purple !important;
+    color:#fff !important;
+    transition: all 0.5s ease-in-out;
+}
+
+
+

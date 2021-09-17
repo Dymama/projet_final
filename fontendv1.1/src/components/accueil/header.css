@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300;1,400;1,700;1,800&display=swap');
+
+header .item {
+    height: 100vh;
+    position: relative;
+    background:rgb(255, 255, 255);
+  }
+  header .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  header .item .cover {
+    padding: 75px 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 2.5em;
+    left: 0;
+    display: flex;
+    align-items: center;
+  }
+  header .item .cover .header-content {
+    position: relative;
+    padding: 56px;
+    overflow: hidden;
+  }
+  header .item .cover .header-content .line {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    border: 9px solid #fff;
+    -webkit-clip-path: polygon(0 0, 60% 0, 36% 100%, 0 100%);
+    clip-path: polygon(0 0, 60% 0, 36% 100%, 0 100%);
+  }
+  header .item .cover .header-content h2 {
+    font-weight: 300;
+    font-size: 45px;
+    color: rgb(73, 3, 70);
+    font-family: 'Open Sans','Sans Serif';
+  }
+  
+  header .item .cover .header-content .p-header {
+    font-weight: 300;
+    font-size: 45px;
+    color: rgb(73, 3, 70);
+  }
+
+  header .item .cover .header-content h6 {
+    
+
+    color: rgb(73, 3, 70);
+  }
+
+
+  header .item .cover .header-content h1 {
+    font-size: 56px;
+    font-weight: 600;
+    margin: 5px 0 20px;
+    word-spacing: 3px;
+    color: rgb(50, 2, 54);
+  }
+  header .item .cover .header-content h4 {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 36px;
+    color: rgb(43, 0, 34);
+  }
+  header .owl-item.active h1 {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation-name: fadeInDown;
+    animation-delay: 0.3s;
+  }
+  header .owl-item.active h2 {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation-name: fadeInDown;
+    animation-delay: 0.3s;
+  }
+  header .owl-item.active h4 {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation-name: fadeInUp;
+    animation-delay: 0.3s;
+  }
+  header .owl-item.active .line {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation-name: fadeInLeft;
+    animation-delay: 0.3s;
+  }
+  header .owl-nav .owl-prev:focus {
+    outline: 0;
+  }
+  header .owl-nav .owl-prev:hover {
+    background: #000 !important;
+  }
+  header .owl-nav .owl-next {
+    position: absolute;
+    right: 15px;
+    top: 43%;
+    opacity: 0;
+    -webkit-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+    background: rgba(0, 0, 0, 0.5) !important;
+    width: 40px;
+    cursor: pointer;
+    height: 40px;
+    position: absolute;
+    display: block;
+    z-index: 1000;
+    border-radius: 0;
+  }
+  header .owl-nav .owl-next span {
+    font-size: 1.6875rem;
+    color: #fff;
+  }
+  header .owl-nav .owl-next:focus {
+    outline: 0;
+  }
+  header .owl-nav .owl-next:hover {
+    background: #000 !important;
+  }
+  header:hover .owl-prev {
+    left: 0px;
+    opacity: 1;
+  }
+  header:hover .owl-next {
+    right: 0px;
+    opacity: 1;
+  }
+
+  .text-container{
+    color: white;
+    padding-top: 7em;
+  }
+
+  .text-container p{
+    font-family: 'Open Sans','Sans Serif';
+  }
+
+  .text-container h6{
+    font-family: 'Open Sans','Sans Serif';
+  }
+      
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    /* background: rgba(255, 255, 255, 0.2); */
+    background: rgba(72, 0, 114, 0.993);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+    
+}
+
+.circles li:nth-child(1){
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+.circles li:nth-child(11){
+    left: 60%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+.circles li:nth-child(12){
+    left: 55%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 1s;
+    animation-duration: 11s;
+}
+
+
+
+@keyframes animate {
+
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 100%;
+        background: rgba(110, 103, 114, 0.452);
+    }
+
+    50%{
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+      border-radius: 100%;
+      background: rgba(72, 0, 114, 0.993);
+  }
+  100%{
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+      border-radius: 100%;
+      background: rgba(41, 1, 65, 0.993);
+  }
+
+}
+
+.caroussel-slider{
+  height:23em;
+}
+.custom-slider .event-img{
+  background: white;
+  height: 23em;
+
+}
+
+.carrousel-container{
+  height: 25em;
+  padding: 1em;
+  border:2px solid rgb(255, 255, 255);
+  border-radius: 1em;
+  background: rgb(155, 26, 160);
+}

@@ -1,0 +1,45 @@
+.allconf-detail-container{
+    background:#ffffff;
+    margin-top: 1em;
+}
+
+.allconf-video-container{
+    height:50em;
+}
+
+.allconf-video{
+    height: 326px;
+    padding:1em;
+    background-color: rgb(123, 51, 192);
+    border-radius:1em;
+}
+
+.allconf-video .video-div{
+
+}
+
+.allconf-discussion-container{
+    height:50em;
+    background-color: rgb(196, 196, 196);
+}
+
+
+.header-allconf-discussion{
+    text-align: center;
+    background-color: #8a2be2;
+    color: #fff;
+    width:100%;
+    padding: 1em
+}
+
+.header-allconf-discussion > p{
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    padding: 1em;
+    width:100%;
+}
+
+
+
+

@@ -1,0 +1,39 @@
+
+/*** CONFERENCE HEAD STYLE **/
+.conf-header{
+    color:white;
+    background-color:#000000bd;
+    
+}
+.conf-header h3{
+    font-weight: bolder;
+    color:white;
+}
+
+
+.btn-conf-more{
+    color:white;
+    display: flex;
+    justify-content:center;
+}
+
+/*** CONFERENCE BODY STYLE **/
+.conf-body{
+    margin-top: 1em;
+    border: radius 2px;
+}
+
+.conf-body .jutsu-container{
+    
+}
+
+.conf-moderateur-container{
+    
+}
+
+.conf-participant-container {
+    background: #fff;
+    border: 3px 5px 5px #bebdbdbd,3px -5px -5px #bebdbdbd;
+    height:3em;
+    color: #000;
+}

@@ -1,0 +1,21 @@
+
+.header-events{
+    margin-top: 1em;
+}
+
+.title-container-events{
+    
+}
+
+.title-container i{
+    color: purple;
+    margin-right: 10px;
+    display: none;
+}
+
+.cards-container{
+    background-color:#ffffff !important;
+    display: flex;
+    justify-content: space-between;
+}
+

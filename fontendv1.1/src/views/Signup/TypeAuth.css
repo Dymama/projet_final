@@ -1,0 +1,38 @@
+
+.type-auth-container{
+    width:30em;
+    margin:auto;
+    text-align: center;
+    margin-top: 10em;
+}
+
+.auth-card{
+    margin:auto;
+    text-align: center;
+    padding: 3em 0em;
+    background:rgb(253, 253, 253);
+}
+
+.btn-type-auth{
+    border-radius: 1em;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    -ms-border-radius: 1em;
+    -o-border-radius: 1em;
+}
+
+.btn-start{
+    background:#21013f;
+    color: white;
+}
+
+
+.btn-start:hover{
+    background:#271735;
+    color: white;
+}
+
+.btn-start:active{
+    background:#150624;
+    color: white;
+}

@@ -1,0 +1,54 @@
+.card-div-event{
+    width: 300px;
+    cursor: pointer;
+    height: 300px;
+    margin:15px;
+    justify-items: space-around;
+}
+
+
+.card-div-event:hover{
+    cursor: pointer;
+    background-color: #f8f8f8 !important;
+    transition: all .2s ease-in-out;
+    
+}
+
+.small-header-event-card{
+    background:#f8f8f8;
+    position: relative;
+    margin:0 1em -2em 1em;
+    text-align: center;
+    z-index: 9999;
+    padding:1em;
+}
+
+.small-header-event-card h5{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    text-align:center;
+}
+
+.card-div-event .bg-image {
+    height: 14em;
+    margin:auto;
+}
+
+.card-div-event .body-card-events{
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.card-div-event .description >p{
+    line-clamp: 2;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+

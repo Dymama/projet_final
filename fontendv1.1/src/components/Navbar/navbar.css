@@ -1,0 +1,203 @@
+nav{
+    
+    padding-left:3em;
+    padding-right:2em;
+    box-shadow: 2px 4px 4px rgb(137, 139, 139),2px -4px -4px #898b8b;
+}
+
+/* nav{
+    border-bottom: 2px solid rgb(224, 223, 224);
+
+} */
+
+.nav-btn-toggle{
+    
+    outline:none;
+    border:1px solid purple;
+    text-decoration:none;
+    color:purple;
+}
+
+
+
+
+.logoEmpower{
+    min-width:70px;
+    height:70px;
+    width:200px;
+  }
+
+
+  .navbar-items-header-a{
+    color: purple;
+  }
+
+ 
+    
+
+
+
+.last-nav-item{
+    margin:0px 0px 0px 50px;
+}
+
+
+
+.btn-login{
+    background:purple;
+    padding:10px 50px;
+    color:white;
+    border-radius:2em;
+    text-decoration: none;
+  }
+
+
+  .btn-login:hover{
+    background:rgb(85, 10, 85);
+    color:white;
+  }
+  
+  .btn-login:active{
+    outline: none;
+    transform: scaleY(1);
+    background:rgb(85, 10, 85);
+  }
+  
+  
+  .btn-inscription{
+    background:rgb(255, 255, 255);
+    padding:10px 50px;
+    color:purple;
+    border-radius:2em;
+  }
+  
+  .btn-inscription:hover{
+    background:rgb(255, 255, 255);
+    color:rgb(75, 7, 75);
+  }
+  
+  .btn-inscription:active{
+    outline: none;
+    transform: scaleY(1);
+    color:rgb(75, 7, 75);
+  }
+  
+  
+
+  
+
+/* adaptation des element en fonction du l'ecran compris entre 1024 et 589 */
+@media screen and (max-width:1024px){
+  
+    
+.logoEmpower{
+    min-width:70px;
+    height:70px;
+    width:150px;
+  }
+
+  
+    .navbar-items-header li a{
+        font-size: 12px;
+    
+    }
+    
+    
+    .last-nav-item{
+        margin:0px 0px 0px 50px;
+    }
+
+
+    .btn-login{
+        background:purple;
+        padding:10px 40px;
+        color:white;
+        border-radius:2em;
+        text-decoration: none;
+      }
+
+
+    .btn-inscription{
+        background:rgb(255, 255, 255);
+        padding:10px 40px;
+        color:purple;
+        border-radius:2em;
+    }
+}
+
+
+
+
+
+/* adaptation des element en fonction du l'ecran compris entre 858 et 769 */
+@media screen and (max-width:858px){
+  
+    nav{
+        padding-left:1em;
+        padding-right:1em;
+    }
+
+    .logoEmpower{
+        min-width:70px;
+        height:50px;
+        width:150px;
+      }
+    
+      
+        .navbar-items-header li a{
+            font-size: 12px;
+        
+        }
+        
+        .last-nav-item{
+            margin:0px 0px 0px 30px;
+        }
+    
+    
+        .btn-login{
+            background:purple;
+            padding:10px 30px;
+            color:white;
+            border-radius:2em;
+            text-decoration: none;
+          }
+    
+    
+        .btn-inscription{
+            background:rgb(255, 255, 255);
+            padding:10px 30px;
+            color:purple;
+            border-radius:2em;
+        }
+    }
+    
+
+
+/* adaptation des element en fonction du l'ecran phone 768 moins */
+@media screen and (max-width:768px){
+  
+    
+    .last-nav-item{
+        margin:0px 0px 0px 50px;
+    }
+    
+    
+    
+    .btn-login{
+        background:purple;
+        padding:10px 40px;
+        color:white;
+        border-radius:2em;
+        text-decoration: none;
+        margin-top: 1em;
+      }
+    
+
+      .btn-inscription{
+        background:rgb(255, 255, 255);
+        padding:10px 40px;
+        color:purple;
+        border-radius:2em;
+        margin-top: 1em;
+    }
+}

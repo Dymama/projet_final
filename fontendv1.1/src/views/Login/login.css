@@ -1,0 +1,20 @@
+
+.login-container{
+    /* background:url('../../assets/images/login/loginbg3.jpg') no-repeat; */
+    background-size:cover;
+    background-position: center;
+    height:100%;
+    padding-bottom: 8em;
+}
+
+
+
+@media screen and (max-width:768px) {
+    .login-container{
+        /* background:url('../../assets/images/login/loginbg3.jpg') no-repeat; */
+        background-size:cover;
+        background-position: center;
+        height:100%;
+    }
+    
+}

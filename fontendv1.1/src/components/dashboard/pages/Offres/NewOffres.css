@@ -1,0 +1,10 @@
+.body-new-offre {
+    display: flex;
+    justify-content: center;
+}
+
+.header-new-offre{
+    padding: 2em;
+    margin:1em 1em;
+    background:#fff;
+}

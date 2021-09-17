@@ -1,0 +1,60 @@
+.before-body-container{
+
+}
+
+.description-entreprise-container{
+    position:relative;
+    margin-left: 5em;
+    margin-right: 5em;
+    padding:2em 4em;
+    top: -10em;
+    border:1px solid purple;
+    height: 20em;
+}
+.description-entreprise-container h2{
+
+    color: purple;
+    font-family: 'Open Sans' ,'sans-sherif'
+  }
+.img-entreprise-details{
+    height: 50%;
+    width: 100%;
+}
+
+.description-entreprise-container .text-description{
+
+    position: relative;
+    justify-content: center;
+    padding-top: 1%;
+  }
+
+.container-domaine-siege{
+    background-color: rgba(109, 46, 106, 0.822);
+    padding: 2em 0;
+    color: white;
+}
+
+.img-entreprise-siege-local{
+    height: 100%;
+    width: 100%;
+}
+
+.list-domaine{
+    
+}
+
+.entreprise-postes{
+    padding-top: 5em;
+}
+
+.contact-us-entreprise{
+    margin-top: 5em;
+    background: url('../../../../assets/images/entrepriseDetails/bgContactUs.png')top center;
+    background-position: top;
+    background-size: cover;
+}
+
+.contact-us-entreprise .btn-envoie-message{
+    position: relative;
+    margin-top: 8%;
+}

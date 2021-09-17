@@ -1,0 +1,11 @@
+.pub-element-img{
+    height: 20em;
+    width: 100%;
+    margin:auto;
+}
+
+@media  screen and (max-width:768px) {
+    .pub-element-img{
+        margin:0.5em 0em;
+    }
+}

@@ -1,0 +1,66 @@
+.allconf-card-container-offre{
+    width: 300px;
+    box-shadow: 5px 5px 13px #e2e2e1,-5px -5px 13px #e2e2e1;
+    padding: 5px;
+    
+}
+
+.allconf-card-container-offre:hover{
+    background-color: #f7f7f7;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.allconf-card-container-offre .img-card{
+    display: flex;
+    justify-content: center;
+    height: 10em;
+
+}
+
+.allconf-card-container-offre .img-card img{
+    height: 100%;
+    width: 100%;
+    
+}
+
+.allconf-card-container-offre .infos-offres{ 
+    background-color: white;
+    padding: 1em;
+    border-bottom-left-radius:1em ;
+    border-bottom-right-radius: 1em;
+    border-bottom: 4px solid #000;
+}
+
+.allconf-card-container-offre .titre-offres >h4 {
+    line-clamp: 1;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    padding-top: 0.5em;
+    text-transform: capitalize;
+    color: #460f57 !important;
+
+}
+
+.allconf-card-container-offre .description-offres{
+    padding: 1em;
+}
+
+.allconf-card-container-offre .description-offres >p{
+    line-clamp: 2;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+
+@media only screen and (max-width:576px) {
+    
+}

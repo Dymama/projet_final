@@ -1,0 +1,224 @@
+
+/* 
+Style pour le card du formulaire d'inscription
+*/
+.general-signup-container{
+    padding-top: 10em;
+
+}
+
+.img-signup-first{
+    width: 100%;
+    height: 75%;
+}
+
+.card-signup{
+   padding-top: 1em;
+   background: rgb(255, 255, 255);
+}
+
+
+.info-signup-before-header{
+    background:purple;
+    margin-bottom: 2em;
+    color: #fff;
+    padding: 1em;
+    border-radius: 1em;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    -ms-border-radius: 1em;
+    -o-border-radius: 1em;
+}
+
+.info-signup-before-header::after{
+    content: ' ';
+    display: block;
+    width: 30%;
+    height: 3px;
+    background:purple;
+    margin:auto;
+}
+
+
+.btn-already-log{
+    background-color:white;
+    color:purple;
+    font-weight: bold;
+    float: right;
+    border-radius: 2em;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    -ms-border-radius: 2em;
+    -o-border-radius: 2em;
+}
+
+.header-form-signup{
+    padding-bottom: 2em;
+}
+
+.header-form-signup ul {
+    margin:auto;
+    text-align: center;
+}
+
+.header-form-signup ul li{
+    border:1px solid purple;
+    padding:0.5em 1em;
+    font-weight:bold;
+    border-radius: 5em;
+    -webkit-border-radius: 5em;
+    -moz-border-radius: 5em;
+    -ms-border-radius: 5em;
+    -o-border-radius: 5em;
+}
+/* 
+.header-form-signup ul li:nth-child(2n+1):before{
+    content: ' ';
+    width: 100%;
+    height: 1em;
+    background:purple;
+    display: block;
+} */
+
+
+.body-form-signup{
+    padding:0em 2em 0em 2em;
+}
+
+
+/* style de la premiere partie du formulaire */
+.first-form-container{
+    display:block;
+}
+
+.first-form-container h2{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.first-form-container .form-group{
+    margin-top:1em;
+    margin-bottom: 1em;
+}
+
+
+.other-options-signup-container{
+
+}
+
+
+
+
+.first-form-container .form-group select{
+   background-color:white;
+}
+
+.first-form-container .form-group input ,.first-form-container .form-group select{
+    height:2.5em;
+    border-radius:2em;
+    border-color: purple;
+    -webkit-border-radius:2em;
+    -moz-border-radius:2em;
+    -ms-border-radius:2em;
+    -o-border-radius:2em;
+}
+
+
+.first-form-container .form-group input:focus{
+    border-color: purple;
+}
+
+
+.first-form-container .form-group input:active{
+    border-color: purple;
+}
+
+/**  Fin de style du premier contenu **/
+
+
+/* debut stylisation de la seconde partie du formulaire*/
+.second-form-container{
+    display: block;
+}
+
+.second-form-container h2{
+    font-weight: bold;
+    font-style: italic;
+    
+}
+
+.second-form-container .form-group{
+    margin-top:1em;
+    margin-bottom: 1em;
+}
+
+
+
+.second-form-div{
+    margin-top: 2em;
+}
+
+
+.second-form-div input ,.second-form-div select{
+    border-radius: 2em;
+    margin-top: 0em;
+    margin-bottom: 0.8em;
+    border-color:purple;
+    height:2.5em;
+}
+
+
+.second-form-div label{
+    color: purple;
+    font-style: italic;
+}
+
+/* Fin du style*/
+
+
+
+
+/* debut stylisation de la trois partie du formulaire*/
+.third-form-container{
+    display: block;
+    padding-top:2em;
+    padding-bottom:2em;
+}
+
+.third-form-container .form-group{
+    margin-top:1em;
+    margin-bottom: 1em;
+}
+
+.third-form-container h2{
+    font-style:italic;
+    font-weight: bold;
+}
+
+
+/* Fin du style*/
+
+
+/* debut stylisation  des boutons de control du formulaire*/
+.btn-control-formSignup{
+margin-top:2em;
+margin-bottom: 2em;
+}
+
+.signup-form-previous{
+    float:left;
+    
+}
+.signup-form-next{
+    float:right;
+}
+
+.signup-form-previous ,.signup-form-next{
+    border-radius: 2em;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    -ms-border-radius: 2em;
+    -o-border-radius: 2em;
+}
+
+/*fin de la stylisation*/

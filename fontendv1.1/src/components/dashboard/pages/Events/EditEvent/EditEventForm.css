@@ -1,0 +1,33 @@
+.new-event-form-container{
+   
+
+}
+
+.new-event-form-container input{
+    height: 2.9em;
+    
+}
+
+
+.btn-create-new-event{
+    background: #0a1125;
+    color: #fff;
+}
+
+.btn-create-new-event:hover{
+    background: #101522;
+    color: #fff;
+}
+
+.btn-create-new-event:active{
+    transform:translateY(2);
+    color: #fff;
+    -webkit-transform:translateY(2);
+    -moz-transform:translateY(2);
+    -ms-transform:translateY(2);
+    -o-transform:translateY(2);
+}
+
+.btn-create-new-event:focus{
+    background: #0a1125;
+}

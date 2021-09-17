@@ -1,0 +1,23 @@
+.sponsor-card{
+    padding: 10px;
+    background-color: #fff;
+    z-index: 999;
+}
+
+.sponsor-card img{
+    height:8em;
+}
+
+.sponsor-card:hover{
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transition: 0.5s ease-in-out ;
+    -webkit-transition: 0.5s ease-in-out ;
+    -moz-transition: 0.5s ease-in-out ;
+    -ms-transition: 0.5s ease-in-out ;
+    -o-transition: 0.5s ease-in-out ;
+    cursor: pointer;
+}
