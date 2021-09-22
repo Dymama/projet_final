@@ -18,6 +18,8 @@ import {ButtonToolbar,
     SelectPicker,
     Row,
     Col,
+    Message,
+    Modal,
 
 
 } from 'rsuite';
@@ -87,12 +89,25 @@ class NewOffreForm extends React.Component {
       
       description: RichTextEditor.createEmptyValue(),
       evenement:'',
-      formError: {}
+      formError: {},
+      show: false ,
+      load: false 
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
     
     
   }
+
+  
+  close() {
+    this.setState({ show: false });
+  }
+  open() {
+    this.setState({ show: true });
+  }
+
   handleSubmit() {
     const { formValue,description,evenement } = this.state;
     if (!this.form.check()) {
@@ -112,8 +127,14 @@ class NewOffreForm extends React.Component {
     }
 
     console.log(offreData, 'Form Value');
-
+    this.setState({load: true})
     this.props.apiOffreFunc(offreData)
+    
+    setTimeout(() => {
+      this.open()
+      this.setState({load: false})
+    },1000)
+
     console.log(this.props.apiOffreData)
   }
   
@@ -206,6 +227,19 @@ class NewOffreForm extends React.Component {
             </Row>
 
         </Form>
+        
+        <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
+              <Modal.Body>
+               
+            <Message showIcon type="success" description="Success" />
+               Offre creer avec succes
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.close} appearance="primary">
+                  Ok
+                </Button>
+              </Modal.Footer>
+            </Modal>
       </div>
     );
   }

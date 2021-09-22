@@ -25,13 +25,27 @@ import event1 from '../../../../../assets/images/dashboard/event/event1.jpg'
 export default function NewEvent(){
 
     const [step, setStep] = React.useState(0);
+    const [loadingNext, setLoadingNext] = React.useState(0);
     const onChange = nextStep => {
         setStep(nextStep < 0 ? 0 : nextStep > 3 ? 3 : nextStep);
     };
 
-    const onNext = () => onChange(step + 1);
+    const onNext = () => {
+        onChange(step + 1)};
     const onPrevious = () => onChange(step - 1);
 
+    
+     useEffect(() => {
+        if(step===1){
+            setLoadingNext(true)
+            setTimeout(() => {
+            setLoadingNext(false)
+            }, 1000);
+
+    }
+    },[step]);
+
+    
     return (
         <>
             <section className="container section-general-newEntretien bg-white">
@@ -58,7 +72,7 @@ export default function NewEvent(){
                     <div className="body-new-event mx-auto text-center  col-12">
                     <div className="py-0 card-new-event-form">
 
-                    <NewEventForm step={step} /> 
+                    <NewEventForm step={step} loadingNext={loadingNext} /> 
                     </div>
                     </div>
 

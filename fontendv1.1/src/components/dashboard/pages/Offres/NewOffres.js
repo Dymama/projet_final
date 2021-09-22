@@ -20,11 +20,14 @@ import NewOffreForm from './NewOffreForm';
 import './NewOffres.css';
 export default function NewOffres(){
 
+    
+
+
     return (
         <>
         
-        <Container className="bg-white p-3">
-            <Content>
+        <Container  className="offre-container-tst">
+            <Content className="bg-white p-3 m-5">
                     <div className="header-new-offre">
                         <h4 className="text-center mx-auto">
                             Enregistrement de nouvelle offre

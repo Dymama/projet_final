@@ -66,9 +66,6 @@ const EventCards = (props) => {
           </CardTitle>
           <CardText className="event-description py-1 mx-auto ">
           {dataEvent.description}
-          lorehfhdfh je suis tre contentrd'estre avec vous ce matin du jour d'excellence en cote d'ivoire du cote de l'afrique du l'ouest .
-          et alors du en pense quoi au juste petit cote de l'afrique du l'ouest .
-          et alors du en pense quoi au juste petit 
           </CardText>
           
           <CardText tag="div" className="mx-auto text-center">

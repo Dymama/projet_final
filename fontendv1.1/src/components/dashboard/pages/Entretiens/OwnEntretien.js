@@ -29,6 +29,7 @@ import EntretienNav from './EntretienNav';
 
 import { apiGetOwnEntretien } from '../../../../redux/entretiens/getOwnEntretien/getOwnEntretienAction';
 import configureStore from '../../../../redux/store';
+import AllEntretienOwnCandidat from './AllEntretienOwnCandidat';
 
 const data= [
     
@@ -150,11 +151,7 @@ function trieEntretien(data){
         clearTimeout(timer1);
       };
       }
-      else{
-
-        setLoading(false)
-        setUmptyData(true)
-      }
+    
 
   }
     
@@ -191,6 +188,8 @@ function trieEntretien(data){
   },[ownEntretien.ownEntretien])
 
  
+
+  
     return (
        <>
 
@@ -226,7 +225,15 @@ function trieEntretien(data){
             </div>
             
             <div className="allconferences-table-container">
-              <Router>
+              {userData.type_compte === "candidat"?(
+                <AllEntretienOwnCandidat ownEntretien={ownEntretienData} />
+
+
+              ):
+              (
+
+
+                <Router>
                 <div className="allconference-btn-control-container">
                   
                     
@@ -276,6 +283,13 @@ function trieEntretien(data){
                 </div>
 
               </Router>
+
+              )
+
+
+              }
+
+
 
 
             </div>

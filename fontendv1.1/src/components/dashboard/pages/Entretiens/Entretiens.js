@@ -112,7 +112,10 @@ export default function Entretiens({match}) {
   }
 
   const dataClickConf = (value)=>{
-    setRowClickData(value)
+    history.push({
+        pathname: `/dashboard/start_conference`,
+        state: {dataConf: rowClickData,type:'entreprise'}
+    });
   }
 
   

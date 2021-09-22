@@ -19,6 +19,8 @@ import {ButtonToolbar,
     Uploader,
     Input,
     Toggle,
+    Message,
+    Modal,
 
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
@@ -84,6 +86,7 @@ class NewEventForm extends React.Component {
       },
     //   video:'',
       photo:'',
+      load: false ,
       
       formError: {},
       chronogramme:[]
@@ -94,7 +97,18 @@ class NewEventForm extends React.Component {
     this.getChronogramme = this.getChronogramme.bind(this);
 
     this.store  = configureStore().store
+    this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
     
+    
+  }
+
+  
+  close() {
+    this.setState({ show: false });
+  }
+  open() {
+    this.setState({ show: true });
   }
 
 
@@ -144,7 +158,13 @@ class NewEventForm extends React.Component {
     formData.append('createur', this.store.getState().getInfoUser.user.data._id)
 
     
+    this.setState({load: true})
     this.props.apiNewEventFunc(formData)
+      
+      setTimeout(() => {
+        this.open()
+        this.setState({load: false})
+      },1000)
     // evenements.insertEvenement(newEventData)
     //     .then(res=>{
     //         console.log(res.data,"data ressendd")
@@ -195,7 +215,7 @@ class NewEventForm extends React.Component {
 
     
     return (
-      <div className="mx-auto new-event-form-container py-1">
+      <div className="mx-auto new-event-form-container py-1"  data-aos="zoom-in-down">
         
         <Form
           ref={ref => (this.form = ref)}
@@ -279,9 +299,17 @@ class NewEventForm extends React.Component {
                 </div>
             </div>
             </div>
-
-            <div className=""style={this.props.step===1? dblock : dnone}>
-
+           
+            <div data-aos={this.props.step===1 && "zoom-in-down" } className="" style={this.props.step===1? dblock : dnone}>
+            
+            {this.props.loadingNext ? (
+              <Loader center backdrop />
+            )
+            :
+            (
+              
+            
+              <>
             <div className="row mt-3">
                 <div className="col-md-6">
                    
@@ -334,7 +362,10 @@ class NewEventForm extends React.Component {
             </div> 
 
 
+          </>
+            )
 
+            }
             </div>
 
           
@@ -347,6 +378,19 @@ class NewEventForm extends React.Component {
            
           </ButtonToolbar>
         </Form>
+        
+        <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
+              <Modal.Body >
+               
+            <Message showIcon type="success" description="Success" />
+               Evénement creer avec succes
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.close} appearance="primary">
+                  Ok
+                </Button>
+              </Modal.Footer>
+            </Modal>
       </div>
     );
   }
