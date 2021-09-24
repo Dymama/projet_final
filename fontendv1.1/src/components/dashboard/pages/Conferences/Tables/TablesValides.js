@@ -36,6 +36,7 @@ function dataMinute(date){
 
 function constitueData(data){
   return data.map((item,index)=>{
+    
     return {
       _id: item._id,
       theme: item.titre,
@@ -43,7 +44,8 @@ function constitueData(data){
       heure_debut: dataMinute(item.heure_debut),
       date_debut: dataDebut(item.heure_debut),
       statut: item.statut,
-      evenement: item.evenement
+      evenement: item.evenement,
+
   }})
 }
 
@@ -104,15 +106,15 @@ export default function TablesValides(props){
               <HeaderCell className="tab-valide-header" >Heure début</HeaderCell>
               <Cell dataKey="heure_debut" />
             </Column>
-  
-            <Column width={200}>
-              <HeaderCell className="tab-valide-header" >Statut</HeaderCell>
-              <Cell dataKey="statut" />
-            </Column>
 
             <Column width={200}>
               <HeaderCell className="tab-valide-header" >Evénement</HeaderCell>
               <Cell dataKey="evenement" />
+            </Column>
+  
+            <Column width={200}>
+              <HeaderCell className="tab-valide-header" >Statut</HeaderCell>
+              <Cell dataKey="statut" />
             </Column>
   
            

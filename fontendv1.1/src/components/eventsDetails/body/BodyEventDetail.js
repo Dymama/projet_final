@@ -458,6 +458,19 @@ const BodyEventDetail = (props) => {
                     </div>
                 
 
+                </div> 
+
+                
+
+                <div className="conference-event-details container mx-auto">
+                    <h1>
+                        {(allPostesEvent && allPostesEvent.length > 0 )?"Participer aux conférences" : "Aucune conférence disponible"}
+                    </h1>
+                    <div className="poste-event-postes">
+                       
+                    </div>
+                
+
                 </div>
                 
             </div>

@@ -10,7 +10,10 @@ import {ButtonToolbar,
         Badge,
         InputPicker,
         Button,
-        Loader
+        Loader,
+        Col,
+        Row,
+
     } from 'rsuite';
 
 
@@ -20,7 +23,8 @@ import './ListCandidatAll.css';
 
 
 import TableCandidatAll from '../TableCandidatAll/TableCandidatAll';
-import { apiListCandidatAll } from '../../../../../redux/candidats/listCandidat/listCandidatAction';
+
+import { apiGetAllUserByType } from '../../../../../redux/utilisateur/getAllUserByType/getAllUserByTypeAction';
 
 const data= [
     
@@ -38,12 +42,10 @@ const data= [
 export default function ListCandidatAll(props) {
   
     const store = useStore();
-    const listCandidat = useSelector(state => state.listCandidat)
+    const listCandidat = useSelector(state => state.getAllUserByType)
     const dispatch = useDispatch();
     
   
-    // const [textIndication, setTextIndication] = useState("")
-
     const [listCandidatData, setListCandidatData] = useState([])
 
   const [umptyData,setUmptyData] = useState(false)
@@ -93,32 +95,38 @@ export default function ListCandidatAll(props) {
     });
   }
 
-  const dataClickConf = (value)=>{
-    setRowClickData(value)
+  const dataClickCandidat = (value)=>{
+    history.push({
+        pathname: `/dashboard/show_candidat_detail`,
+        search: '?query=abc',
+        state: {CandidatId: value.id}
+    });
   }
 
   
   useEffect(()=>{
     
-    dispatch(apiListCandidatAll())
+    dispatch(apiGetAllUserByType("candidat"))
 
   },[dispatch])
 
 
   
   useEffect(()=>{
+
+    console.log(listCandidat.user.data,'list candidats')
       
     var timer1 = setTimeout(() => {
-        if(listCandidat.listCandidat && listCandidat.listCandidat.data.length !== 0 && listCandidat.listCandidat.success === true ){
+        if(listCandidat.user && listCandidat.user.data.length !== 0 && listCandidat.user.success === true ){
             setLoading(false)
             setUmptyData(false)
             
-            setListCandidatData(listCandidat.listCandidat.data);
+            setListCandidatData(listCandidat.user.data);
             
           
             
         }
-        if(listCandidat.listCandidat.data && listCandidat.listCandidat.data.length === 0 && listCandidat.listCandidat.success === true ){
+        if(listCandidat.user.data && listCandidat.user.data.length === 0 && listCandidat.user.success === true ){
             
             setLoading(false)
             setUmptyData(true)
@@ -134,41 +142,35 @@ export default function ListCandidatAll(props) {
         clearTimeout(timer1);
       };
 
-  },[listCandidat.listCandidat.data])
+  },[listCandidat.user.data])
 
     return (
        <>
 
         <section className="content bg-white">
           <div className="container-fluid contenaier-general-listCandidat">
-            <div className="header-listCandidat-table mx-auto row py-4 px-3 mt-3">
+            <div className="header-listCandidat-table mx-auto row py-4 px-3">
             
-                    <div className="col-12 col-md-4 mx-auto">
-                        <InputGroup inside>
+            <Row  data-aos="zoom-in-down">
+                        <Col className="p-3 text-center"  data-aos="slide-right"  md={12} sm={12}>
+                            <InputGroup inside>
                                 <Input placeholder="Recherche..." />
                                 <InputGroup.Button>
                                     <Icon icon="search" />
                                 </InputGroup.Button>
                             </InputGroup>
-                    </div>
+                       
+                        </Col>
+                        <Col className="p-3" md={12} sm={12}>
+                          <InputPicker className="float-md-right w-100" data={data} placeholder="Trier par..."/>
+                        </Col>
 
-                    <div className="col-12 col-md-4">
-                    
-                    </div>
+              </Row>
 
-                    <div className="col-md-4 col-12 mx-auto">
-                        <InputPicker className="float-md-right w-100" data={data} placeholder="Trier par..."/>
-
-                    </div>
-
-            </div>
-          
+            
+    
            
-                <div className="text-center mx-auto p-2">
-                <h4 className="h4 font-weight-bold">
-                  
-                </h4>
-                </div>
+          </div>
 
           
             <div className="col-12 col-md-4 mx-auto text-center">
@@ -185,7 +187,7 @@ export default function ListCandidatAll(props) {
                       <div className="col-12 mx-auto pb-3">
                           
                           <ButtonToolbar className="float-md-right mx-auto">
-                              <IconButton icon={<Icon icon="plus" />} placement="right">
+                              <IconButton icon={<Icon icon="plus" />} appearance="ghost" placement="right">
                                   Nouveau Candidat
                               </IconButton>
                           </ButtonToolbar>
@@ -215,7 +217,7 @@ export default function ListCandidatAll(props) {
                 
             
                    <TableCandidatAll listCandidat={listCandidatData}
-                    dataClickConf={(value)=>dataClickConf(value)} dataM={rowClickData} /> 
+                    dataClickCandidat={dataClickCandidat} dataM={rowClickData} /> 
 
                    
                     </>

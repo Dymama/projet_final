@@ -227,7 +227,7 @@ class NewEntretienForm extends React.Component {
        name          : "ENTRETIEN",
        startDateTime :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours(), startHeure.getMinutes()) ,
        endDateTime   :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours()+4, startHeure.getMinutes()+30),
-       classes       : 'color-3',
+       classes       : 'color-3 color-2',
      }
 
 
@@ -239,11 +239,16 @@ class NewEntretienForm extends React.Component {
       if(this.props.apiEntretienData.entretien.length !== 0 && this.props.apiEntretienData.entretien.success === true ){
         this.setState({ msg: this.props.apiEntretienData.entretien.message });
 
+
+        
         agendas.modifAgenda(concerner,agendaData)
           .then(agenda=>{
             console.log(agenda,'mise a jour fait')
 
             this.open()
+            this.setState({formValue:{} })
+            this.setState({concerner: ''})
+
           })
           .catch(err=>{
             console.log(err,'erreur')

@@ -26,6 +26,8 @@ import { participateEventReducer } from './events/participateEvent/participateEv
 import { participateVerifyReducer } from './events/participateVerify/participateVerifyReducer';
 import { postulerOffreReducer } from './offres/postulerOffre/postulerOffreReducer';
 import { listCandidatReducer } from './candidats/listCandidat/listCandidatReducer';
+import { getAllUserByTypeReducer } from './utilisateur/getAllUserByType/getAllUserByTypeReducer';
+
 
 const rootReducer = combineReducers(
     {
@@ -52,6 +54,7 @@ const rootReducer = combineReducers(
         participateVerify: participateVerifyReducer,
         postulerOffre: postulerOffreReducer,
         listCandidat: listCandidatReducer,
+        getAllUserByType: getAllUserByTypeReducer,
 
     }
 )

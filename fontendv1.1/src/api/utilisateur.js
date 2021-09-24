@@ -33,10 +33,11 @@ const getUserEntreprise = id => utilisateur.get(`/getentreprise/${id}`)
 const getInfoUSerCandidat = id => utilisateur.get(`/get_info_user_candidat/${id}`)
 
 
+const getAllUserByType = type => utilisateur.get(`/get_all_user_by_type/${type}`)
+
 
 
 const utilisateurs = {
-
     insertUtilisateur,
     getAllUtilisateurs,
     login,
@@ -47,6 +48,7 @@ const utilisateurs = {
     logout,
     getUserEntreprise,
     getInfoUSerCandidat,
+    getAllUserByType,
     
 
 }

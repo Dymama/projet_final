@@ -22,7 +22,6 @@ import 'rsuite/dist/styles/rsuite-default.css';
 
 // import './ProfileUser.css';
 
-
 export default function PhotoShower(props){
 
     const store = useStore();
@@ -37,17 +36,17 @@ export default function PhotoShower(props){
             <Content>
                 <Row  className="">
                     <Col className="" md={24} sm={24}>
-                        <img src={userData.photo} className="img-fluid" />
+                        <img src={userData.photo} className="img-fluid img-circle img-thumbnail" />
                     </Col>
                 </Row>
-                <Row  className="">
+                <Row  className="text-center">
                     <Col className="" md={24} sm={24}>
-                        <h4 className="">
-                            {userData.nom}{userData.prenom}
-                        </h4>
-                        <h6 className="">
+                        <p className="font-weight-bold">
+                            {userData.nom} {" "} {userData.prenom}
+                        </p>
+                        <p className="">
                             {userData.email}
-                        </h6>
+                        </p>
                         <p className="">
                             {userData.poste_actuel}
                         </p>

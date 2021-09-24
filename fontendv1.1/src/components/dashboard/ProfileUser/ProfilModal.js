@@ -16,6 +16,8 @@ import {ButtonToolbar,
         FormGroup,
         ControlLabel,
         FormControl,
+        Modal,
+
 
 
     } from 'rsuite';
@@ -24,7 +26,7 @@ import 'rsuite/dist/styles/rsuite-default.css';
 import PhotoShower from './PhotoShower';
 import ProfileUser from './ProfileUser';
 
-// import './ProfileUser.css';
+import './ProfileModal.css';
 
 
 export default function ProfileModal(props){
@@ -37,19 +39,20 @@ export default function ProfileModal(props){
 
     return(
         <>
-        <Modal full show={props.showUserModal} onHide={()=>props.closeUserModal()}>
-          <Modal.Header>
-            <Modal.Title>Profil Utilisateur</Modal.Title>
+        <Modal className="modal-user-profil-modal overflow-hidden" full show={props.showUserModal} onHide={()=>props.closeUserModal()}>
+          <Modal.Header className="modal-header py-2">
+            <Modal.Title style={{color:'purple'}}>Détails Profil</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="modal-body p-2">
               
-          <Row  data-aos="zoom-in-down" className="mt-3">*
-                <Col className="" md={4} sm={24}>
-                    <PhotoShower userData={props.userData} />
+              
+          <Row  data-aos="zoom-in-down" className="">
+                <Col className="" md={5} sm={24}>
+                    <PhotoShower userData={props.userData}/>
                 </Col>
 
-                <Col className="" md={20} sm={24}>
-                    <ProfileUser userData={props.userData} />
+                <Col className="" md={19} sm={24}>
+                    <ProfileUser userData={props.userData} entrepriseData={props.entrepriseData}  candidatData={props.candidatData} />
                 </Col>
             </Row>
            

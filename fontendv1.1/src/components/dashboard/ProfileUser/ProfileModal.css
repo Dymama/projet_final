@@ -1,0 +1,13 @@
+.modal-user-profil-modal{
+    
+}
+
+.modal-user-profil-modal .modal-header{
+    padding: 0;
+    margin: 0;
+}
+
+.modal-user-profil-modal .modal-body{
+    background-color: rgba(143, 140, 146, 0.199);
+    padding: 0;
+}

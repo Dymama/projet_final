@@ -43,7 +43,7 @@ export default function AllEntretienOwn(props) {
   
 
   const [umptyData,setUmptyData] = useState(false)
-  const [loading,setLoading] = useState(true)
+  const [loading,setLoading] = useState(false)
   const [rows,setRows] = useState(0)
   const [show,setShow] = useState(false)
   const [dataEntretienModal,setDataEntretienModal] = useState(false)
@@ -71,9 +71,11 @@ export default function AllEntretienOwn(props) {
    props.handleTextIndication(props.etat?"validé":"en attente")
     var timer1 = setTimeout(() => {
         if(props.ownEntretien.length !== 0 ){
+
             setLoading(false)
             setUmptyData(false)
             setEntretienData(props.ownEntretien)
+            console.log(props.ownEntretien,'tr')
         
         }
         if(props.ownEntretien === 0){
@@ -92,6 +94,54 @@ export default function AllEntretienOwn(props) {
 
  
 
+  useEffect(()=>{
+    props.handleTextIndication(props.etat?"validé":"en attente")
+     var timer1 = setTimeout(() => {
+         if(props.ownEntretien.length !== 0 ){
+             setLoading(false)
+             setUmptyData(false)
+             setEntretienData(props.ownEntretien)
+         
+         }
+         if(props.ownEntretien === 0){
+             
+             setLoading(false)
+             setUmptyData(true)
+ 
+         }
+         
+       }, 1000);
+ 
+       return () => {
+         clearTimeout(timer1);
+       };
+   },[props.ownEntretien])
+ 
+  
+   useEffect(()=>{
+    props.handleTextIndication(props.etat?"validé":"en attente")
+     var timer1 = setTimeout(() => {
+         if(props.ownEntretien.length !== 0 ){
+             setLoading(false)
+             setUmptyData(false)
+             setEntretienData(props.ownEntretien)
+         
+         }
+         if(props.ownEntretien === 0){
+             
+             setLoading(false)
+             setUmptyData(true)
+ 
+         }
+         
+       }, 1000);
+ 
+       return () => {
+         clearTimeout(timer1);
+       };
+   },[props.etat])
+ 
+  
     return (
     <>
     

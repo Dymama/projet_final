@@ -1,65 +1,64 @@
 .main-sidebar{
-    background-color: #ffffff !important;
-    box-shadow: 5px 5px 13px #707070,-5px -5px 13px #646363;
-    color: #000000;
-    height: 100vh;
+  background-color: #ffffff !important;
+  box-shadow: 5px 5px 13px #707070,-5px -5px 13px #646363;
+  color: #000000;
+  height: 100vh;
 } 
 
 .sideNav{
-    background-color:black;
+  background-color:black;
 }
 
 .sidebar{
 
-    justify-content: center;
-    height: 100vh;
+  justify-content: center;
+  height: 100vh;
 }
 /* 
 .sidebar::-webkit-scrollbar-track
 {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  border-radius: 10px;
-  background-color: #ffffff;
+-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+border-radius: 10px;
+background-color: #ffffff;
 }
 
 .sidebar::-webkit-scrollbar
 {
-  width: 3px;
-  border-radius:2em;
-  background-color: #ffffff;
+width: 3px;
+border-radius:2em;
+background-color: #ffffff;
 }
 
 .sidebar::-webkit-scrollbar-thumb
 {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(48, 2, 2, 0.3);
-  background-color: rgb(218, 218, 218);
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(48, 2, 2, 0.3);
+background-color: rgb(218, 218, 218);
 }
- */
+*/
 
 
 
 .brand-link-my{
-    background-color:#3d0b3d;
-    color: #ffffff;
-    text-decoration: none;
-    border-bottom-right-radius: 1em;
-    padding: 0.8em 0em;
+  background-color:#061935;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.8em 0em;
 }
 
 .offres-visies-container{
-    color:#000000;
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    justify-items: center;
+  color:#000000;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  justify-items: center;
 }
 
 .offres-visies-container >div{
-    text-align: center;
-    margin: 0;
-    font-weight: bold;
+  text-align: center;
+  margin: 0;
+  font-weight: bold;
 }
 
 

@@ -175,10 +175,6 @@ function trieEntretien(data){
             setUmptyData(true)
 
         }
-        else{
-          setLoading(false)
-          setUmptyData(true)
-      }
         
       }, 1000);
 
@@ -188,6 +184,33 @@ function trieEntretien(data){
   },[ownEntretien.ownEntretien])
 
  
+  useEffect(()=>{
+    
+    var timer1 = setTimeout(() => {
+        if(ownEntretien.ownEntretien.length !== 0 && ownEntretien.ownEntretien.success === true ){
+            setLoading(false)
+            setUmptyData(false)
+            setOwnEntretienData(ownEntretien.ownEntretien.data);
+            setDataValide(trieEntretien(ownEntretien.ownEntretien.data).dataValide)
+            setDataAttente(trieEntretien(ownEntretien.ownEntretien.data).dataAttente)
+
+            
+          
+        }
+        if(ownEntretien.ownEntretien.length === 0 && ownEntretien.ownEntretien.success === true ){
+            
+            setLoading(false)
+            setUmptyData(true)
+
+        }
+        
+      }, 1000);
+
+      return () => {
+        clearTimeout(timer1);
+      };
+  },[])
+
 
   
     return (

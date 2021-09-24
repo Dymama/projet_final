@@ -22,6 +22,7 @@ router.put('/:id', userCtrl.update);
 router.delete('/:id', userCtrl.deleteOne);
 router.get('/getentreprise/:id', userCtrl.getEntrepriseDetail);
 router.get('/get_info_user_candidat/:id', userCtrl.getInfoUSerCandidat);
+router.get('/get_all_user_by_type/:type', userCtrl.getAllUserByType);
 
 
 

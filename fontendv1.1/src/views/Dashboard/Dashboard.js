@@ -16,6 +16,7 @@ import Page from './Voir';
 
 
 
+
 // importation des components dynamiquement
 const Home = lazy(() => import('../../components/dashboard/pages/Home/Home'));
 const Events = lazy(() => import('../../components/dashboard/pages/Events/Events'));
@@ -36,6 +37,10 @@ const DetailOffreTable = lazy(() => import('../../components/dashboard/pages/Off
 
 const DetailConferenceTable = lazy(() => import('../../components/dashboard/pages/Conferences/DetailConferenceTable/DetailConferenceTable'));
 
+const DetailCandidarTable = lazy(() => import('../../components/dashboard/pages/Candidats/DetailCandidarTable/DetailCandidarTable'));
+
+const DetailEntretienTable = lazy(() => import('../../components/dashboard/pages/Entretiens/DetailEntretienTable/DetailEntretienTable'));
+
 
 export default function Dashboard({match}){
   
@@ -43,12 +48,16 @@ export default function Dashboard({match}){
 
   
     return(
-        <div className="wrapper"  >
+        <div className=""  >
         
 
-          <SideBar data-aos="zoom-in-down" />
-          <Header data-aos="fade-down-left"/>
-          <div className="content-wrapper" data-aos="fade-down-left"  style={{overflowX:'auto'}}>
+          <div className="fixed-top">          
+            <SideBar data-aos="zoom-in-down" />
+          </div>
+          <div className="fixed-top">
+            <Header data-aos="fade-down-left"/>
+          </div>
+          <div className="content-wrapper pt-5 mt-3" data-aos="fade-down-left"  style={{overflowX:'auto'}}>
 
             <Route exact path={`${match.url}`} component={Home}/>
 
@@ -90,6 +99,9 @@ export default function Dashboard({match}){
             <Route path={`${match.url}/detail_offre_row_table`} component={DetailOffreTable}/ >
 
             <Route path={`${match.url}/list_candidats`} component={ListCandidatAll}/ >
+            <Route path={`${match.url}/show_candidat_detail`} component={DetailCandidarTable}/ >
+
+            <Route path={`${match.url}/detail_entretien`} component={DetailEntretienTable}/ >
             
             {/* <Route path={`${match.url}/voir`} component={Page}/ > */}
             

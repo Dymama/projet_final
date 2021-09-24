@@ -111,13 +111,13 @@ export default function Entretiens({match}) {
     });
   }
 
-  const dataClickConf = (value)=>{
+  const dataClickEntretien = (data)=>{
     history.push({
-        pathname: `/dashboard/start_conference`,
-        state: {dataConf: rowClickData,type:'entreprise'}
+      pathname: '/dashboard/detail_entretien',
+      search: '?query=abc',
+      state: {entretienRowData: data._id}
     });
   }
-
   
   useEffect(()=>{
     
@@ -207,7 +207,7 @@ export default function Entretiens({match}) {
                       <div className="col-12 mx-auto pb-3">
                           
                           <ButtonToolbar className="float-md-right mx-auto">
-                              <IconButton icon={<Icon icon="plus" />} placement="right">
+                              <IconButton icon={<Icon icon="plus" />} appearance="ghost" placement="right">
                                   Nouvel entretien
                               </IconButton>
                           </ButtonToolbar>
@@ -238,10 +238,10 @@ export default function Entretiens({match}) {
               
                     <Route exact path="/dashboard/entretiens" component={()=> <EntretienTable entretien={dataAttente}
                     handleTextIndication={handleTextIndication} 
-                    etat="attente"  dataClickConf={(value)=>dataClickConf(value)} dataM={rowClickData} openModal={openModal} /> }/>
+                    etat="attente"  dataClickEntretien={dataClickEntretien} dataM={rowClickData} openModal={openModal} /> }/>
 
                     <Route path="/dashboard/entretiens_accepte" component={()=> <EntretienTable 
-                    handleTextIndication={handleTextIndication}  entretien={dataValide} etat="valide" handleCall={handleCall} dataClickConf={(value)=>dataClickConf(value)} dataM={rowClickData} openModal={openModal}  /> }/>
+                    handleTextIndication={handleTextIndication}  entretien={dataValide} etat="valide" handleCall={handleCall} dataClickEntretien={dataClickEntretien} dataM={rowClickData} openModal={openModal}  /> }/>
 
                     {/* <Route path="/dashboard/entretiens_accepte" component={TablesAttentes}/>
 

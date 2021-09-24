@@ -301,6 +301,22 @@ exports.getAll = async (req, res) => {
 }
 
 
+// obtenir tous les utilisateurs en fonction d'un type
+exports.getAllUserByType = async (req, res) => {
+  await Utilisateur.find({type_compte:req.params.type}, (err, utilisateur) => {
+      if (err) {
+          return res.status(400).json({ success: false, error: err })
+      }
+      if (!utilisateur.length) {
+          return res
+              .status(404)
+              .json({ success: false, error: ` aucun utilisateur trouvé` })
+      }
+      return res.status(200).json({ success: true, data: utilisateur })
+  }).catch(err => console.log(err))
+}
+
+
 
 // obtenir un utilisateur entreprise info
 exports.getEntrepriseDetail = async (req, res) => {

@@ -36,6 +36,7 @@ function dataMinute(date){
 function constitueData(data){
   return data.map((item,index)=>{
     return {
+      _id: item._id,
       titre: item.titre,
       description: item.description,
       concerner: item.concerner,
@@ -68,8 +69,8 @@ export default function EntretienTable(props){
             height={400}
             data={data}
             onRowClick={data => {
-              props.dataClickConf(data)
-             props.etat === "valide" && props.handleCall()
+              // props.dataClickEntretien(data)
+             props.etat === "valide" && props.dataClickEntretien(data)
              props.etat === "attente" &&(  props.openModal(data))
              
             }}
