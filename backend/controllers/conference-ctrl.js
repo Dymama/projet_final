@@ -143,3 +143,22 @@ exports.getAll = async (req, res) => {
       return res.status(200).json({ success: true, data: conference })
   }).catch(err => console.log(err))
 }
+
+
+
+// poste ler a un evenement
+exports.getEventConference = async (req, res) => {
+    await Conference.find({evenement: req.params.id }, (err, conference) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+  
+        if (!conference) {
+            return res
+                .status(404)
+                .json({ success: false, error: `aucun conference trouvé` })
+        }
+        return res.status(200).json({ success: true, data: conference })
+    }).catch(err => console.log(err))
+  }
+  

@@ -3,8 +3,13 @@ style de la page eventDetails
 */
 
 .header-event-detail-container{
-    height: 30em;
-    margin-top: 7.2em;
+    /* height: 30em;
+    margin-top: 7.2em; */
+    padding: 1em  4em  0em  4em;
+    margin-top: 8em;
+    background: rgb(176,63,251);
+    background: radial-gradient(circle, rgb(51, 45, 54) 0%, rgb(29, 9, 26)100%);
+   
 }
 
 .header-event-detail-container img{
@@ -17,72 +22,24 @@ style de la page eventDetails
 
 }
 
-.header-title-container{
-    height:20%;
-    background-color: rgba(15, 14, 14, 0.308);
-    position: absolute;
-    top: 13em;
-    width:100%;
-    text-align: center;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-} 
 
-.header-title-container > div{
-    background-color: rgba(0, 0, 0, 0.363);
-    text-align: center;
-    padding: 2em 0em;
-    color: white;
-    font-family:'Open Sans', sans-serif;
-}
 
-.header-title-container > div h1{
-    font-weight: bold;
-    font-style: italic;
-}
 
 .header-styled-container{
-    height:10em;
-    background-color: rgb(255, 255, 255);
-    position: relative;
-    top: -6em;
-    border-radius: 10em 10em 0em 0em;
-    border-top: 25px solid rgba(0, 0, 0, 0.589);
-}
-
-
-.header-styled-container .btn-header{
-    margin-top: 3em;
-    text-align: center;
-    margin: auto;
-   
-}
-
-.header-styled-container button{
-    margin-top: 3em;
-    padding:0.5em 3em;
-    border-radius: 2em 2em 2em 0em;
-    background-color: purple;
-    color:white;
-   
-}
-.header-styled-container button:hover{
-    background-color: purple;
-    color:white;
-    cursor:pointer;
-   
-}
-
-.header-styled-container button:first-child{
-   
+    
     
 }
 
-.header-styled-container button:last-child{
-   
+
+
+.header-styled-container .date-container-detail{
+    
 }
 
+.header-styled-container .info-date-container-detail{
+    
+}
 
-
-
+.description-event-container-detail{
+    
+}

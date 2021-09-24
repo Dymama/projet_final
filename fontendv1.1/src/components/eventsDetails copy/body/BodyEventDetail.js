@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react';
-import {Media, Pagination} from 'reactstrap';
+import {Media,Row,Col, Pagination} from 'reactstrap';
 
 import {ButtonToolbar,
     InputGroup,
@@ -13,8 +13,7 @@ import {ButtonToolbar,
     Popover,
     Whisper,
     ButtonGroup,
-    Row,
-    Col,
+
   
   
   } from 'rsuite';
@@ -42,12 +41,25 @@ import utilisateurs from '../../../api/utilisateur';
 import evenements from '../../../api/evenement';
 import postes from '../../../api/poste';
 import OffreModal from '../../dashboard/pages/Offres/OffreModal';
-import GalleryEvents from './Gallery/GalleryEvents';
-import ConferenceCard from '../Conferences/ConferenceCard';
-import conferences from '../../../api/conference';
-import ConferenceEventModal from '../Conferences/ConferenceEventModal';
 
+// const Speaker = ({ content, ...props }) => {
+//     return (
+//       <Popover title="Demande confirmation" {...props}>
+//         <p>Voulez-vous vraiment quitter l'événement ?</p>
+//         <p>{content}</p>
 
+//         <ButtonToolbar>
+//             <div className="p-2">
+//                 <Button className="float-left" apparence="ghost" >Annuler</Button>
+//                 <Button  className="float-right" color="primary" >OK</Button>
+//             </div>
+              
+            
+//         </ButtonToolbar>
+//       </Popover>
+//     );
+//   };
+  
 
 function dataDebut(date){
     var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
@@ -92,11 +104,7 @@ const BodyEventDetail = (props) => {
 
   const [allPostesEvent,setAllPostesEvent] = useState([])
   
-
-  const [allConferencesEvent,setAllConferencesEvent] = useState([])
-
-  const [cardClickDataConferenceModal,setCardClickDataConferenceModal] = useState([])
-
+  
   const [show,setShow] = useState(false);
   const [rows,setRows] = useState(0);
 
@@ -104,13 +112,7 @@ const BodyEventDetail = (props) => {
 
   const [updateOffre,setUpdateOffre] = useState(false)
 
-
-  const [showConferenceModal, setShowConferenceModal] = useState(false);
-  const [rowsConferenceModal, setRowsConferenceModal] = useState(0);
-
-
-
-
+  
 
   const updateOffreFunc = ()=>{
       setUpdateOffre(!updateOffre);
@@ -133,25 +135,6 @@ const BodyEventDetail = (props) => {
       }, 1000);
 
   }
-
-  
-  function closeConferenceModal() {
-    setShowConferenceModal(false);
-  }
-
-function resetRowsConferenceModal() {
-    setRowsConferenceModal(0);
-  }
-
-  function openConferenceModal(data) {
-    setShowConferenceModal(true);
-    setCardClickDataConferenceModal(data)
-    setTimeout(() => {
-      setRowsConferenceModal(80)
-    }, 1000);
-
-}
-
   
 
 
@@ -316,7 +299,7 @@ function resetRowsConferenceModal() {
    useEffect(() => {
     postes.getEventPostes(dataEvent._id)
         .then(res => {
-          
+            console.log(res.data,'data poste')
             setAllPostesEvent(res.data.data)
 
         })
@@ -328,51 +311,117 @@ function resetRowsConferenceModal() {
    },[])
 
 
-   useEffect(() => {
-    conferences.getEventConference(dataEvent._id)
-        .then(res => {
-            console.log(res.data,'data conference')
-            setAllConferencesEvent(res.data.data)
-
-        })
-        .catch(err => {
-            console.log(err,'error data entreprise')
-        })
-
-
-   },[])
-
-
-
-
-
-
 
 
   return (
     <>
         <div className="before-body-container">
             <div className="body-event-detail-container">
-            <div className="container pt-5">
+            <div className="container">
 
-                <Row className="mx-auto text-center">
+            <div className="description-event-detail">
+                    <Row className="row-description">
                         
-                    <Col className="" md={24} sm={24}>
-                            
-                        <Button size="lg" loading={btnLoading} className={participate ? "btn-annuler" : "btn-participer"}  onClick={() =>{participate? clickParticipateAnnuler() :clickParticipateEvent()} } >
-                           {participate ? "Annuler participation" : "Participer à l'événement"}
-                        </Button>
+                        <Col md="7">
+                            <div className="font-family-empower text-description-event p-3 card">
+                            <h5 className="text-dark"> Description de l'événement</h5>
+                                <p>
+                               {dataEvent.description}
+                                </p>
+                            </div>
+                            <Button loading={btnLoading} className={participate ? "btn-annuler" : "btn-participer"}  onClick={() =>{participate? clickParticipateAnnuler() :clickParticipateEvent()} } >
+                           {participate ? "Annuler participation" : "Participer"}
+                            </Button>
 
-                    </Col>
-                        
-                </Row>
 
-                <Row data-aos="zoom-in-down"  className="mt-5 mx-auto">
-                          
-                    <Col className="mt-5 mx-auto"  md={24} sm={24}>
-                        <div className="mt-5 mx-auto" style={{width:"50em"}} >
+                            {/* <Whisper
                             
-                        <VideoPlayer/>
+                                trigger="click"
+                                placement="auto"
+                                speaker={<Speaker content={`Voulez-vous vraiment quitter l'événement ?`} />}
+                            >
+                                <Button appearance="subtle">supre</Button>
+                            </Whisper> */}
+
+                        </Col>
+                        <Col md="5">
+                        <div className="plus-info-description-event">  
+                       
+                            <div className="">  <Button appearance="ghost" >
+                            <Icon icon="calendar"  /> Date de début
+                            </Button>
+                            
+                            <p className="font-weight-bold text-center">
+                            {dataDebut(dataEvent.date_debut)}
+                            </p>
+                            </div>
+
+                            <div className="">  <Button color='violet'
+                            appearance="ghost" >
+                            <Icon icon="calendar"  /> Date de fin
+                            </Button>
+                            
+                            <p className="font-weight-bold text-center">
+                            {dataDebut(dataEvent.date_fin)}
+                            </p>
+                            </div>
+                            <div className="">  <Button appearance="ghost" >
+                            <Icon icon="map"  /> Lieu
+                            </Button>
+                            
+                            <p>
+                            Date de début
+                            </p>
+                            </div>
+
+
+                            </div>
+
+
+                            <div className="plus-info-description-event mt-4">  
+                       
+                                <div className="">  <Button appearance="ghost" >
+                                <Icon icon="clock-o"  /> heure de début
+                                </Button>
+                                
+                                <p className="font-weight-bold text-center">
+                                {dataMinute(dataEvent.heure_debut)}
+                                </p>
+                                </div>
+
+                                <div className="">  <Button color='violet'
+                                appearance="ghost" >
+                                <Icon icon="clock-o"  /> Heure de fin
+                                </Button>
+                                
+                                <p className="font-weight-bold text-center">
+                                {dataMinute(dataEvent.heure_fin)}
+                                </p>
+                                </div>
+                                <div className="">  <Button appearance="ghost" >
+                                <Icon icon="map"  /> Lieu
+                                </Button>
+                                
+                                <p>
+                                Date de début
+                                </p>
+                                </div>
+
+
+                                </div>
+                                        
+                                    </Col>
+                                </Row>
+                            </div>
+
+                            <Row className="mt-5 ">
+                                <Col md="6  ">
+                                <div className="card video-card-event">
+                                        <VideoPlayer/>
+                                </div>
+                                </Col>
+                                <Col md="6" className="container-card-infos-events">
+                                    <div className="card ">
 
                         </div>
                     </Col>
@@ -380,41 +429,24 @@ function resetRowsConferenceModal() {
 
 
             </div>
-
-            
-            <div data-aos="zoom-in-down"  className="mt-5 container mx-auto gallery-event-container">
-                 <Row className="mt-5 mx-auto text-center ">      
-                    <Col className="mt-5 mx-auto text-center" md={24} sm={24}>
-                        <h1 className="h1 font-weight-bold " >
-                            Galérie
-                        </h1>
-                        <div className="bottom-style" ></div>
-                    </Col>
-                </Row>
-                <Row className=" mx-auto">      
-                    <Col className="" md={24} sm={24}>
-                        <GalleryEvents/>
-                    </Col>
-                </Row>
-            </div>
                
-            <div  className=" mx-auto text-center py-5 body-chronogramme">
-                <h1 data-aos="zoom-in-down"  className="h1 py-3 text-center ">
+            <div className=" mx-auto text-center py-5 body-chronogramme">
+                <h1 className="h1 py-3 text-center ">
                     Chronogramme
                 </h1>
                 <div className="bottom-style" ></div>
                 
-                <Chronogramme  dataEvent={dataEvent} />
+                <Chronogramme dataEvent={dataEvent} />
 
             </div>
 
             <OffreModal rows={rows} updateOffreFunc={updateOffreFunc} show={show} close={close} dataClicker={cardClickData} resetRows={resetRows}/>
-            
-                <div data-aos="zoom-in-down"   className="poste-event-details container mx-auto">
-                    <h3 className="text-center">
+
+                <div className="poste-event-details container mx-auto">
+                    <h1>
                         {(allPostesEvent && allPostesEvent.length > 0 )?"Postuler à des postes" : "Aucun poste disponible"}
-                    </h3>
-                    <div className="poste-event-postes mt-4">
+                    </h1>
+                    <div className="poste-event-postes">
                         {allPostesEvent.map((item,index)=>{
                             return  <Postes updateOffre={updateOffre} dataPoste={item} key={item._id} index={index}
                             open={open}
@@ -429,25 +461,12 @@ function resetRowsConferenceModal() {
                 </div> 
 
                 
-                
-                <ConferenceEventModal 
-                show={showConferenceModal} close={closeConferenceModal}  resetRows={resetRowsConferenceModal} rows={rowsConferenceModal}
-                dataClicker={cardClickDataConferenceModal} 
-                /> 
-              
-                <div className="conference-event-details container mx-auto mt-5 ">
-                    <h3 className="text-center mt-5">
-                        {(allConferencesEvent && allConferencesEvent.length > 0 )?"Participer aux conférences" : "Aucune conférence disponible"}
-                    </h3>
-                    <div className="conference-event-conferences mx-auto mt-4">
-                        {allConferencesEvent.map((item,index)=>{
-                            return  <ConferenceCard  dataConference={item} key={item._id} index={index}
-                            open={openConferenceModal}
-                            />
 
-                        })
-                        
-                        }
+                <div className="conference-event-details container mx-auto">
+                    <h1>
+                        {(allPostesEvent && allPostesEvent.length > 0 )?"Participer aux conférences" : "Aucune conférence disponible"}
+                    </h1>
+                    <div className="poste-event-postes">
                        
                     </div>
                 

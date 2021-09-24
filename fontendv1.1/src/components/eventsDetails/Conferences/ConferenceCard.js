@@ -1,13 +1,46 @@
 import React, { useState,useEffect } from 'react';
-import {Media,Row,Col,Button, List, ListInlineItem } from 'reactstrap';
+import {Media } from 'reactstrap';
+import {
+    Dropdown,
+    Icon,
+    Sidenav,
+    IconButton,
+    Button,
+    Avatar,
+    Badge,
+    Whisper,
+    ButtonToolbar,
+    Modal,
+    Panel,
+    Col,
+    Row,
+    Container,
+    Content,
+  
+  } from 'rsuite'
+  
+  import 'rsuite/dist/styles/rsuite-default.css';
+  
+import events1 from '../../../assets/images/others/event1.png'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './ConferenceCard.css';
 
-import events1 from '../../assets/images/others/event1.png'
 
-import './conference.css';
-import conference from '../../api/poste';
-
+function dataDebut(date){
+    var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+    var d =  new Date(date)
+    
+    return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
+  }
+  
+  function dataMinute(date){
+    
+    var d =  new Date(date)
+    var min =`${d.getMinutes()}`
+    
+    return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
+  }
+  
 
 export default function ConferenceCard(props) {
    const [dataConference, setDataConference] = useState(props.dataConference)
@@ -15,88 +48,78 @@ export default function ConferenceCard(props) {
    
    useEffect(() => {
     
-    conference.getConferenceById(props.dataConference._id)
-        .then(res=>{
-            setDataConference(res.data.data)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+    // conference.getConferenceById(props.dataConference._id)
+    //     .then(res=>{
+    //         setDataConference(res.data.data)
+    //     })
+    //     .catch(err=>{
+    //         console.log(err)
+    //     })
 }, [])
 
 
 
-useEffect(() => {
-    conference.getConferenceById(props.dataConference._id)
-        .then(res=>{
-            setDataConference(res.data.data)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-}, [props.updateOffre])
+// useEffect(() => {
+//     conference.getConferenceById(props.dataConference._id)
+//         .then(res=>{
+//             setDataConference(res.data.data)
+//         })
+//         .catch(err=>{
+//             console.log(err)
+//         })
+// }, [props.updateOffre])
 
 
 
   return (
     <>
-           <div className="card poste-container" onClick={()=>props.open(dataConference)} >
-               <Row className="poste-infos">
-                   <Col md="4">
-                   <Media width="100%"  src={events1} alt="event empower"  />
-                   <div>
-                       <h6 className="h6 text-center">
-                           empower
-                       </h6>
-                   </div>
-                   </Col>
-                   <Col md="8" className="col-informations">
-                       <div className="title-h">
-                           <h5 classNamz="text-center">
-                           {dataConference.titre}
-                           </h5>
+    
+    <Panel onClick={()=>props.open(dataConference)} className="bg-white conference-card-container px-3 pb-5" shaded bordered bodyFill>
+            <Row className="">      
+                <Col className="" md={24} sm={24}>
+                    <h6 className="h6 text-center p-1">
+                        {dataConference.theme}
+                    </h6>
+                </Col>   
+                <Col className="" md={24} sm={24}>
+                <Media style={{height:"10em"}} width="100%"  src={events1} alt="event empower"  />
+                </Col>
+            </Row>
+            <Row className="pt-2 mx-auto text-center">      
+                <Col className="" md={12} sm={24}>
+                    <Row className=" date-container-detail">
+                      <Col className="font-weight-bold" md={24} sm={24}>
+                        <Icon 
+                        
+                        className="mr-2"  icon="calendar"/>Date de début
+                      </Col>
+                      <Col className="" md={24} sm={24}>
+                    
+                        {dataDebut(dataConference.date_debut)}
+                      </Col>
+                    </Row>
+                </Col>
+                      
+                <Col className="" md={12} sm={24}>
+                    <Row className=" date-container-detail">
+                      <Col className="font-weight-bold" md={24} sm={24}>
+                        <Icon 
+                        
+                        className="mr-2"  icon="clock-o"/>Heure de début
+                      </Col>
+                      <Col className="" md={24} sm={24}>
+                    
+                      {dataMinute(dataConference.heure_debut)}
+                    
+                      </Col>
+                    </Row>
+                </Col>
 
-                           <div className="qualifications">
-                            <List type="inline">
-                                <ListInlineItem>
-                                    type d'emplois<br/>
-                                    {dataConference.type_emplois} </ListInlineItem>
-                                {/* <ListInlineItem>{dataConference.description}</ListInlineItem>
-                              */}
-                            </List>
-
-                           </div> 
-                           <div className="lieu">
-                           <FontAwesomeIcon icon="map-marker-alt"/>
-                            <List type="inline">
-                                <ListInlineItem>{dataConference.pays} </ListInlineItem>
-                                <ListInlineItem>{dataConference.ville} </ListInlineItem>
-                                
-                            </List>
-
-                           </div>
-                       </div>
-                        <List type="inline">
-                                <ListInlineItem>{dataConference.postulants ? dataConference.postulants.length : 0} </ListInlineItem>
-                                <ListInlineItem>Postulants </ListInlineItem>
-                                
-                            </List>
-                   </Col>
-               </Row>
-               {/* <Row className="poste-buttons-container">
-                   <Col md="6">
-                       <Button>
-                           Je postule
-                       </Button>
-                   </Col>
-                   <Col md="6">
-                       <Button>
-                           Je visite
-                       </Button>
-                       
-                   </Col>
-               </Row> */}
-           </div>
+            </Row>
+              
+    </Panel>
+           
+           
     </>
   );
 }

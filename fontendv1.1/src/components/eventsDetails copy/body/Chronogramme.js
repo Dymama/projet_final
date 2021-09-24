@@ -37,7 +37,7 @@ const AlignTimeline = () => (
 );
 const instance = (
   
-    <div data-aos="zoom-in-down"  className="row mx-auto text-center">
+    <div className="row mx-auto text-center">
       <div className="col-md-4 mx-auto mt-5 mt-md-0" >
         <AlignTimeline/>
       </div>

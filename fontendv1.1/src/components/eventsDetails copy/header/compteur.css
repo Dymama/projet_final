@@ -60,20 +60,3 @@
 
 
 
-.item-compteur{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  color: #ffffff;
-  font-weight: 700;
-  font-family: sans-serif;
-  background-color: #530453;
-  
-}
-  
-.text-item-compteur{
-  font-size: 18px;
-  font-weight: bold;
-
-}

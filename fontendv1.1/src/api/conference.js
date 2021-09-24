@@ -5,11 +5,12 @@ const conference = axios.create({
     withCredentials: true,
 })
 
-export const insertConference = payload => conference.post(`/`, payload)
-export const getAllConference = () => conference.get(`/`)
-export const updateConferenceById = (id, payload) => conference.put(`/${id}`, payload)
-export const getConferenceById = id => conference.get(`/${id}`)
-export const deleteConferenceById = id => conference.delete(`/${id}`)
+const insertConference = payload => conference.post(`/`, payload)
+const getAllConference = () => conference.get(`/`)
+const updateConferenceById = (id, payload) => conference.put(`/${id}`, payload)
+const getConferenceById = id => conference.get(`/${id}`)
+const deleteConferenceById = id => conference.delete(`/${id}`)
+const getEventConference = id => conference.get(`/get_event_conference/${id}`)
 
 
 
@@ -19,6 +20,8 @@ const conferences = {
     updateConferenceById,
     getConferenceById,
     deleteConferenceById,
+    getEventConference,
+
 }
 
 export default conferences;
