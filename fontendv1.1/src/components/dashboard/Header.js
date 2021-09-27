@@ -241,7 +241,7 @@ export default function Header() {
                         <Avatar className="mt-n2"
                          onClick={()=>openUserModal()} 
                             circle
-                            src="https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+                            src={userData.photo}
                         />      
                     </a>
                     </Whisper>

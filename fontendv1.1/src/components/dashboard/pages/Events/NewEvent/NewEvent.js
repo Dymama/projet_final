@@ -54,7 +54,7 @@ export default function NewEvent(){
                         <h4 className="text-center mx-auto">
                             Enregistrement de nouvel événement
                         </h4>
-                        <p className="text-center">Veuillez bien renseigner les informations</p>
+                        {/* <p className="text-center">Veuillez bien renseigner les informations</p> */}
                     </div>
                     {/* <div className="py-1 px-3">
                         <Steps  current={step}>

@@ -75,3 +75,23 @@ export function restTime(date,heure){
 
   }
 
+
+  // trie offre en fonction de poste du candidat
+  export const trieOffreOwn = (data,userId)=>{
+    if(data){
+    return data.map((item,index)=> { 
+         if(item.postulants.length != 0 ){
+             var postu =  item.postulants.map((val,index)=>{
+                 return val.postulant
+             })
+
+             if(postu.includes(userId)){
+                 return item                
+                 }
+         }
+         
+        }).filter(function(item,index){
+            return item != undefined
+        })
+    }
+}

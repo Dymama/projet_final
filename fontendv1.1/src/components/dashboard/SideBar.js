@@ -35,7 +35,7 @@ export default function SideBar({ ...props }) {
   
  
   const [userData,setUserData]= useState(store.getState().getInfoUser.user.data)
-  const [adminData,setAdminData]= useState(admin.admin.data)
+  const [adminData,setAdminData]= useState(userData.type_compte === "entreprise"?admin.admin.data:[])
   
 
   const dispatch = useDispatch();

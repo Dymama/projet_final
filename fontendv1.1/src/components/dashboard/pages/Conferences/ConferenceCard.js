@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useHistory,Link,Route,BrowserRouter as Router} from 'react-router-dom';
 
 import {ButtonToolbar,
@@ -18,24 +18,9 @@ import {ButtonToolbar,
 import 'rsuite/dist/styles/rsuite-default.css';
 
 import conference from '../../../../assets/images/dashboard/conferences/conf2.jpg'
+import { dataDebut, dataMinute } from '../../../../services/_modules';
 
 import './ConferenceCard.css';
-
-
-function dataDebut(date){
-    var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-    var d =  new Date(date)
-    
-    return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
-}
-
-function dataMinute(date){
-    
-    var d =  new Date(date)
-    var min =`${d.getMinutes()}`
-    
-    return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
-}
 
 
 export default function ConferenceCard(props) {
@@ -46,7 +31,7 @@ export default function ConferenceCard(props) {
    
     return (
     <>
-        <div className="mx-auto allconf-card-container" onClick={()=>props.handleOnClickItem(dataConf)}>
+        <div  data-aos="zoom-in-down" className="mx-auto allconf-card-container" onClick={()=>props.handleOnClickItem(dataConf)}>
             <div className="card allconf-fisrt-card">
                 
                 <div className="allconf-card-header row">
@@ -68,8 +53,8 @@ export default function ConferenceCard(props) {
                 </div>
 
                 <div className="allconf-card-body">
-                    <h6 className="py-2 text-center">
-                        {dataConf.titre}
+                    <h6 className="py-2 text-center theme-contenair-h6 px-2">
+                        {dataConf.theme}
                     </h6>
                     <div className="allconf-event-info">
                         <div className="row mx-auto">
@@ -91,9 +76,7 @@ export default function ConferenceCard(props) {
                     </div>
                 </div>
                 <div className="mx-auto ">
-                    
-                {/* <Button  onClick={()=>handleOnClickItem(dataConf)}  className="allconf-btn">Joindre</Button> */}
-                {/* <Button componentClass={Link} to='/dashboard/allconferences/others'  className="allconf-btn">Autres conférences</Button> */}
+               
                 </div>
             </div>
 

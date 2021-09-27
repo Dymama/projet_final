@@ -58,11 +58,11 @@ const data= [
     return (
        <>
 
-            <Container className="bg-white p-3">
-              <Content>
-                  
+            <Container className="bg-white p-3 ">
+              <Content className="" >
+                <div className="">
                   <Row  data-aos="zoom-in-down">
-                              <Col className="p-3 text-center"  data-aos="slide-right"  md={12} sm={12}>
+                              <Col className="p-3 text-center"   md={12} sm={12}>
                                   <InputGroup inside>
                                       <Input size="lg" placeholder="Recherche..." />
                                       <InputGroup.Button>
@@ -76,11 +76,12 @@ const data= [
                               </Col>
 
                     </Row>
-            <div className="col-12 py-2">
+              <div className="col-12 py-2">
                     
-                <h4 className="mx-auto">
+                <h4 className="mx-auto" data-aos="zoom-in-down">
                     Les conférences
                 </h4>
+              </div>
             </div>
             <div className="allconferences-table-container">
              

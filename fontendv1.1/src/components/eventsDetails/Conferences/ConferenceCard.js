@@ -60,10 +60,10 @@ export default function ConferenceCard(props) {
   return (
     <>
     
-    <Panel onClick={()=>props.open(dataConference)} className="bg-white conference-card-container px-3 pb-3" shaded bordered bodyFill>
+    <Panel onClick={()=>props.open(dataConference)} className="bg-white conference-card-container px-3 pb-3 mt-5" shaded bordered bodyFill>
             <Row className="">      
                 <Col className="" md={24} sm={24}>
-                    <h6 className="h6 text-center p-1">
+                    <h6 className="h6 text-center p-1 conference-h6-theme font-weight-bold">
                         {dataConference.theme}
                     </h6>
                 </Col>   

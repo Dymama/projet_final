@@ -15,6 +15,7 @@ import {ButtonToolbar,
 import 'rsuite/dist/styles/rsuite-default.css';
 import postes from '../../../../../api/poste';
 import { apiOffreGet } from '../../../../../redux/entreprise/getOffres/getOffreAction';
+import { trieOffreOwn } from '../../../../../services/_modules';
 import OffreCards from '../OffreCards';
 import OffreModal from '../OffreModal';
 
@@ -33,25 +34,6 @@ const data= [
       "value": "Nom"
     }
   ]
-
-  const trieOffreOwn = (data,userId)=>{
-        return data.map((item,index)=> { 
-             if(item.postulants.length != 0 ){
-                 var postu =  item.postulants.map((val,index)=>{
-                     return val.postulant
-                 })
-
-                 if(postu.includes(userId)){
-                     return item                
-                     }
-             }
-             
-            }).filter(function(item,index){
-                return item != undefined
-            })
-        
-    }
-  
 
 export default function CandidatOffres(){
 
@@ -106,12 +88,14 @@ export default function CandidatOffres(){
         
     
     useEffect(()=>{
+        if(offres){
         setAllOffres(trieOffreOwn(offres,user._id))
+        }
     },[updateOffre])
         
 
     useEffect(()=>{
-        console.log(offres,'dat')
+        
         if(offres){
         var timer1 = setTimeout(() => {
             
@@ -144,16 +128,6 @@ export default function CandidatOffres(){
     },[offres,updateOffre])
   
    
-    // useEffect(()=>{
-      
-    //     postes.getAllPostes()
-    //         .then(res =>{
-    //             setAllOffres(res.data)
-    //             console.log(res.data,'da')
-    //         })
-        
-    // },[])
-  
    
 
     return(

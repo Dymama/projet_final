@@ -60,7 +60,7 @@ class TextField extends React.PureComponent {
     return (
       <FormGroup>
         <ControlLabel>{label} </ControlLabel>
-        <FormControl name={name} accepter={accepter} {...props} />
+        <FormControl className="form-new-event-input" name={name} accepter={accepter} {...props} />
       </FormGroup>
     );
   }
@@ -89,7 +89,8 @@ class NewEventForm extends React.Component {
       load: false ,
       
       formError: {},
-      chronogramme:[]
+      chronogramme:[],
+      chronoValide:false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFileVideo = this.onFileVideo.bind(this);
@@ -126,6 +127,7 @@ class NewEventForm extends React.Component {
     }})
 
     this.setState({chronogramme})
+    this.setState({chronoValide:true})
     
   }
   
@@ -183,7 +185,7 @@ class NewEventForm extends React.Component {
 
 
   render() {
-    const { formError, formValue } = this.state;
+    const { formError, formValue ,chronoValide} = this.state;
 
 // // ajout de la classe JS à HTML
 // document.querySelector("html").classList.add('js');
@@ -218,6 +220,7 @@ class NewEventForm extends React.Component {
       <div className="mx-auto new-event-form-container py-1"  data-aos="zoom-in-down">
         
         <Form
+        fluid
           ref={ref => (this.form = ref)}
           onChange={formValue => {
             this.setState({ formValue });
@@ -231,15 +234,18 @@ class NewEventForm extends React.Component {
             <div className="" style={this.props.step===0? dblock : dnone}>
             <div className="row mt-3">
                 <div className="col-md-4 my-2">
-                    <TextField name="titre" label="Titre de l'événement" />   
+                    <TextField name="titre" label="Titre de l'événement" 
+                    placement="auto" />   
                 </div>
                 
 
                 <div className="col-md-4 my-2">
-                    <TextField name="ville" label="Ville" />
+                    <TextField name="ville" label="Ville" 
+                    placement="auto" />
                 </div>
                 <div className="col-md-4 my-2">
-                    <TextField name="pays" label="pays" />
+                    <TextField name="pays" label="pays" 
+                    placement="auto" />
                 </div>
             </div>
             
@@ -251,7 +257,6 @@ class NewEventForm extends React.Component {
                     accepter={DatePicker} 
                     placement="auto"
                     placeholder="selectionner"
-                    style={{ width: 300 }}
                     format="DD MMM YYYY"
                     showWeekNumbers
                     label="Choisisser la date de début" />
@@ -262,7 +267,6 @@ class NewEventForm extends React.Component {
                     accepter={DatePicker} 
                     placement="auto"
                     placeholder="selectionner "
-                    style={{ width: 300 }}
                     format="DD MMM YYYY"
                     showWeekNumbers
                     label="Choisisser la date fin" />
@@ -273,7 +277,6 @@ class NewEventForm extends React.Component {
                     accepter={DatePicker} 
                     placement="auto"
                     placeholder="selectionner"
-                    style={{ width: 300 }}
                     format="HH mm"
                     showWeekNumbers
                     label="Choisisser l'heure de début" />
@@ -288,14 +291,13 @@ class NewEventForm extends React.Component {
                     accepter={DatePicker} 
                     placement="auto"
                     placeholder="selectionner"
-                    style={{ width: 300 }}
                     format="HH mm"
                     showWeekNumbers
                     label="Choisisser l'heure de fin" />
                
                 </div>
                 <div className="col-md-8 ">
-                    <TextField name="description" style={{ width: 600 }}  componentClass="textarea" label="Description" />
+                    <TextField name="description"  componentClass="textarea" label="Description" />
                 </div>
             </div>
             </div>
@@ -368,15 +370,20 @@ class NewEventForm extends React.Component {
             }
             </div>
 
-          
-
+          {(chronoValide && this.props.step===1  ) &&(
+            
           <ButtonToolbar className="float-right p-2 mt-4">
-            <Button className="btn-create-new-event py-3 px-3"  onClick={this.handleSubmit}>
-              Créer l'événement
-            </Button>
+          <Button className="btn-create-new-event py-3 px-3"  onClick={this.handleSubmit}>
+            Créer l'événement
+          </Button>
+          </ButtonToolbar>
+
+          )
+
+          }
+
 
            
-          </ButtonToolbar>
         </Form>
         
         <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">

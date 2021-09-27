@@ -15,29 +15,38 @@ import {
     } from 'rsuite';
 
 import 'rsuite/dist/styles/rsuite-default.css';
+import {useSelector, useDispatch,useStore} from 'react-redux' 
 
 import { dataDebut,dataMinute ,daySupToNow} from '../../../services/_modules';
+import { openParticipateAlert } from '../../others/NotificationInfog';
 
 
   
 
 export default function ConferenceEventModal(props){
 
+    const store = useStore()
+    const user = store.getState().connected.user.data
     const [conferenceDataRow, setConferenceDataRow] = useState(props.dataClicker)
 
 
     const clickerJoindreConference= () => {
-        if( daySupToNow(conferenceDataRow.date_debut,conferenceDataRow.heure_debut) ){
-            props.showAlertConfNotDisponible(conferenceDataRow.date_debut,conferenceDataRow.heure_debut)
+        if(user){
+            if( daySupToNow(conferenceDataRow.date_debut,conferenceDataRow.heure_debut) ){
+                props.showAlertConfNotDisponible(conferenceDataRow.date_debut,conferenceDataRow.heure_debut)
 
+            }
+            else{
+                if( daySupToNow(conferenceDataRow.date_fin,conferenceDataRow.heure_fin) ){
+                    
+                    alert('genial vous avez acces a la conference !!!!')
+        
+                }
+            
+            }
         }
         else{
-            if( daySupToNow(conferenceDataRow.date_fin,conferenceDataRow.heure_fin) ){
-                
-                alert('genial vous avez acces a la conference !!!!')
-    
-            }
-           
+            openParticipateAlert("Veuillez-vous connecter s'il vous plaît.")
         }
     }
 

@@ -68,3 +68,12 @@
 }
 
 
+.bg-content-left{
+    font-size:12px;
+}
+
+.theme-contenair-h6{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

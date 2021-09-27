@@ -128,15 +128,15 @@ export default function EntretienCard(props) {
     
       useEffect(()=>{
         setEtat(dataEntretien.statut)
-
-        entreprises.getEntrepriseById(dataEntretien.entreprise_demandeur)
-            .then(entreprise=>{
-                setEntrepriseDemandeur(entreprise.data.data)
-            })
-            .catch(err=>{
-                console.error(err)            
-            })
-
+        if(userData.type_compte === "entreprise"){
+            entreprises.getEntrepriseById(dataEntretien.entreprise_demandeur)
+                .then(entreprise=>{
+                    setEntrepriseDemandeur(entreprise.data.data)
+                })
+                .catch(err=>{
+                    console.error(err)            
+                })
+        }
 
       },[])
     
@@ -157,7 +157,7 @@ export default function EntretienCard(props) {
    
     return (
     <>
-        <div className="mx-auto allconf-card-container" >
+        <div  data-aos="zoom-in-down" className="mx-auto allconf-card-container" >
           
             <div className="card allconf-fisrt-card"  onClick={()=>{ userData.type_compte==="entreprise" ? (etat ? props.handleOnClickItem(dataEntretien) : changeShowInfo()) : props.handleOnClickItem(dataEntretien) }} >
 

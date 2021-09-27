@@ -31,3 +31,14 @@
 .btn-create-new-event:focus{
     background: #0a1125;
 }
+
+
+
+.form-new-event-input{
+    width: 300px;
+    
+}
+
+@media screen and (max-width: 640px) {
+    
+}
