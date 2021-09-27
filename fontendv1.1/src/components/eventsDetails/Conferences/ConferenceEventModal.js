@@ -1,49 +1,48 @@
 import { useState, useEffect } from 'react';
-import {ButtonToolbar,
-        InputGroup,
-        Input,
+import {
         Icon,
         IconButton,
-        Badge,
-        InputPicker,
-        Button,
-        Loader,
-        Container,
-        Content,
         Row,
         Col,
-        Form,
-        FormGroup,
-        ControlLabel,
-        FormControl,
         Modal,
         Panel,
-
-
+        Message,
+        Button,
+        Alert,
+        ButtonToolbar,
+        Notification
 
     } from 'rsuite';
 
 import 'rsuite/dist/styles/rsuite-default.css';
 
-function dataDebut(date){
-    var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-    var d =  new Date(date)
-    
-    return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
-  }
-  
-  function dataMinute(date){
-    
-    var d =  new Date(date)
-    var min =`${d.getMinutes()}`
-    
-    return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
-  }
+import { dataDebut,dataMinute ,daySupToNow} from '../../../services/_modules';
+
+
   
 
 export default function ConferenceEventModal(props){
 
     const [conferenceDataRow, setConferenceDataRow] = useState(props.dataClicker)
+
+
+    const clickerJoindreConference= () => {
+        if( daySupToNow(conferenceDataRow.date_debut,conferenceDataRow.heure_debut) ){
+            props.showAlertConfNotDisponible(conferenceDataRow.date_debut,conferenceDataRow.heure_debut)
+
+        }
+        else{
+            if( daySupToNow(conferenceDataRow.date_fin,conferenceDataRow.heure_fin) ){
+                
+                alert('genial vous avez acces a la conference !!!!')
+    
+            }
+           
+        }
+    }
+
+
+
     useEffect(()=>{
         setConferenceDataRow(props.dataClicker)
 
@@ -51,13 +50,20 @@ export default function ConferenceEventModal(props){
 
     return(
         <>
+       
         <Modal className="" show={props.show} onHide={()=>props.close()}>
           <Modal.Header className="modal-header py-2">
             <Modal.Title style={{color:'purple'}}> {conferenceDataRow.theme} </Modal.Title>
           </Modal.Header>
           <Modal.Body className="modal-body p-2">
-              
-         
+          {/* <Message
+                showIcon
+                type="info"
+                title="Informational"
+                description="Additional description and informations about copywriting."
+                /> */}
+            
+
                     <Row  data-aos="zoom-in-down" className="px-2 ml-3 mx-auto text-center">
                         <Col className="" md={12} sm={24}>
 
@@ -65,7 +71,7 @@ export default function ConferenceEventModal(props){
                             <Col className="font-weight-bold" md={24} sm={24}>
                                 <Icon 
                                 
-                                className="mr-3"  icon="calendar"/>Date de fin
+                                className="mr-3"  icon="calendar"/>Date de début
                             </Col>
                             <Col className="" md={24} sm={24}>
                             {dataDebut(conferenceDataRow.date_debut)}
@@ -79,7 +85,7 @@ export default function ConferenceEventModal(props){
                             <Col className="font-weight-bold" md={24} sm={24}>
                                 <Icon 
                                 
-                                className="mr-3"  icon="clock-o"/>Heure de fin
+                                className="mr-3"  icon="clock-o"/>Heure de début
                             </Col>
                             <Col className="" md={24} sm={24}>
                                 {dataMinute(conferenceDataRow.heure_debut)}
@@ -96,7 +102,7 @@ export default function ConferenceEventModal(props){
                             <Col className="font-weight-bold" md={24} sm={24}>
                                 <Icon 
                                 
-                                className="mr-3"  icon="calendar"/>Date de début
+                                className="mr-3"  icon="calendar"/>Date de fin
                             </Col>
                             <Col className="" md={24} sm={24}>
                                 {dataDebut(conferenceDataRow.date_fin)}
@@ -110,7 +116,7 @@ export default function ConferenceEventModal(props){
                             <Col className="font-weight-bold" md={24} sm={24}>
                                 <Icon 
                                 
-                                className="mr-3"  icon="clock-o"/>Heure de début
+                                className="mr-3"  icon="clock-o"/>Heure de fin
                             </Col>
                             <Col className="" md={24} sm={24}>
                                 {dataMinute(conferenceDataRow.heure_fin)}
@@ -118,6 +124,21 @@ export default function ConferenceEventModal(props){
                             </Row>
 
                         </Col>
+                    </Row>
+
+                    
+                    <Row data-aos="zoom-in-down" className="mt-5 text-center mx-auto">
+                        <Col className="mx-auto" md={24} sm={24}>
+                            <IconButton
+                             appearance="ghost" 
+                             icon={<Icon icon="link" />} 
+                             placement="left"
+                             onClick={() => {clickerJoindreConference(conferenceDataRow.date_debut,conferenceDataRow.heure_debut)}}
+                             >
+                                Réjoindre la conférence
+                            </IconButton>
+                        </Col>
+    
                     </Row>
 
                     <Panel className=" mx-auto text-center mt-5 pb-5 bg-white" shaded bordered bodyFill>

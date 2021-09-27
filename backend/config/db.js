@@ -12,6 +12,6 @@ mongoose
   )
 
   .then(() => {
-    console.log("connexion à Mongoose DB effectuée");
+    console.log("connexion à Mongoose DB effectuée avec succes");
   })
   .catch((err) => console.log("erreur connexion Mongoose DB :".err));

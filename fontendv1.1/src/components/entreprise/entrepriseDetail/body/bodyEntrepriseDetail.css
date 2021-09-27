@@ -34,13 +34,16 @@
     color: white;
 }
 
-.img-entreprise-siege-local{
-    height: 100%;
-    width: 100%;
+.entreprise-detail-local{
+   
+    display: flex;
+    justify-content:space-around;
+
 }
 
-.list-domaine{
-    
+.entreprise-postes-items{
+    display: flex;
+    justify-content:space-around;
 }
 
 .entreprise-postes{

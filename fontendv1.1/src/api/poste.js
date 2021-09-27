@@ -13,6 +13,8 @@ const getPosteById = id => poste.get(`/${id}`)
 const addPostulant = (id, payload) => poste.put(`/add_postulant/${id}`, payload)
 const deletePostulant = (id, payload) => poste.put(`/delete_postulant/${id}`, payload)
 const getEventPostes = id => poste.get(`/get_event_poste/${id}`)
+const getPostesByEntreprise = id => poste.get(`/get_poste_by_entreprise/${id}`)
+
 
 
 const postes = {
@@ -24,6 +26,7 @@ const postes = {
     addPostulant,
     deletePostulant,
     getEventPostes,
+    getPostesByEntreprise,
 
 }
 

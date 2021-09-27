@@ -1,13 +1,14 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useMemo} from 'react';
 import axios from 'axios';
 import { Form, FormGroup, FormControl, 
         ControlLabel, HelpBlock,Schema ,
         Button,ButtonToolbar,DatePicker,
         InputPicker,Uploader ,Steps,Placeholder,
-        Panel,ButtonGroup
+        Panel,ButtonGroup,Loader
     } from 'rsuite';
 
     
+import countryList from 'react-select-country-list'
 import 'rsuite/dist/styles/rsuite-default.css';
 import './Steps.css';
 import FormSignup from './SecondeSignup';
@@ -18,19 +19,40 @@ import svg from '../../assets/images/others/event2.png';
 const { Paragraph } = Placeholder;
 
 const Stepsform = () => {
-    const [step, setStep] = React.useState(0);
-    const [valide, setValide] = React.useState(false);
-    
-    
+  const [valueCountry, setValueCountry] = useState('')
+  const optionsValueCountry = useMemo(() => countryList().getData(), [])
 
+  const changeHandlerValueCountry = value => {
+    setValueCountry(value)
+  }
+
+  const [step, setStep] = useState(0);
+  const [valide, setValide] = useState(false);
+  const [changeStepLoading, setChangeStepLoading] = useState(false);
+    
+    
+    
     const onChange = nextStep => {
-      setStep(nextStep < 0 ? 0 : nextStep > 3 ? 3 : nextStep);
+      setStep(nextStep < 0 ? 0 : nextStep > 2 ? 2 : nextStep);
     };
   
     const onNext = () => onChange(step + 1);
     const onPrevious = () => onChange(step - 1);
    
     const onSubmit = ()=> setValide(true);
+
+    //  useEffect(() => {
+       
+    //   setChangeStepLoading(true)
+    //    var timer = setTimeout(() => {
+    //      setChangeStepLoading(false)
+    //    }, 500);
+    //    return () => {
+    //      clearTimeout(timer)
+    //    }
+    //  }, [step]) 
+
+
 
 
     return (
@@ -41,15 +63,19 @@ const Stepsform = () => {
             <Steps.Item title="Etape 1" description="Description" />
             <Steps.Item title="Etape 2" description="Description" />
             <Steps.Item title="Etape 3" description="Description" />
-            <Steps.Item title="Vérification" description="Description" />
           </Steps>
 
         </div>
 
         <div className="form-container pt-5">
+          {/* {changeStepLoading?(
 
-              <FormSignup  step={step} valide={valide} />
-    
+              <Loader size="md" center vertical />)
+              :( */}
+              <FormSignup  step={step} valide={valide} changeHandlerValueCountry={changeHandlerValueCountry} valueCountry={valueCountry} optionsValueCountry={optionsValueCountry} />
+              {/* )
+
+           } */}
         </div>
 
        
@@ -61,7 +87,7 @@ const Stepsform = () => {
               </Button>
             </div>
             <div className="col-md-6">
-            <Button className="float-md-right btn-style" onClick={onNext} disabled={step === 3}>
+            <Button className="float-md-right btn-style" onClick={onNext} disabled={step === 2}>
                 Suivant
               </Button>
              

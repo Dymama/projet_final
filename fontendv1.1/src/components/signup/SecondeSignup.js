@@ -2,7 +2,8 @@ import React,{useState,useEffect} from 'react';
 import { Form, FormGroup, FormControl, 
         ControlLabel, HelpBlock,Schema ,
         Button,ButtonToolbar,DatePicker,
-        InputPicker,Uploader ,Steps,Icon,Modal
+        InputPicker,Uploader ,Steps,Icon,Modal,
+        Content,Container,Col,Row,
     } from 'rsuite';
 
     
@@ -15,12 +16,13 @@ import svg from '../../assets/images/others/event2.png';
 import 'rsuite/dist/styles/rsuite-default.css'
 
 
-
 import './SecondeSignup.css'
 import VerifCandidat from './VerifCandidat';
 import VerifEntreprise from './VerifEntreprise';
 import Verify from './Verify';
 import agendas from '../../api/agenda';
+import CountrySelector from './CountrySelector';
+
 
 const { StringType,DateType, } = Schema.Types;
 
@@ -32,7 +34,13 @@ const model = Schema.Model({
           .isEmail('Entrer un email valide.')
           .isRequired('Champ obligatoire.'),
   password: StringType()
-              .isRequired('Champ obligatoire.'),
+              .isRequired('Champ obligatoire.')
+              .minLength(8,'Entrez au minimum 8 caractères')
+              .containsLetter('Votre mot de passe doit conténir des lettres')
+              .containsNumber('Votre mot de passe doit conténir des chiffres')
+              .containsUppercaseLetter('Votre mot de passe doit conténir des lettres majuscules')
+              .containsLowercaseLetter('Votre mot de passe doit conténir des lettres minuscules')
+              ,
   verifyPassword: StringType()
                     .addRule((value, data) => {
                       console.log(data);
@@ -42,8 +50,8 @@ const model = Schema.Model({
                       }
 
                       return true;
-                    }, 'The two passwords do not match')
-                    .isRequired('This field is required.'),
+                    }, 'Mot de passe incorrect')
+                    .isRequired('Champ Obligatoire.'),
 
   nom: StringType()
          .isRequired('Champ obligatoire.'), 
@@ -52,33 +60,14 @@ const model = Schema.Model({
   date_naissance: DateType()
                 .isRequired('Champ obligatoire.'), 
   civilite: StringType()
-         .isRequired('Champ obligatoire.'),  
-  pays: StringType()
-         .isRequired('Champ obligatoire.'), 
+         .isRequired('Champ obligatoire.'),
   ville: StringType()
          .isRequired('Champ obligatoire.'),
   telephone: StringType()
          .isRequired('Champ obligatoire.'), 
   linkedin: StringType()
          .isRequired('Champ obligatoire.'), 
-         
-  // secteur_activite: StringType()
-  //        .isRequired('Champ obligatoire.'),
-  // cv: StringType()
-  //        .isRequired('Champ obligatoire.'), 
-  // niveau_etude: StringType()
-  //        .isRequired('Champ obligatoire.'), 
-  // annee_experience: StringType()
-  //        .isRequired('Champ obligatoire.'), 
-  // poste_actuel: StringType()
-  //        .isRequired('Champ obligatoire.'),
-  // salaire_actuel: StringType()
-  //        .isRequired('Champ obligatoire.'),
-  // point_fort: StringType()
-  //        .isRequired('Champ obligatoire.'), 
-  // point_faible: StringType()
-  //        .isRequired('Champ obligatoire.'), 
-
+   
 });
 
 const Locale = {
@@ -170,7 +159,7 @@ class TextField extends React.PureComponent {
     return (
       <FormGroup>
         <ControlLabel>{label} </ControlLabel>
-        <FormControl name={name} accepter={accepter} {...props} />
+        <FormControl className="input-structure" name={name} accepter={accepter} {...props} />
       </FormGroup>
     );
   }
@@ -190,7 +179,6 @@ class FormSignup extends React.Component {
         prenom: '',
         civilite: '',
         date_naissance: null,
-        pays: '',
         ville: '',
         telephone: '',
         linkedin: '',
@@ -228,6 +216,8 @@ class FormSignup extends React.Component {
     this.onFileChange = this.onFileChange.bind(this);
     this.onFileChangeEntreprise = this.onFileChangeEntreprise.bind(this);
     this.onFileChangeCv = this.onFileChangeCv.bind(this);
+
+   
   }
 
 
@@ -270,7 +260,7 @@ class FormSignup extends React.Component {
       formData.append('prenom',formValue.prenom)
       formData.append('date_naissance', formValue.date_naissance)
       formData.append('civilite',formValue.civilite)
-      formData.append('pays',formValue.pays)
+      formData.append('pays',this.props.valueCountry.label)
       formData.append('ville', formValue.ville)
       formData.append('telephone',formValue.telephone)
       formData.append('linkedin', formValue.linkedin)
@@ -405,145 +395,143 @@ class FormSignup extends React.Component {
               model={model}
             >
 
+          <Container>
+                <Content>
 
-              <div className="first" style={ this.props.step == 0 ? dBlock : dNone}>
-                
-                <div className="row">
-                
-                  <div className="col-md-12 mx-auto">
+
+              <div className="first" data-aos="zoom-in-down" style={ this.props.step == 0 ? dBlock : dNone}>
               
-                    <div className="row">
+                <Row className="mx-auto">
+                    <Row className="">
+                        <Col className="" md={12} sm={24}>
+                          <TextField name="type_compte" label="Type de compte" accepter={InputPicker}  placeholder="Type de compte" data={dataTypeCompte} block  />
+                        </Col>
+                        <Col className="" md={12} sm={24}>
+                          <TextField name="email" label="Email" />
+                        </Col>
+                    </Row>
 
-                      <div className="col-md-6">
-                        <TextField name="type_compte" label="Type de compte" accepter={InputPicker}  placeholder="Type de compte" data={dataTypeCompte} block  />
-                      </div>
-                      <div className="col-md-6">
-                        <TextField name="email" label="Email" />
-                      </div>
-                  </div>
-                  <div className="row">
-
-                    <div className="col-md-6">
-                      <TextField name="password" label="Votre mot de passe" type="password" />
-                    </div>
-                    <div className="col-md-6">
-                      <TextField name="verifyPassword" label="Confirmez votre mot de passe" type="password" />
-                    </div>
-                   
-                  </div>
-
-                </div>
-                </div>
-
+                    <Row className="mt-4">
+                        <Col className="" md={12} sm={24}>
+                          <TextField name="password" label="Votre mot de passe" type="password" />
+                        </Col>
+                        <Col className="" md={12} sm={24}>
+                          <TextField name="verifyPassword" label="Confirmez votre mot de passe" type="password" />
+                        </Col>
+                    </Row>
+                </Row>
                 
 
               </div>
 
-              <div className="second"  style={ this.props.step == 1 ? dBlock : dNone}>
-                <div className="row">
+              <div className="second" data-aos="zoom-in-down"  style={ this.props.step == 1 ? dBlock : dNone}>
 
-                  <div className="col-md-4">
+                <Row className="">
+
+                  <Col className="" md={8} sm={24}>
                     <TextField name="nom" label="Nom" />
-                  </div>
-                  <div className="col-md-4">
+                  </Col>
+                  <Col className="" md={8} sm={24}>
                     <TextField name="prenom" label="Prenom" />
-                  </div>
-                  <div className="col-md-4">
+                  </Col>
+                  <Col className="" md={8} sm={24}>
                     <TextField name="civilite" accepter={InputPicker}  data={dataCivilite} label="Civilité" />
-                  </div>
+                  </Col>
+                </Row>
 
-                </div>
+                <Row className="mt-4">
+                  <Col className="" md={8} sm={24}>
+                    <TextField  placement="auto" oneTap name="date_naissance" placeholder="Date de naissance" accepter={DatePicker} label="Date de naissance" locale={Locale} />
+                  </Col>
 
-                <div className="row">
+                  <Col className="" md={8} sm={24}>
+                    <ControlLabel> Pays de résidence </ControlLabel>
+                    <CountrySelector optionsValueCountry={this.props.optionsValueCountry} valueCountry={this.props.valueCountry} changeHandlerValueCountry={this.props.changeHandlerValueCountry}/>
+                    {/* <TextField name="pays" label="Pays"  accepter={InputPicker}  data={dataPays}  /> */}
+                  </Col>
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="ville" label="Ville de résidence" />
+                  </Col>
 
-                <div className="col-md-4">
-                    <TextField  placement="auto" name="date_naissance" placeholder="Date de naissance" accepter={DatePicker} label="Date de naissance" locale={Locale} />
-                  
-                  </div>
+                </Row>
 
-                  <div className="col-md-4">
-                    <TextField name="pays" label="Pays"  accepter={InputPicker}  data={dataPays}  />
-                  </div>
-                  <div className="col-md-4">
-                    <TextField name="ville" label="Ville" />
-                  </div>
-
-                </div>
-
-                <div className="row">
-                  <div className="col-md-4">
+                <Row className="mt-4">
+                  <Col className="" md={8} sm={24}>
                     <TextField name="telephone" label="Téléphone" />
-                  </div>
-                  <div className="col-md-4">
+                  </Col>
+                  <Col className="" md={8} sm={24}>
                     <TextField name="linkedin" label="LinkedIn" />
-                  </div>
+                  </Col>
                   
-                  <div className="col-md-4">
-                        <div className="form-group">
-                            <input type="file" onChange={this.onFileChange} />
-                        </div>
-                  </div>
-                </div>
+                  <Col className="" md={8} sm={24}>
+                    <ControlLabel>Photo de profil </ControlLabel>
+                     <div className="js">
+
+                      <div className="input-file-container">
+                        <input 
+                        onChange={this.onFileChange} className="input-file" id="my-file" type="file"/>
+                        <label  className="input-file-trigger" tabindex="0">
+                          Choisir une photo
+                        </label>
+                      </div>
+                      <p className="file-return"></p>
+                    
+                    </div>
+                   
+                  </Col>
+                </Row>
                 
-                
-                <div className="row">
-
-                  <div className="col-md-12">
-                    {/* <TextField name="ville" label="Ville" /> */}
-                  </div>
-
-                </div>
-
-
               </div>
               
 
               {/* troisieme partie */}
-              <div className="third"  style={ this.props.step == 2 && this.state.formValue.type_compte ==="candidat" ? dBlock : dNone}>
-                <div className="row">
-
-                  <div className="col-md-6">
+              <div className="third" data-aos="zoom-in-down" style={ this.props.step == 2 && this.state.formValue.type_compte ==="candidat" ? dBlock : dNone}>
+                <Row >
+                  <Col className="" md={8} sm={24}>
                     <TextField name="secteur_activite" label="Secteur d'activité" />
-                  </div>
-                  <div className="col-md-6">
+                  </Col>
+                  <Col className="" md={8} sm={24}>
                     <TextField name="poste_actuel" label="Poste actuel" />
-                  </div>
-
-                </div>
-
-                <div className="row">
-                  <div className="col-md-6">
+                  </Col>
+                  <Col className="" md={8} sm={24}>
                     <TextField  name="salaire_actuel" label="Salaire actuel"  accepter={InputPicker}  data={dataSalaire} />
-                  </div>
-                  <div className="col-md-6">
-                        <div className="form-group">
-                            <input type="file" onChange={this.onFileChangeCv} />
-                        </div>
-                  </div>
+                  </Col>
+                </Row>
 
-                </div>
-
-                <div className="row">
-
-                  <div className="col-6">
+               
+                <Row className="mt-4">
+                  <Col className="" md={8} sm={24}>
                     <TextField name="annee_experience" label="Année d'experience" />
-                  </div>
-                  <div className="col-6">
+                  </Col>
+                  <Col className="" md={8} sm={24}>
                     <TextField name="niveau_etude" label="Niveau d'étude" />
-                  </div>
+                  </Col>
+                  <Col className="" md={8} sm={24}>
+                    <ControlLabel>Votre CV </ControlLabel>
+                     <div className="js">
 
-                </div>
+                      <div className="input-file-container">
+                        <input 
+                         onChange={this.onFileChangeCv} className="input-file" id="my-file" type="file"/>
+                        <label  className="input-file-trigger" tabindex="0">
+                          Choisir un fichier
+                        </label>
+                      </div>
+                      <p className="file-return"></p>
+                    
+                    </div>
+                      
+                  </Col>
+                </Row>
 
-                <div className="row">
-
-                  <div className="col-6">
+                <Row className="mt-4">
+                  <Col className="" md={12} sm={24}>
                     <TextField name="point_fort" label="Vos atouts" />
-                  </div>
-                  <div className="col-6">
+                  </Col>
+                  <Col className="" md={12} sm={24}>
                     <TextField name="point_faible" label="Vos points faible" />
-                  </div>
-
-                </div>
+                  </Col>
+                </Row>
 
               </div>
               
@@ -551,89 +539,84 @@ class FormSignup extends React.Component {
         
 
               {/* entreprise */}
-              <div className="third"  style={ this.props.step == 2 && this.state.formValue.type_compte ==="entreprise"  ? dBlock : dNone}>
-                <div className="row">
-
-                  <div className="col-md-6">
-                    <TextField name="secteur_entreprise" label="Secteur d'activité" />
-                  </div>
-                  <div className="col-md-6">
-                    <TextField name="nom_entreprise" label="Nom" />
-                  </div>
-
-                </div>
-
-                <div className="row">
-                  <div className="col-md-6">
-                    <TextField  name="adresse_entreprise" label="Adresse "  />
-                  </div>
-                  <div className="col-md-6">
-                    <TextField name="telephone_entreprise" label="Téléphone" />
-                  </div>
-
-                </div>
-
-                <div className="row">
-
-                  <div className="col-md-6">
-                    <TextField name="pays_entreprise" label="Pays" />
-                  </div>
-                  <div className="col-md-6">
-                    <TextField name="ville_entreprise" label="Ville" />
-                  </div>
-
-                </div>
-
-                <div className="row">
-                <div className="col-md-6">
-                    <TextField name="site_internet" label="Site internet" />
-                  </div>
-                  <div className="col-md-6">
-                    <TextField name="facebook_entreprise" label="Facebook" />
-                  </div>
-
-                </div>
-                
-                <div className="row">
-
+              <div className="third" data-aos="zoom-in-down"  style={ this.props.step == 2 && this.state.formValue.type_compte ==="entreprise"  ? dBlock : dNone}>
+                <Row className="mt-4">
                   
-                  <div className="col-md-6">
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="secteur_entreprise" label="Secteur d'activité" />
+                  </Col>
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="nom_entreprise" label="Nom" />
+                  </Col>
+                  <Col className="" md={8} sm={24}>
                     <TextField name="email_entreprise" label="Email" />
-                  </div>
-                  <div className="col-md-6">
+                  </Col>
+                </Row>
+
+                <Row className="mt-4">
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="telephone_entreprise" label="Téléphone" />
+                  </Col>
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="pays_entreprise" label="Pays" />
+                  </Col>
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="ville_entreprise" label="Ville" />
+                  </Col>
+
+
+                </Row>
+
+                <Row className="mt-4">
+                  <Col className="" md={8} sm={24}>
+                    <TextField  name="adresse_entreprise" label="Adresse "  />
+                  </Col>
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="site_internet" label="Site internet" />
+                  </Col>
+                  <Col className="" md={8} sm={24}>
+                    <TextField name="facebook_entreprise" label="Facebook" />
+                  </Col>
+
+                </Row>
+              
+                <Row className="mt-4">
+                  <Col className="" md={8} sm={24}>
                     <TextField name="linkedin_entreprise" label="Linkedin" />
-                  </div>
+                  </Col>
 
-                </div>
-                
-                <div className="row">
-
-                  <div className="col-md-6">
+                  <Col className="" md={8} sm={24}>
                     <TextField name="description_entreprise" label="Description" />
-                  </div>
+                  </Col>
                 
-                  <div className="col-md-6">
-                        <div className="form-group">
-                            <input type="file" onChange={this.onFileChangeEntreprise} />
-                        </div>
-                  </div>
+                  <Col className="" md={8} sm={24}>
+                        <ControlLabel>Logo entreprise </ControlLabel>
+                     <div className="js">
 
-                </div>
+                      <div className="input-file-container">
+                        <input 
+                         onChange={this.onFileChangeEntreprise}  className="input-file" id="my-file" type="file"/>
+                        <label  className="input-file-trigger" tabindex="0">
+                          Choisir un fichier
+                        </label>
+                      </div>
+                      <p className="file-return"></p>
+                    
+                    </div>
+                  </Col>
+
+                </Row>
 
                
-                </div> 
+              </div> 
 
 
 
-              { this.props.step === 3 && <ButtonToolbar>
+              { this.props.step === 2 && <ButtonToolbar>
                 <div className="mb-5 mt-2">
-                <Verify formValue={formValue} /> 
-                  {formValue.type_compte ==='candidat'?   <VerifCandidat formValue={formValue} />  :  <VerifEntreprise formValue={formValue} /> 
-
-                  }
-
-                  <Button className="float-md-right"  appearance="primary" onClick={this.handleSubmit}>
-                    Valider
+               
+                  <Button  style={ this.props.step == 2  ? dBlock : dNone} className="float-md-right px-5 py-3"  appearance="primary" onClick={this.handleSubmit}>
+                    Enregistrer
                   </Button>
 
                 </div>
@@ -642,6 +625,8 @@ class FormSignup extends React.Component {
 
               }
               
+                </Content>
+              </Container >   
             </Form>
             
          

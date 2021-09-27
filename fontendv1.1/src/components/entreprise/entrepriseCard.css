@@ -1,33 +1,22 @@
-.entreprise-card-container .card{
-    padding:1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+.panel-entreprise-card {
+  cursor: pointer;
 }
 
-.entreprise-infos{
 
+.panel-entreprise-card .img-entreprise-card{
+    height: 7em;
+    width:15em;
+   
 }
 
-.entreprise-infos .col-informations {
+
+.panel-entreprise-card .div-entreprise-card p{
+    max-width:14em;
+    font-size:1.1rem;
     
-}
-
-.entreprise-infos .col-informations .title-h >h5{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
     
-    font-family: 'Open Sans', sans-serif;
-}
-
-
-.entreprise-infos .qualifications ul{
-    height: 2em;
-    max-height:2em;
-    text-align: center;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    margin:auto;
-}
-
-.entreprise-buttons-container >button{
-
+    color: #fff;
 }

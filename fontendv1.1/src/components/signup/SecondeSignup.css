@@ -15,3 +15,8 @@
     font-style: italic;
     font-weight:lighter;
 }
+
+.input-structure{
+    height: 3em;
+    width:21em;
+}

@@ -45,13 +45,15 @@
 
 .body-chronogramme{
    padding: 2em;
-   background-color: rgb(6, 6, 41);
+   background-color: rgba(0, 0, 0, 0.986);
     
     margin-top: 3em;
     color: #fff;
     font-family:'Open Sans',sans-serif;
 }
 
+
+ 
 .body-chronogramme >h1{
     color: rgb(255, 255, 255);
     font-family:'Open Sans',sans-serif;
@@ -103,20 +105,7 @@
     border-right: 0.5em solid purple;
 }
 
-.video-card-event:hover {
-    
-}
 
-.container-card-infos-events{
-    padding: 1em;
-    
-}
-
-.container-card-infos-events .card{
-    height: 15em;
-    background:rgb(72, 72, 77);
-    
-}
 
 
 /* stylisation du contenant des poste dans events details */
@@ -152,7 +141,7 @@
 
 /* entreprise container stylisation */
 .page-seconde-container{
-    background-color:rgb(6, 6, 41);
+    background-color:rgb(255, 255, 255);
      background-position-x: left;
      padding-top:1em;
      margin-top: 5em;
@@ -163,7 +152,7 @@
  .page-seconde-container::before{
     content:'';
     display: block;
-    background-color:rgba(252, 252, 252, 0.568);
+    background-color:rgba(11, 14, 219, 0.568);
     position: absolute;
     top: 0;
     right: 0;
@@ -175,6 +164,14 @@
 
  }
  
+.entreprise-event-entreprise{
+
+    display: flex;
+    justify-content: space-around;
+
+}
+
+
   
 
 .entreprises-event-details{
@@ -183,12 +180,10 @@
 }
  
 
-.entreprises-event-details >h1{
+.entreprises-event-details >h3{
     color: rgb(255, 255, 255);
-    margin-bottom: 1em;
     margin-top: 1em;
     font-family: 'Open Sans', sans-serif;
-    text-transform: capitalize;
     text-align: center;
 }
 

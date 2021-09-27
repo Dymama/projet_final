@@ -22,25 +22,11 @@ import {
   import 'rsuite/dist/styles/rsuite-default.css';
   
 import events1 from '../../../assets/images/others/event1.png'
+import { dataDebut, dataMinute } from '../../../services/_modules';
 
 import './ConferenceCard.css';
 
 
-function dataDebut(date){
-    var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-    var d =  new Date(date)
-    
-    return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
-  }
-  
-  function dataMinute(date){
-    
-    var d =  new Date(date)
-    var min =`${d.getMinutes()}`
-    
-    return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
-  }
-  
 
 export default function ConferenceCard(props) {
    const [dataConference, setDataConference] = useState(props.dataConference)
@@ -74,7 +60,7 @@ export default function ConferenceCard(props) {
   return (
     <>
     
-    <Panel onClick={()=>props.open(dataConference)} className="bg-white conference-card-container px-3 pb-5" shaded bordered bodyFill>
+    <Panel onClick={()=>props.open(dataConference)} className="bg-white conference-card-container px-3 pb-3" shaded bordered bodyFill>
             <Row className="">      
                 <Col className="" md={24} sm={24}>
                     <h6 className="h6 text-center p-1">

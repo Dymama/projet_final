@@ -1,18 +1,9 @@
 import React, { useState ,useEffect} from 'react';
 import {Media, Pagination} from 'reactstrap';
 
-import {ButtonToolbar,
-    InputGroup,
-    Input,
-    Icon,
-    IconButton,
-    Badge,
-    InputPicker,
+import {
+    Alert,
     Button,
-    Loader,
-    Popover,
-    Whisper,
-    ButtonGroup,
     Row,
     Col,
   
@@ -20,7 +11,7 @@ import {ButtonToolbar,
   } from 'rsuite';
   
   
-  import {useSelector, useDispatch,useStore} from 'react-redux'
+  import {useSelector, useDispatch,useStore} from 'react-redux' 
   
   import 'rsuite/dist/styles/rsuite-default.css';
   
@@ -46,35 +37,14 @@ import GalleryEvents from './Gallery/GalleryEvents';
 import ConferenceCard from '../Conferences/ConferenceCard';
 import conferences from '../../../api/conference';
 import ConferenceEventModal from '../Conferences/ConferenceEventModal';
+import { restTime, trieParticipantsEntreprise } from '../../../services/_modules';
 
 
 
-function dataDebut(date){
-    var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-    var d =  new Date(date)
-    
-    return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
-  }
-  
-  function dataMinute(date){
-    
-    var d =  new Date(date)
-    var min =`${d.getMinutes()}`
-    
-    return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
-  }
-  
-  
-  function dateStartEvent(date,heure){
-    
-    var dD =  new Date(date)
-    var dH =  new Date(heure)
-    
-    return new Date(dD.getFullYear(),dD.getMonth(),dD.getDate(),dH.getHours(),dH.getMinutes())
-  }
-  
 
 const BodyEventDetail = (props) => {
+    
+    let history = useHistory();
     
    const store = useStore()
    const user = store.getState().connected.user.data
@@ -85,7 +55,10 @@ const BodyEventDetail = (props) => {
   const participateEvent = useSelector(state => state.participateEvent)
 //   const participateVerify = useSelector(state => state.participateVerify)
 
-  const [participants,setParticipants] = useState([])
+    const [participants,setParticipants] = useState([])
+    
+    const [participantsEntreprise,setParticipantsEntreprise] = useState(trieParticipantsEntreprise(participants?participants:[]))
+
   const [participate,setParticipate] = useState(false)
   const [btnLoading,setBtnLoading] = useState(false)
   const [annulerData,setAnnulerData] = useState(false)
@@ -109,6 +82,17 @@ const BodyEventDetail = (props) => {
   const [rowsConferenceModal, setRowsConferenceModal] = useState(0);
 
 
+
+  const entrepriseCardClicker = (data) => {
+    history.push({
+        pathname: '/entreprise_details',
+        search: '?query=abc',
+        state: {entrepriseId: data.participant}
+    });
+
+            
+    } 
+        
 
 
 
@@ -152,8 +136,12 @@ function resetRowsConferenceModal() {
 
 }
 
-  
 
+function showAlertConfNotDisponible(date,heure) {
+   
+    Alert.info(`Veuillez patienter dans moins de ${restTime(date,heure)} Minutes.`,8000)
+
+}
 
 
   const clickParticipateEvent = () => {
@@ -243,6 +231,8 @@ function resetRowsConferenceModal() {
         .then(res => {
             
             setParticipants(res.data.data.participants)
+            
+            setParticipantsEntreprise(trieParticipantsEntreprise(res.data.data.participants))
 
         })
         .catch(err => {
@@ -260,6 +250,9 @@ function resetRowsConferenceModal() {
         .then(res => {
             
             setParticipants(res.data.data.participants)
+
+            setParticipantsEntreprise(trieParticipantsEntreprise(res.data.data.participants))
+           
 
         })
         .catch(err => {
@@ -331,7 +324,7 @@ function resetRowsConferenceModal() {
    useEffect(() => {
     conferences.getEventConference(dataEvent._id)
         .then(res => {
-            console.log(res.data,'data conference')
+            
             setAllConferencesEvent(res.data.data)
 
         })
@@ -341,6 +334,14 @@ function resetRowsConferenceModal() {
 
 
    },[])
+
+
+   useEffect(() => {
+    setParticipantsEntreprise(trieParticipantsEntreprise(participants?participants:[]))
+
+
+   },[participants])
+
 
 
 
@@ -431,8 +432,12 @@ function resetRowsConferenceModal() {
                 
                 
                 <ConferenceEventModal 
-                show={showConferenceModal} close={closeConferenceModal}  resetRows={resetRowsConferenceModal} rows={rowsConferenceModal}
+                show={showConferenceModal} 
+                close={closeConferenceModal}  
+                resetRows={resetRowsConferenceModal} 
+                rows={rowsConferenceModal}
                 dataClicker={cardClickDataConferenceModal} 
+                showAlertConfNotDisponible={showAlertConfNotDisponible}
                 /> 
               
                 <div className="conference-event-details container mx-auto mt-5 ">
@@ -457,37 +462,34 @@ function resetRowsConferenceModal() {
             </div>
         </div>
 
-        <div className="page-seconde-container">
+        <div className="page-seconde-container ">
             <div className="container-entreprise container">
                     
                 <div className="entreprises-event-details">
-                    <h1>
+                    <h3>
                             Les entreprises qui y participent
-                    </h1>
-                     <Row>
-                        <Col md="6">
-                            <EntrepriseCard/>
-                        </Col>
-                        <Col md="6">
-                            <EntrepriseCard/>
-                        </Col>
-                    </Row> 
-                         {/* <Row>
-                            <Col md="6">
-                                <Postes/>
-                            </Col>
-                            <Col md="6">
-                                <Postes/>
-                            </Col>
-                        </Row> 
-                         <Row>
-                            <Col md="6">
-                                <Postes/>
-                            </Col>
-                            <Col md="6">
-                                <Postes/>
-                            </Col>
-                        </Row>  */}
+                    </h3>
+                    
+                    <div 
+                    className="entreprise-event-entreprise mx-auto">
+                    {participantsEntreprise.map((item,index)=>{
+                            return <EntrepriseCard onClicker={entrepriseCardClicker}
+                            key={item._id} index={index}
+                            dataEntreprise={item}
+                             />
+                            
+
+                        })
+                        
+                        }
+                       
+                        {/* <EntrepriseCard onClicker={entrepriseCardClicker} />
+                        <EntrepriseCard/>
+                        <EntrepriseCard/>
+                        <EntrepriseCard/>
+                        <EntrepriseCard/> */}
+                    </div>
+                     
 
                 </div>
 
