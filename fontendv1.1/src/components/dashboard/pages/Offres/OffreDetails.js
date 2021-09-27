@@ -23,6 +23,7 @@ import ShowCandidatModal from './showCandidats/ShowCandidatModal';
 import utilisateurs from '../../../../api/utilisateur';
 import candidats from '../../../../api/candidat';
 import RateStyle from '../generiques/Rate/RateStyle';
+import { openParticipateAlert } from '../../../others/NotificationInfog';
 
 
 
@@ -111,6 +112,9 @@ export default function OffreDetails(props){
         return () => {clearTimeout(timer)}
             
         
+        }
+        else{
+            openParticipateAlert("Veuillez-vous connecter afin de postuler")
         }
     
         
@@ -256,7 +260,7 @@ export default function OffreDetails(props){
                                 </div>
                                 <div className="col-md-6 col-11">
                                     <ButtonToolbar className="float-right mx-auto">
-                                       {( user.type_compte ==="entreprise") ?
+                                       {(user && user.type_compte ==="entreprise") ?
                                        ( <Button onClick={()=> openShowCandidat()} className="b-radius" color="blue" >
                                             <Icon icon="group" className="mr-2" />
                                             Liste postulants

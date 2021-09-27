@@ -9649,6 +9649,11 @@ react-grid-gallery@^0.5.5:
     prop-types "^15.5.8"
     react-images "^0.5.16"
 
+react-image-gallery@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/react-image-gallery/-/react-image-gallery-1.2.7.tgz#2dfb83c52f32828a5340ca565f91bca58241fcfe"
+  integrity sha512-ts7yMWykvZhslGMuvVAUk7a1dJIx9QtIwK6Clv8dOGxPsJid92FRrLvXbZDvkYcUyj48sHalnBhqU6mZNCB2jg==
+
 react-images@^0.5.16:
   version "0.5.19"
   resolved "https://registry.yarnpkg.com/react-images/-/react-images-0.5.19.tgz#9339570029e065f9f28a19f03fdb5d9d5aa109d3"

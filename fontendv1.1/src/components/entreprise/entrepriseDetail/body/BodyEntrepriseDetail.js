@@ -1,10 +1,9 @@
 import React, { useState ,useEffect} from 'react';
-import {Media , Pagination,List} from 'reactstrap';
+import {Media,Container ,Row,Col, Pagination,List} from 'reactstrap';
 import {
     Alert,
     Button,
-    Row,
-    Col,
+    
     Icon
   
   
@@ -135,21 +134,26 @@ const BodyEntrepriseDetail = (props) => {
         close={close} 
         dataClicker={cardClickData} resetRows={resetRows}/>
             
-        <div className="entreprise-postes container">
-            <h2 className="text-center py-5">
-                Decouvrez Nos Postes
-            </h2>
-                <div className="entreprise-postes-items">
-            {allPostesEntreprise.map((item,index)=>{
-                return  <Postes updateOffre={updateOffre} dataPoste={item} key={item._id} index={index}
-                    open={open}
-                />
+        <Container fluid className="entreprise-postes mx-auto text-center">
+            <Row className="py-3">
+                <h2 className="text-center">
+                    Decouvrez Nos Postes
+                </h2>
+            </Row>
+            <Row className="mx-auto container">
+                <>
+                {allPostesEntreprise.map((item,index)=>{
+                    return  <Postes updateOffre={updateOffre} dataPoste={item} key={item._id} index={index}
+                        open={open}
+                    />
 
-                })
-                        
-            }
-            </div>
-        </div>
+                    })
+                            
+                }
+                </>
+            </Row>
+        </Container>
+        
         <div className="contact-us-entreprise">
             <div className="container ">
                 <div className="">

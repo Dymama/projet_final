@@ -25,6 +25,7 @@ const Header = (props) => {
    useEffect(() => {
     setEntrepriseData(props.entrepriseData)
    }, [props.entrepriseData])
+   
 
   return (
     <>

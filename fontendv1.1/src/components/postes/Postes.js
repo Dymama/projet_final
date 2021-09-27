@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import {Media,Row,Col,Button, List, ListInlineItem } from 'reactstrap';
+import {Media,Row,Col,Button, List, ListInlineItem ,Card} from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -37,7 +37,11 @@ const Postes = (props) => {
 
   return (
     <>
-           <div className="card poste-container" onClick={()=>props.open(dataPoste)} >
+           <Card 
+                data-aos="zoom-in-up" 
+                className="poste-container mt-5" 
+                onClick={()=>props.open(dataPoste)} >
+                    
                <Row className="poste-infos">
                    <Col md="4">
                    <Media width="100%"  src={events1} alt="event empower"  />
@@ -56,7 +60,6 @@ const Postes = (props) => {
                            <div className="qualifications">
                             <List type="inline">
                                 <ListInlineItem>
-                                    type d'emplois<br/>
                                     {dataPoste.type_emplois} </ListInlineItem>
                                 {/* <ListInlineItem>{dataPoste.description}</ListInlineItem>
                               */}
@@ -93,7 +96,7 @@ const Postes = (props) => {
                        
                    </Col>
                </Row> */}
-           </div>
+           </Card>
     </>
   );
 }

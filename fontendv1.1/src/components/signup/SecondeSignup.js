@@ -6,6 +6,7 @@ import { Form, FormGroup, FormControl,
         Content,Container,Col,Row,
     } from 'rsuite';
 
+import { withRouter ,Redirect} from 'react-router';
     
 import utilisateurs from '../../api/utilisateur';
 import candidats from '../../api/candidat';
@@ -208,7 +209,10 @@ class FormSignup extends React.Component {
       photo_entreprise:null,
       photo: null,
       formError: {},
-      show: false 
+      isCreate: false ,
+      show: false,
+      waiting: false,
+
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.close = this.close.bind(this);
@@ -223,6 +227,7 @@ class FormSignup extends React.Component {
 
   close() {
     this.setState({ show: false });
+    this.setState({ waiting: true });
   }
   open() {
     this.setState({ show: true });
@@ -301,6 +306,7 @@ class FormSignup extends React.Component {
                     console.log(agenda,'agenda candidat')
 
                     this.open()
+                    this.setState({isCreate:true})
 
                   })
                   .catch(err =>{
@@ -352,11 +358,12 @@ class FormSignup extends React.Component {
       
                           this.open()
                           
+                          this.setState({isCreate:true})
+                          
                           })
                           .catch(err =>{
                             console.log(err,'erreur creation entreprise')
                           })
-                          this.open()
                         
                       } 
       
@@ -370,14 +377,14 @@ class FormSignup extends React.Component {
 
   
 
-  
+
   render() {
-    const { formError, formValue } = this.state;
-   
+    const { formError, formValue,isCreate,waiting } = this.state;
+    if(isCreate === true && waiting === true){
+      return (<Redirect to="/connexion" />);
+  }
+  else{
     
-
-
-
 
     return (
 
@@ -631,27 +638,33 @@ class FormSignup extends React.Component {
             
          
             <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
-              <Modal.Body>
-                <Icon
-                  icon="remind"
-                  style={{
-                    color: '#ffb300',
-                    fontSize: 24
-                  }}
-                />
+              <Modal.Body className="overflow-hidden">
+              
                 {'  '}
-                Once a project is disabled, there will be no update on project report, and project
-                members can access history data only. Are you sure you want to proceed?
+                <Row>
+                  <Col className="" md={24} sm={24}>
+                    <h3 style={{ color: 'green', }} className="mx-auto text-center font-weight-bold" >
+                        Félicitations
+                    </h3>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="mx-auto text-center" md={24} sm={24}>
+                    <p>
+                      Votre compte a été crée avec success.
+                    </p>
+                  </Col>
+                </Row>
               </Modal.Body>
               <Modal.Footer>
-                <Button onClick={this.close} appearance="primary">
+                <Button style={{ color: 'green', }} onClick={this.close} appearance="ghost">
                   Ok
                 </Button>
               </Modal.Footer>
             </Modal>
 
       </div>
-    );
+    )};
   }
 }
 

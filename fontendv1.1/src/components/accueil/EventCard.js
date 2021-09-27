@@ -6,34 +6,11 @@ import {
 
 
 import events1 from '../../assets/images/eventCards/event1.jpg'
+import { dataDebut, dataMinute, dateStartEvent } from '../../services/_modules';
 import ButtonEmpower from '../others/ButtonEmpower';
 import CountDownComponent from '../others/countDown/CountDown';
 import "./eventCard.css";
 
-
-function dataDebut(date){
-  var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-  var d =  new Date(date)
-  
-  return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
-}
-
-function dataMinute(date){
-  
-  var d =  new Date(date)
-  var min =`${d.getMinutes()}`
-  
-  return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
-}
-
-
-function dateStartEvent(date,heure){
-  
-  var dD =  new Date(date)
-  var dH =  new Date(heure)
-  
-  return new Date(dD.getFullYear(),dD.getMonth(),dD.getDate(),dH.getHours(),dH.getMinutes())
-}
 
 const EventCards = (props) => {
   

@@ -120,8 +120,7 @@ const Accueil = (props) => {
       <Header/>
 
       {/* contenants les evenemants */}
-      <Container  data-aos="zoom-out-up"
-                   data-aos-easing="ease-in-out"
+      <Container
                    fluid className="mx-auto text-center events-container">
         <Row className="py-3">
           <h1  data-aos="slide-down" 
@@ -168,12 +167,7 @@ const Accueil = (props) => {
 
               )}
 
-          {/* <Col md="5" className="mx-auto">
-            <EventCards/>
-          </Col>
-          <Col md="5" className="mx-auto">
-            <EventCards/>
-          </Col> */}
+       
 
 
         </Row>

@@ -29,7 +29,7 @@ const NavbarHeader = (props) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const [color, setColor] = React.useState("navbar-transparent");
+  const [color, setColor] = React.useState("bg-light");
 
   React.useEffect(() => {
     window.addEventListener("scroll", changeColor);

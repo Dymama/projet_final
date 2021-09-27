@@ -41,9 +41,9 @@ const EntrepriseCard = (props) => {
    
   return (
     <>   
-        <div 
-        onClick={()=> props.onClicker(props.dataEntreprise)} className="panel-entreprise-card text-center m-4 pb-2" shaded bordered bodyFill>
-        <Panel className="mx-auto text-center mt-5 p-2 bg-white" shaded bordered bodyFill>
+        <div  data-aos="zoom-in-down" 
+        onClick={()=> props.onClicker(props.dataEntreprise)} className="panel-entreprise-card text-center m-2 m-auto pb-2" shaded bordered bodyFill>
+        <Panel className="mx-auto text-center p-2 bg-white" shaded bordered bodyFill>
       
             <Media className="img-entreprise-card" width="100%"  src={entrepriseData.photo} alt="event empower"  />
         </Panel>

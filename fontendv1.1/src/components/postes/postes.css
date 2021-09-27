@@ -1,10 +1,12 @@
 .poste-container{
-    height: 15em;
-    width: 35em;
-    padding:1em;
+    
     border-bottom: 3px solid purple;
     box-shadow: 2px 3px 3px #969091,2px -3px -3px #969091;
     background-color: aliceblue;
+    margin: auto;
+    height: 13em;
+    width:25em;
+    z-index: 999;
 }
 
 .poste-container:hover{
@@ -18,17 +20,12 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-
-
-
-
-
-
 .poste-infos .title-h{
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
 .poste-infos .title-h h5{
     height: 3em;
     max-height:3em;
@@ -81,16 +78,4 @@
     font-weight: bold;
 }
 
-
-.poste-buttons-container{
-    padding-top: 1em;
-}
-
-.poste-buttons-container div:first-child button{
-    float:left;
-}
-
-.poste-buttons-container div:last-child button{
-    float:right;
-}
 

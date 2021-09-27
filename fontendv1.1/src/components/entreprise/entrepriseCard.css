@@ -1,5 +1,8 @@
 .panel-entreprise-card {
   cursor: pointer;
+  margin:auto; 
+  height: 10em;
+  width:18em;
 }
 
 

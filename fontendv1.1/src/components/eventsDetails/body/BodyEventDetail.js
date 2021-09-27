@@ -1,12 +1,16 @@
 import React, { useState ,useEffect} from 'react';
-import {Media, Pagination} from 'reactstrap';
+import {
+    Media, 
+    Pagination,
+    Row,
+    Col,
+} from 'reactstrap';
 
 import {
     Alert,
     Button,
-    Row,
-    Col,
-  
+    Notification,
+
   
   } from 'rsuite';
   
@@ -38,7 +42,7 @@ import ConferenceCard from '../Conferences/ConferenceCard';
 import conferences from '../../../api/conference';
 import ConferenceEventModal from '../Conferences/ConferenceEventModal';
 import { restTime, trieParticipantsEntreprise } from '../../../services/_modules';
-
+import { openParticipateAlert } from '../../others/NotificationInfog';
 
 
 
@@ -164,6 +168,9 @@ function showAlertConfNotDisponible(date,heure) {
         
     
     }
+    else{
+        openParticipateAlert("Veuillez-vous connecter s'il vous plaît.")
+    }
 
     
   }
@@ -267,7 +274,7 @@ function showAlertConfNotDisponible(date,heure) {
 
 
    useEffect(() => {
-    
+    if(user){
     if(user.type_compte === "entreprise"){
         utilisateurs.getUserEntreprise(user._id)
             .then(res => {
@@ -298,6 +305,7 @@ function showAlertConfNotDisponible(date,heure) {
             setParticipate(false)
         }
    
+    }
     }
                 
 
@@ -358,7 +366,7 @@ function showAlertConfNotDisponible(date,heure) {
 
                 <Row className="mx-auto text-center">
                         
-                    <Col className="" md={24} sm={24}>
+                    <Col className="" md="12" sm="12">
                             
                         <Button size="lg" loading={btnLoading} className={participate ? "btn-annuler" : "btn-participer"}  onClick={() =>{participate? clickParticipateAnnuler() :clickParticipateEvent()} } >
                            {participate ? "Annuler participation" : "Participer à l'événement"}
@@ -369,43 +377,39 @@ function showAlertConfNotDisponible(date,heure) {
                 </Row>
 
                 <Row data-aos="zoom-in-down"  className="mt-5 mx-auto">
-                          
-                    <Col className="mt-5 mx-auto"  md={24} sm={24}>
-                        <div className="mt-5 mx-auto" style={{width:"50em"}} >
+                    <Row className="mx-auto text-center ">      
+                        <Col className="mt-5 mx-auto text-center" md="12" sm="12">
+                            <h3 className="h3 font-weight-bold " >
+                                Quelques images et vidéos de nos activités 
+                            </h3>
+                        </Col>
+                    </Row>
+                    <Col className="mt-3 mx-auto"  md="6" sm="12">
+                        <div className="mx-auto"  >
                             
                         <VideoPlayer/>
 
                         </div>
                     </Col>
+                    <Col className="mx-auto mt-3" md="6" sm="12">      
+                            <GalleryEvents/>
+                    </Col>
                 </Row>
 
 
             </div>
 
-            
-            <div data-aos="zoom-in-down"  className="mt-5 container mx-auto gallery-event-container">
-                 <Row className="mt-5 mx-auto text-center ">      
-                    <Col className="mt-5 mx-auto text-center" md={24} sm={24}>
-                        <h1 className="h1 font-weight-bold " >
-                            Galérie
-                        </h1>
-                        <div className="bottom-style" ></div>
-                    </Col>
-                </Row>
-                <Row className=" mx-auto">      
-                    <Col className="" md={24} sm={24}>
-                        <GalleryEvents/>
-                    </Col>
-                </Row>
-            </div>
-               
-            <div  className=" mx-auto text-center py-5 body-chronogramme">
-                <h1 data-aos="zoom-in-down"  className="h1 py-3 text-center ">
+           
+            <div  className="mx-auto text-center mt-5 pt-3 pb-5 body-chronogramme">
+                <h3 className="h3 text-center ">
                     Chronogramme
-                </h1>
-                <div className="bottom-style" ></div>
-                
+                </h3>
+                {/* <div className="bottom-style" ></div> */}
+                <div className="mt-4" >
                 <Chronogramme  dataEvent={dataEvent} />
+
+                </div>
+                
 
             </div>
 
@@ -415,7 +419,7 @@ function showAlertConfNotDisponible(date,heure) {
                     <h3 className="text-center">
                         {(allPostesEvent && allPostesEvent.length > 0 )?"Postuler à des postes" : "Aucun poste disponible"}
                     </h3>
-                    <div className="poste-event-postes mt-4">
+                    <Row className="poste-event-postes mt-4">
                         {allPostesEvent.map((item,index)=>{
                             return  <Postes updateOffre={updateOffre} dataPoste={item} key={item._id} index={index}
                             open={open}
@@ -424,7 +428,9 @@ function showAlertConfNotDisponible(date,heure) {
                         })
                         
                         }
-                    </div>
+                        
+                       
+                    </Row>
                 
 
                 </div> 
@@ -444,7 +450,7 @@ function showAlertConfNotDisponible(date,heure) {
                     <h3 className="text-center mt-5">
                         {(allConferencesEvent && allConferencesEvent.length > 0 )?"Participer aux conférences" : "Aucune conférence disponible"}
                     </h3>
-                    <div className="conference-event-conferences mx-auto mt-4">
+                    <Row className="conference-event-conferences mx-auto mt-4">
                         {allConferencesEvent.map((item,index)=>{
                             return  <ConferenceCard  dataConference={item} key={item._id} index={index}
                             open={openConferenceModal}
@@ -453,8 +459,9 @@ function showAlertConfNotDisponible(date,heure) {
                         })
                         
                         }
+                         
                        
-                    </div>
+                    </Row>
                 
 
                 </div>
@@ -463,15 +470,15 @@ function showAlertConfNotDisponible(date,heure) {
         </div>
 
         <div className="page-seconde-container ">
-            <div className="container-entreprise container">
+            <div className="container-entreprise mx-auto text-center">
                     
-                <div className="entreprises-event-details">
+                <div className="entreprises-event-details mx-auto text-center">
                     <h3>
                             Les entreprises qui y participent
                     </h3>
                     
-                    <div 
-                    className="entreprise-event-entreprise mx-auto">
+                    <Row className="mx-auto container mt-3">
+                    <>
                     {participantsEntreprise.map((item,index)=>{
                             return <EntrepriseCard onClicker={entrepriseCardClicker}
                             key={item._id} index={index}
@@ -482,13 +489,11 @@ function showAlertConfNotDisponible(date,heure) {
                         })
                         
                         }
+                        
+                      
+                    </>
                        
-                        {/* <EntrepriseCard onClicker={entrepriseCardClicker} />
-                        <EntrepriseCard/>
-                        <EntrepriseCard/>
-                        <EntrepriseCard/>
-                        <EntrepriseCard/> */}
-                    </div>
+                    </Row>
                      
 
                 </div>

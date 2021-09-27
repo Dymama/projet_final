@@ -42,13 +42,18 @@
 }
 
 .entreprise-postes-items{
-    display: flex;
-    justify-content:space-around;
+    
 }
 
 .entreprise-postes{
-    padding-top: 5em;
+    background-color: #ffffffa1;
+    padding: 6em 0;
+    position: relative;
+    background-position-x: left;
+    z-index: 99;
 }
+
+
 
 .contact-us-entreprise{
     margin-top: 5em;
