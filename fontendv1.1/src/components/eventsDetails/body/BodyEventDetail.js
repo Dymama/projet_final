@@ -392,7 +392,7 @@ function showAlertConfNotDisponible(date,heure) {
                         </div>
                     </Col>
                     <Col className="mx-auto mt-3" md="6" sm="12">      
-                            <GalleryEvents/>
+                            <GalleryEvents dataEvent={dataEvent} />
                     </Col>
                 </Row>
 

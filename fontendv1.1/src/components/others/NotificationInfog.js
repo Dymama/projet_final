@@ -21,3 +21,16 @@ export function openParticipateAlert(text) {
     });
   }
   
+  
+  export function alertError(text) {
+    Notification.error({
+      title: 'Attention',
+      duration: 5000,
+      description:(<Row style={{ width: 320 }} rows={3} >
+          <p >
+                {text}
+          </p>
+      </Row>)
+    });
+  }
+  

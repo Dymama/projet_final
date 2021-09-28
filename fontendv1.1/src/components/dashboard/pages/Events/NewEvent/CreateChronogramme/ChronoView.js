@@ -1,21 +1,10 @@
 
 import React from "react";
-import {ButtonToolbar,
-    IconButton,
-    Icon,
-    Loader,
-    Placeholder,
+import {
     Button,
     Form,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    HelpBlock,
-    Schema,
-    DatePicker,
-    Uploader,
-    Input,
-    Toggle,
+    Col,
+    Row,
     
 
 } from 'rsuite';
@@ -23,6 +12,7 @@ import 'rsuite/dist/styles/rsuite-default.css';
 
 import CreateChrono from "./CreateChrono";
 
+import './ChronoView.css'
 class ChronoView extends React.Component {
   constructor(props) {
     super(props);
@@ -86,29 +76,40 @@ class ChronoView extends React.Component {
   render() {
     let { chronoDetails } = this.state;
     return (
-      <div className="content">
-        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-          <div className="row" style={{ marginTop: 20 }}>
-            <div className="col-sm-1" />
-            <div className="col-sm-10">
-              <h3 className="text-center">Le Chronogramme</h3>
-              <div className="container">
-                <div className="row">
-                  <CreateChrono
-                    add={this.addNewRow}
-                    delete={this.clickOnDelete.bind(this)}
-                    chronoDetails={chronoDetails}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-1" />
-          </div>
-        </form>
-        <Button appearance="ghost" className="mt-3" onClick={()=>{this.showChronograme(); this.props.getChronogramme(chronoDetails)}} >
-          valider le chronogramme
-        </Button>
-      </div>
+      <>
+     
+          
+        <Row> 
+          <Col md={24}  sm={24}>
+            <h6 className="float-md-left mt-2 h6-style-chrono">Chronogramme de l'événement</h6>
+          </Col>
+        </Row>
+
+        <Row className="mx-auto text-center"> 
+          <Col className="mx-auto text-center style-form-chrono-left" md={24}  sm={24}>
+            <form    onSubmit={this.handleSubmit} onChange={this.handleChange}>
+                <CreateChrono
+                        add={this.addNewRow}
+                        delete={this.clickOnDelete.bind(this)}
+                        chronoDetails={chronoDetails}
+                      />
+            </form>
+          </Col>
+        </Row>
+    
+        <Row> 
+          <Col md={24}  sm={24}>
+    
+              <Button appearance="ghost" className="mt-3" onClick={()=>{this.showChronograme(); this.props.getChronogramme(chronoDetails)}} >
+              valider le chronogramme
+              </Button>
+          
+             
+
+          </Col>
+        </Row>
+
+      </>
     );
   }
 }

@@ -95,3 +95,37 @@ export function restTime(date,heure){
         })
     }
 }
+
+
+
+  // structure data images
+export const imageStruted = (data)=>{
+    if(data){
+    return data.map((item,index)=> { 
+         return{
+            original: item,
+            thumbnail: 'https://picsum.photos/id/1018/250/150/',
+         }
+
+        })
+    }
+    else{
+
+      return [
+          {
+            original: 'https://picsum.photos/id/1018/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1018/250/150/',
+          },
+          {
+            original: 'https://picsum.photos/id/1015/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1015/250/150/',
+          },
+          {
+            original: 'https://picsum.photos/id/1019/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1019/250/150/',
+          },
+        ];
+    }
+}
+
+

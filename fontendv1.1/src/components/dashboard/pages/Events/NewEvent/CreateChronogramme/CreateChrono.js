@@ -16,7 +16,8 @@ import {ButtonToolbar,
     Uploader,
     Input,
     Toggle,
-    
+    Row,
+    Col
 
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
@@ -31,40 +32,47 @@ const CreateChrono = props => {
       dateEvent = `date_event-${idx}`;
      
     return (
-      <div className="form-row" key={val.index}>
-        <div className="col">
-          <label>Titre</label>
-          <input
-           className="form-control"
+      
+      <Row className="" key={val.index}>
+        <Col className="" md={7} sm={24} >
+           <FormGroup  className="m-3" >
+           {idx === 0 && (<ControlLabel>Titre</ControlLabel>)}
+           {idx > 0 && (<ControlLabel className="d-md-none">Titre</ControlLabel>)}
+           <Input
+           className=""
             type="text"
-            className="form-control required"
-            placeholder="Titre"
+            placeholder="Ex: Acceuil invités"
             name="titre"
             data-id={idx}
             id={titre}
-          />
-        </div>
-        <div className="col">
-        <label>Definir une date </label>
-          <div className="">
-          <input 
-           className="form-control"
+          />  
+          </FormGroup>
+        </Col>
+
+        <Col className="" md={7} sm={24} >
+           <FormGroup className="m-3" >
+           {idx === 0 && ( <ControlLabel>Choisissez une date</ControlLabel>)}
+           {idx > 0 && (<ControlLabel className="d-md-none">Choisissez une date</ControlLabel>)}
+           <Input 
+           className=""
             data-id={idx}
             id={dateEvent} 
-             name="date_event"
-             type="date"
+            name="date_event"
+            type="date"
               />
-                  
+            
+          </FormGroup>
+        </Col>
         
-          </div>
-        </div>
-
-     
-        <div className="col">
-        <label>Definir une heure </label>
-          <div  className="form-group">
-          <input 
-           className="form-control"
+        <Col className="" md={7} sm={24} >
+           <FormGroup className="m-3" >
+             {idx === 0 && (
+                <ControlLabel>Choisissez une heure</ControlLabel>
+             )}
+              {idx > 0 && (<ControlLabel className="d-md-none">Choisissez une heure</ControlLabel>)}
+           
+           <Input 
+           className=""
             data-id={idx}
             id={heureEvent} 
             name="heure_event" 
@@ -73,23 +81,22 @@ const CreateChrono = props => {
             max="18:00"
 
             />
-         
-          </div>
-        </div>
-
-      
-        <div className="col p-4">
-          {idx === 0 ? (
+          </FormGroup>
           
-           <IconButton circle appearance="ghost" color="violet" onClick={() => props.add()} size="md" icon={<Icon icon="plus" />} />
+        </Col>
+        
+        <Col className="mx-auto pt-3" md={3} sm={24} >
+          {idx === 0 ? (
+            
+            <IconButton className="mt-4" circle appearance="ghost" color="violet" onClick={() => props.add()} size="md" icon={<Icon icon="plus" />} />
           ) : (
             
-             <IconButton circle appearance="ghost" color="red"  onClick={() =>  props.delete(val)} size="md" icon={<Icon icon="minus" />} />
+              <IconButton circle appearance="ghost" color="red"  onClick={() =>  props.delete(val)} size="md" icon={<Icon icon="minus" />} />
           )}
-        </div>
+        </Col>
 
-
-      </div>
+      </Row>
+     
     );
   });
 };

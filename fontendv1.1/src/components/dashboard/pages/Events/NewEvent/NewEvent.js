@@ -27,7 +27,7 @@ export default function NewEvent(){
     const [step, setStep] = React.useState(0);
     const [loadingNext, setLoadingNext] = React.useState(0);
     const onChange = nextStep => {
-        setStep(nextStep < 0 ? 0 : nextStep > 3 ? 3 : nextStep);
+        setStep(nextStep < 0 ? 0 : nextStep > 1 ? 1 : nextStep);
     };
 
     const onNext = () => {
@@ -72,7 +72,7 @@ export default function NewEvent(){
                     <div className="body-new-event mx-auto text-center  col-12">
                     <div className="py-0 card-new-event-form">
 
-                    <NewEventForm step={step} loadingNext={loadingNext} /> 
+                    <NewEventForm setStep={setStep} step={step} loadingNext={loadingNext} /> 
                     </div>
                     </div>
 
@@ -83,13 +83,14 @@ export default function NewEvent(){
 
                         <div className="row">
                             <div className="col-6">
-                                <Button className="float-left"  onClick={onPrevious} disabled={step === 0}>
+                                <Button appearance="ghost" color='violet' className="float-left"  onClick={onPrevious} disabled={step === 0}> 
+                                <Icon icon="angle-left" className="mr-3" />
                                 Précédent
                                 </Button>
                             </div>
                             <div className="col-6">
-                                <Button className="float-right" onClick={onNext} disabled={step === 3}>
-                                Suivant
+                                <Button appearance="ghost" color='violet' className="float-right" onClick={onNext} disabled={step === 1}>
+                                Suivant  <Icon icon="angle-right" className="ml-3"  />
                                 </Button>
                             </div>
                         </div>

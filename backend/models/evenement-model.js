@@ -8,7 +8,7 @@ const evenementSchema = new Schema(
         pays: { type: String, required: true },
         ville: { type: String, required: true },
         video: { type: String, required: false },
-        photo: { type: String, required: false},
+        images: { type: Array, required: false},
         date_debut: { type: String, required: true },
         date_fin: { type: String, required: true },
         heure_debut: { type: String, required: true },

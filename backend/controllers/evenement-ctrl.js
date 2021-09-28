@@ -6,8 +6,10 @@ const Administrateur = require('../models/administrateur-model')
 // creer un Evenement
 exports.create = (req, res, next) => {
 
-  const body = req.body;
-  console.log(body,'body event')
+    const body = req.body;
+    const reqFiles = [];
+
+    console.log(body,'body event')
     // verifier si le body contient des données
     if (!body) {
         return res.status(400).json({
@@ -15,14 +17,21 @@ exports.create = (req, res, next) => {
             error: 'aucune donnée saisie',
         })
     }
-    
+
+    const url = req.protocol + '://' + req.get('host')
+    for (var i = 0; i < req.files.length; i++) {
+        reqFiles.push(url + '/images/' + req.files[i].filename)
+    }
     
     const evenement = new Evenement({
         ...body,
-        chronogramme:JSON.parse(body.chronogramme)
-        // photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-        // video: `${req.protocol}://${req.get('host')}/video/${req.file.filename}`
+        chronogramme:JSON.parse(body.chronogramme),
+        images: reqFiles
+        
     })
+
+    console.log(evenement,"new event container")
+
 
     if (!evenement) {
         return res.status(400).json({ success: false, error: err })

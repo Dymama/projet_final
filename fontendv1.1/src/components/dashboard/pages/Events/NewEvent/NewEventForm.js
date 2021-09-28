@@ -21,6 +21,8 @@ import {ButtonToolbar,
     Toggle,
     Message,
     Modal,
+    SelectPicker,
+
 
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
@@ -31,6 +33,8 @@ import './NewEventForm.css'
 import configureStore from '../../../../../redux/store';
 import evenements from '../../../../../api/evenement';
 import ChronoView from './CreateChronogramme/ChronoView';
+import { alertError } from '../../../../others/NotificationInfog';
+import { dataCountries,dataCities } from '../../../../../services/_dataCountries';
 
 const { StringType, NumberType } = Schema.Types;
 
@@ -61,37 +65,44 @@ class TextField extends React.PureComponent {
       <FormGroup>
         <ControlLabel>{label} </ControlLabel>
         <FormControl className="form-new-event-input" name={name} accepter={accepter} {...props} />
+       
       </FormGroup>
     );
   }
 }
 
+const initialStateFormEvent = {
+  formValue: {
+    titre: '',
+    description: '',
+    ville: '',
+    pays: '',
+    date_debut:null ,
+    date_fin : null,
+    heure_debut: null,
+    heure_fin: null,
+    
+  },
+//   video:'',
+  images:'',
+  load: false ,
+  
+  formError: {},
+  chronogramme:[],
+  chronoValide:false,
+  showChronoAlert:false,
+  
+  showError:false,
+
+
+}
 
 
 
 class NewEventForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      formValue: {
-        titre: '',
-        description: '',
-        ville: '',
-        pays: '',
-        date_debut:null ,
-        date_fin : null,
-        heure_debut: null,
-        heure_fin: null,
-        
-      },
-    //   video:'',
-      photo:'',
-      load: false ,
-      
-      formError: {},
-      chronogramme:[],
-      chronoValide:false,
-    };
+    this.state =initialStateFormEvent;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFileVideo = this.onFileVideo.bind(this);
     this.onFilePhoto = this.onFilePhoto.bind(this);
@@ -108,26 +119,66 @@ class NewEventForm extends React.Component {
   close() {
     this.setState({ show: false });
   }
+
   open() {
+
+    this.setState({ showError: false });
     this.setState({ show: true });
+    
+  }
+  
+  openError() {
+
+    this.setState({ show: false });
+    this.setState({ showError: true });
+    
   }
 
 
   
   onFilePhoto(e) {
-    this.setState({ photo: e.target.files[0] })
+
+    this.setState({ images: e.target.files })
+    console.log(this.props.apiNewEventData,"files")
+
   }
   
   getChronogramme(chrono) {
-    // chronogramme.map((item,index)=> item )
-    let chronogramme = chrono.map((item,index)=>{ return{ 
-      titre: item.titre,
-      date_event : item.date_event,
-      heure_event : item.heure_event
-    }})
+    
+    var correctChrono = false;
 
-    this.setState({chronogramme})
-    this.setState({chronoValide:true})
+    chrono.map((item,index)=>{  
+     if(item.titre && item.date_event && item.heure_event){
+        correctChrono = true
+        
+    }
+    else{
+      correctChrono = false
+    }
+    })
+
+
+    if(correctChrono){
+
+        let chronogramme = chrono.map((item,index)=>{ return{ 
+        titre: item.titre,
+        date_event : item.date_event,
+        heure_event : item.heure_event
+      }})
+
+      this.setState({showChronoAlert:false})
+      this.setState({chronogramme})
+      this.setState({chronoValide:true})
+
+    }
+    else{
+      this.setState({showChronoAlert:true})
+      alertError("Veuillez bien renseigner les champs du chronogramme s'il vous plaît")
+     
+      
+    }
+
+    
     
   }
   
@@ -154,38 +205,37 @@ class NewEventForm extends React.Component {
     formData.append('date_fin',formValue.date_fin)
     formData.append('heure_fin',formValue.heure_fin)
     formData.append('heure_debut',formValue.heure_debut)
-    formData.append('photo',photo)
     formData.append('video',video)
     formData.append('chronogramme',JSON.stringify(chronogramme))
     formData.append('createur', this.store.getState().getInfoUser.user.data._id)
-
+    for (const key of Object.keys(this.state.images)) {
+        formData.append('images', this.state.images[key])
+    }
     
-    this.setState({load: true})
+    // this.setState({load: true})
     this.props.apiNewEventFunc(formData)
       
       setTimeout(() => {
-        this.open()
-        this.setState({load: false})
-      },1000)
-    // evenements.insertEvenement(newEventData)
-    //     .then(res=>{
-    //         console.log(res.data,"data ressendd")
-    //     })
-    //     .catch(err=>{
-    //         console.log(err)
-    //     })
-    // Affiche les valeurs
-    // for (var value of formData.values()) {
-    //   console.log(value);
-    // }
+        if(this.props.apiNewEventData && this.props.apiNewEventData.event.success === true){
+          this.open()
+          this.setState({load: false})
 
+          this.setState(initialStateFormEvent)
+          this.props.setStep(0)
+        }
+        else{
+          this.openError()
+        }
+        },1000)
+
+ 
   }
 
   
 
 
   render() {
-    const { formError, formValue ,chronoValide} = this.state;
+    const { formError, formValue ,chronoValide,showError,show} = this.state;
 
 // // ajout de la classe JS à HTML
 // document.querySelector("html").classList.add('js');
@@ -217,7 +267,7 @@ class NewEventForm extends React.Component {
 
     
     return (
-      <div className="mx-auto new-event-form-container py-1"  data-aos="zoom-in-down">
+      <div className="mx-auto new-event-form-container py-1 px-md-5 px-2"  data-aos="zoom-in-down">
         
         <Form
         fluid
@@ -235,17 +285,27 @@ class NewEventForm extends React.Component {
             <div className="row mt-3">
                 <div className="col-md-4 my-2">
                     <TextField name="titre" label="Titre de l'événement" 
-                    placement="auto" />   
+                    placeholder="Ex: Forum des stages" />   
                 </div>
                 
-
                 <div className="col-md-4 my-2">
-                    <TextField name="ville" label="Ville" 
-                    placement="auto" />
+                    {/* <TextField name="pays" label="pays" 
+                    placement="auto" /> */}
+                    <TextField 
+                    name="pays" 
+                    accepter={SelectPicker} 
+                    placement="auto"
+                    placeholder="selectionner"
+                    data={dataCountries} 
+                    label="Choisisser le pays" />
+                    {/* <SelectPicker data={dataCountries}  className="form-new-event-input" /> */}
                 </div>
+                
                 <div className="col-md-4 my-2">
-                    <TextField name="pays" label="pays" 
-                    placement="auto" />
+                    <TextField name="ville"
+                    placeholder="Ex: Abidjan"
+                    label="Choisisser la ville"
+                    />
                 </div>
             </div>
             
@@ -255,6 +315,7 @@ class NewEventForm extends React.Component {
                 <div className="col-md-4">
                     <TextField name="date_debut" 
                     accepter={DatePicker} 
+                    oneTap
                     placement="auto"
                     placeholder="selectionner"
                     format="DD MMM YYYY"
@@ -265,6 +326,7 @@ class NewEventForm extends React.Component {
                 <div className="col-md-4">
                     <TextField name="date_fin" 
                     accepter={DatePicker} 
+                    oneTap
                     placement="auto"
                     placeholder="selectionner "
                     format="DD MMM YYYY"
@@ -297,7 +359,7 @@ class NewEventForm extends React.Component {
                
                 </div>
                 <div className="col-md-8 ">
-                    <TextField name="description"  componentClass="textarea" label="Description" />
+                    <TextField name="description"  componentClass="textarea" placeholder="Ex: Plus d'information sur l'événement"  label="Description" />
                 </div>
             </div>
             </div>
@@ -316,13 +378,14 @@ class NewEventForm extends React.Component {
                 <div className="col-md-6">
                    
                     <FormGroup>
-                        <ControlLabel>Choisissez une image pour l'événement </ControlLabel>
+                        <ControlLabel>Choisissez des images pour l'événement </ControlLabel>
                     {/* <input onChange={this.onFilePhoto} type="file" placeholder="Default Input" />
                      */}
                     <div className="js">
 
                       <div className="input-file-container">
-                        <input 
+                        <input multiple
+                          name="images"
                          onChange={this.onFilePhoto}className="input-file" id="my-file" type="file"/>
                         <label  className="input-file-trigger" tabindex="0">
                           Choisir un fichier
@@ -373,7 +436,7 @@ class NewEventForm extends React.Component {
           {(chronoValide && this.props.step===1  ) &&(
             
           <ButtonToolbar className="float-right p-2 mt-4">
-          <Button className="btn-create-new-event py-3 px-3"  onClick={this.handleSubmit}>
+          <Button loading={this.state.load} className="btn-create-new-event py-3 px-3"  onClick={this.handleSubmit}>
             Créer l'événement
           </Button>
           </ButtonToolbar>
@@ -389,12 +452,16 @@ class NewEventForm extends React.Component {
         <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
               <Modal.Body >
                
-            <Message showIcon type="success" description="Success" />
-               Evénement creer avec succes
+               {show &&  <Message className="p-3" showIcon type="success" description="Félicitation ! Evénement créer avec succes" /> }
+            
+
+              {showError &&  <Message className="p-3" showIcon type="error" description="ERREUR ! veuillez bien renseigner les champs." />}
+            
+              
               </Modal.Body>
               <Modal.Footer>
-                <Button onClick={this.close} appearance="primary">
-                  Ok
+                <Button className="px-3" onClick={this.close} color={showError ?  "red":"green"} appearance="ghost">
+                  Compris
                 </Button>
               </Modal.Footer>
             </Modal>
