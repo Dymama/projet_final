@@ -415,3 +415,21 @@ exports.getPosteByEntreprise = async (req, res) => {
     }).catch(err => console.log(err))
   }
   
+  
+// supprimer un formation
+exports.deleteAllPosteFromEvent = async (req, res) => {
+  
+    await Poste.deleteMany({ evenement: req.params.id }, (err, poste) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+  
+        if (!poste) {
+            return res
+                .status(404)
+                .json({ success: false, error: `aucun poste trouvé` })
+        }
+  
+        return res.status(200).json({ success: true, data: poste })
+    }).catch(err => console.log(err))
+  }

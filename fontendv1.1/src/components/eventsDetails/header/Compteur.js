@@ -35,7 +35,7 @@ const Compteur = ({days, hours, minutes, seconds }) => {
     <>
     
     <Row className="mx-auto  text-center">
-      <Col className="" md={6} sm={6}>
+      <Col className="" md={6} sm={6} xs={6}>
         <Row className="mx-auto  text-center">
           <Col className="mx-auto text-center" md={24} sm={24}>
             <div className="item-compteur w-50 mx-auto py-3">
@@ -47,7 +47,7 @@ const Compteur = ({days, hours, minutes, seconds }) => {
           </Col>
         </Row>
       </Col>
-      <Col className="" md={6} sm={6}>
+      <Col className="" md={6} sm={6} xs={6}>
         <Row className="mx-auto  text-center">
           <Col className="" md={24} sm={24}>
             <div className="item-compteur w-50 mx-auto py-3">
@@ -60,7 +60,7 @@ const Compteur = ({days, hours, minutes, seconds }) => {
         </Row>
                    
       </Col>
-      <Col className="" md={6} sm={6}>
+      <Col className="" md={6} sm={6} xs={6}>
         <Row className="mx-auto  text-center">
           <Col className="" md={24} sm={24}>
             <div className="item-compteur w-50 mx-auto py-3">
@@ -73,7 +73,7 @@ const Compteur = ({days, hours, minutes, seconds }) => {
         </Row>
                    
       </Col>
-      <Col className="" md={6} sm={6}>
+      <Col className="" md={6} sm={6} xs={6}>
         <Row className="mx-auto  text-center">
           <Col className="" md={24} sm={24}>
             <div className="item-compteur w-50 mx-auto py-3">

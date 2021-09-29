@@ -118,6 +118,15 @@ export default function ListEvent({match}) {
 
   }
   
+  
+  function handleNewEvent() {
+    history.push({
+        pathname: '/dashboard/new_event',
+       
+    });
+
+  }
+  
   const dataClickConf = (value)=>{
     setRowClickData(value)
   }
@@ -167,6 +176,39 @@ export default function ListEvent({match}) {
 
   },[listEvent.listEvent.data])
 
+
+  
+  
+  useEffect(()=>{
+      
+    var timer1 = setTimeout(() => {
+        if(listEvent.listEvent && listEvent.listEvent.data.length !== 0 && listEvent.listEvent.success === true ){
+            setLoading(false)
+            setUmptyData(false)
+            
+            setListEventData(listEvent.listEvent.data);
+            
+            // setDataValide(trieEntretien(mesEntretien.entretien.data).dataValide)
+            // setDataAttente(trieEntretien(mesEntretien.entretien.data).dataAttente)
+            
+        }
+        if(listEvent.listEvent.data && listEvent.listEvent.data.length === 0 && listEvent.listEvent.success === true ){
+            
+            setLoading(false)
+            setUmptyData(true)
+
+        }
+     
+        
+      }, 1000);
+      
+      return () => {
+        clearTimeout(timer1);
+      };
+
+  },[])
+
+
     return (
        <>
             <Container className="bg-white p-3">
@@ -206,7 +248,7 @@ export default function ListEvent({match}) {
                       <div className="col-12 mx-auto pb-3">
                           
                           <ButtonToolbar className="float-md-right mx-auto">
-                              <IconButton appearance="ghost" icon={<Icon icon="plus" />} placement="right">
+                              <IconButton onClick={()=> handleNewEvent()} appearance="ghost" icon={<Icon icon="plus" />} placement="right">
                                   Nouvel Evénements
                               </IconButton>
                           </ButtonToolbar>

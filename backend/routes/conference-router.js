@@ -10,6 +10,7 @@ router.delete('/:id', ConferenceCtrl.deleteOne)
 router.get('/:id', ConferenceCtrl.getOne)
 router.get('/', ConferenceCtrl.getAll)
 router.get('/get_event_conference/:id', ConferenceCtrl.getEventConference)
+router.delete('delete_all_conference_event/:id', ConferenceCtrl.deleteAllConfenceFromEvent)
 
 module.exports = router
 

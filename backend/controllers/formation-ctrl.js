@@ -142,3 +142,22 @@ exports.getAll = async (req, res) => {
       return res.status(200).json({ success: true, data: formation })
   }).catch(err => console.log(err))
 }
+
+
+// supprimer un formation
+exports.deleteAllFormationFromEvent = async (req, res) => {
+  
+    await Formation.deleteMany({ evenement: req.params.id }, (err, formation) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+  
+        if (!formation) {
+            return res
+                .status(404)
+                .json({ success: false, error: `aucun formation trouvé` })
+        }
+  
+        return res.status(200).json({ success: true, data: formation })
+    }).catch(err => console.log(err))
+  }

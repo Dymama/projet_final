@@ -29,7 +29,7 @@ function  GalleryEvents(props)  {
     }, [props.images])
 
     return (
-    <ImageGallery items={images} />
+    <ImageGallery lazyLoad={true} autoPlay={true} showNav={false} items={images} />
     
     );
   

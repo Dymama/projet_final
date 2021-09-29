@@ -116,10 +116,11 @@ const BodyEventDetail = (props) => {
   function open(data) {
       setShow(true);
       setCardClickData(data)
-      setTimeout(() => {
+      var timer = setTimeout(() => {
         setRows(80)
       }, 1000);
 
+      return () => {clearTimeout(timer)}
   }
 
   
@@ -134,10 +135,11 @@ function resetRowsConferenceModal() {
   function openConferenceModal(data) {
     setShowConferenceModal(true);
     setCardClickDataConferenceModal(data)
-    setTimeout(() => {
+     var timer = setTimeout(() => {
       setRowsConferenceModal(80)
     }, 1000);
 
+    return () => {clearTimeout(timer)}
 }
 
 
@@ -238,6 +240,7 @@ function showAlertConfNotDisponible(date,heure) {
         .then(res => {
             
             setParticipants(res.data.data.participants)
+            props.setUpdateParticipant(res.data.data.participants)
             
             setParticipantsEntreprise(trieParticipantsEntreprise(res.data.data.participants))
 
@@ -257,6 +260,7 @@ function showAlertConfNotDisponible(date,heure) {
         .then(res => {
             
             setParticipants(res.data.data.participants)
+            props.setUpdateParticipant(res.data.data.participants)
 
             setParticipantsEntreprise(trieParticipantsEntreprise(res.data.data.participants))
            
@@ -368,7 +372,10 @@ function showAlertConfNotDisponible(date,heure) {
                         
                     <Col className="" md="12" sm="12">
                             
-                        <Button size="lg" loading={btnLoading} className={participate ? "btn-annuler" : "btn-participer"}  onClick={() =>{participate? clickParticipateAnnuler() :clickParticipateEvent()} } >
+                        <Button size="lg" loading={btnLoading}
+                        appearance={participate ? "ghost" : ""} 
+                        color={participate ? "red" : ""} 
+                        className={participate ? "btn-annuler" : "btn-participer"}  onClick={() =>{participate? clickParticipateAnnuler() :clickParticipateEvent()} } >
                            {participate ? "Annuler participation" : "Participer à l'événement"}
                         </Button>
 
@@ -391,7 +398,7 @@ function showAlertConfNotDisponible(date,heure) {
 
                         </div>
                     </Col>
-                    <Col className="mx-auto mt-3" md="6" sm="12">      
+                    <Col className="mx-auto mt-3" md="6"  sm="12">      
                             <GalleryEvents dataEvent={dataEvent} />
                     </Col>
                 </Row>

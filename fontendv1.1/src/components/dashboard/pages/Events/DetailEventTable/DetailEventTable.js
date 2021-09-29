@@ -31,22 +31,10 @@ import evenements from '../../../../../api/evenement';
 import CreateUserDetail from './CreateUserDetail';
 
 import utilisateurs from '../../../../../api/utilisateur';
+import {dataMinute,dataDebut} from '../../../../../services/_modules'
+import DeleteModal from './DeleteModal';
+import { alertError, alertSuccess } from '../../../../others/NotificationInfog';
 
-
- function dataDebut(date){
-    var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-    var d =  new Date(date)
-    
-    return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
-  }
-  
-  function dataMinute(date){
-    
-    var d =  new Date(date)
-    var min =`${d.getMinutes()}`
-    
-    return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
-  }
   
 
 export default function DetailEventTable(props) {
@@ -62,6 +50,46 @@ export default function DetailEventTable(props) {
     const [eventDataRow, setEventDataRow] = useState([])
     const [loading,setLoading] = useState(true)
     const [userData, setUserData] = useState([])
+
+    const [showDeleteModal,setShowDeleteModal] = useState(false)
+    const [loadingDelete,setLoadingDelete] = useState(false)
+    
+    
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false );
+      }
+  
+    const openDeleteModal = () =>  {
+        setShowDeleteModal( true)
+    }
+    
+
+    const handleRetourTable = ()=> {
+        history.push({
+            pathname: '/dashboard/list_events',
+            });
+    }
+        
+
+
+    const handleDeleteEvent = ()=>{
+        setLoadingDelete(true)
+       
+        evenements.deleteEvenementById(eventRowID)
+        .then( ()=>{
+
+            setTimeout(() => {
+                setLoadingDelete(false)
+                alertSuccess("Opération effectuée avec succes.")
+                handleRetourTable()
+            }, 3100);
+
+        })
+        .catch( ()=>{
+            setLoadingDelete(false)
+            alertError("Une erreur s'est produite.")
+        })
+    }
 
 
     useEffect(()=>{
@@ -127,7 +155,7 @@ export default function DetailEventTable(props) {
     
     return (
     <>
-    
+    <DeleteModal loadingDelete={loadingDelete} showDeleteModal={showDeleteModal} handleDeleteEvent={handleDeleteEvent} closeDeleteModal={closeDeleteModal} />
     <Container className="bg-white px-5">
         <Content>
         {loading ? (
@@ -147,10 +175,18 @@ export default function DetailEventTable(props) {
                         </Button>
                         </Col>
                         <Col  data-aos-delay="600" data-aos="slide-up"  md={12} sm={12}>
+
+                            <ButtonToolbar className="float-md-right">
                           
-                            <Button onClick={() => handleActionEditEvent()} color="blue"  className="mt-3 ml-3 float-md-right" appearance="ghost">
-                                <Icon className="mr-2" icon="edit" /> Editer
-                            </Button>
+                          <Button onClick={() => handleActionEditEvent()} color="blue"  className="mt-3 ml-3 " appearance="ghost">
+                              <Icon className="mr-2" icon="edit" /> Editer
+                          </Button>
+                          
+                          <Button onClick={() => openDeleteModal()} color="red"  className="mt-3 ml-3" appearance="ghost">
+                              <Icon className="mr-2" icon="trash" /> Supprimer
+                          </Button>
+
+                            </ButtonToolbar>
                         </Col>
                        
                     </Row>
@@ -162,67 +198,80 @@ export default function DetailEventTable(props) {
                         </Col>
                        
                     </Row>
-                    <Row  data-aos="zoom-in-down" className="mt-1 px-2 ml-3">
-                        <Col data-aos-delay="700"  data-aos="slide-right"  md={8} sm={12}>
-                        <p data-aos-delay="500"  data-aos="slide-right">
-                                Titre    :<span className="ml-4">
-                                    {eventDataRow.titre}
-                                </span>
-                            </p> 
-                        </Col>
-                       
-                    </Row>
-                    <Row  data-aos="zoom-in-down" className="px-2 ml-3">
-                        <Col data-aos-delay="500"  data-aos="slide-right"  md={12} sm={12}>
-                            
+                    <Panel bordered shaded data-aos="zoom-in-down" className="mt-4">
+                    <Row className="details-event-table-header">
+                        <Row  data-aos="zoom-in-down" className="mt-1 px-2 ml-3">
+                            <Col data-aos-delay="700"  data-aos="slide-right"  md={8} sm={12}>
                             <p data-aos-delay="500"  data-aos="slide-right">
-                                Date de début    :<span className="ml-4">
-                                {dataDebut(eventDataRow.date_debut)}
-                                </span>
-                            </p>
-                            <p data-aos-delay="500"  data-aos="slide-right">
-                                Heure de début    :<span className="ml-4">
-                                {dataMinute(eventDataRow.heure_debut)}
-                                </span>
-                            </p>
+                                    Titre    :<span className="ml-4">
+                                        {eventDataRow.titre}
+                                    </span>
+                                </p> 
+                            </Col>
+                        
+                        </Row>
+                        <Row  data-aos="zoom-in-down" className="px-2 ml-3">
+                            <Col data-aos-delay="500"  data-aos="slide-right"  md={12} sm={12}>
+                                
+                                <p data-aos-delay="500"  data-aos="slide-right">
+                                    Date de début    :<span className="ml-4">
+                                    {dataDebut(eventDataRow.date_debut)}
+                                    </span>
+                                </p>
+                                <p data-aos-delay="500"  data-aos="slide-right">
+                                    Heure de début    :<span className="ml-4">
+                                    {dataMinute(eventDataRow.heure_debut)}
+                                    </span>
+                                </p>
+                                
+                                <p data-aos-delay="500"  data-aos="slide-left">
+                                    Pays    :<span className="ml-4">
+                                    {eventDataRow.pays}
+                                    </span>
+                                </p>
                             
+                            
+                            </Col>
+                            <Col  data-aos-delay="600" data-aos="slide-in"  md={12} sm={12}>
                             <p data-aos-delay="500"  data-aos="slide-left">
-                                Pays    :<span className="ml-4">
-                                {eventDataRow.pays}
-                                </span>
-                            </p>
-                           
-                           
-                        </Col>
-                        <Col  data-aos-delay="600" data-aos="slide-in"  md={12} sm={12}>
-                        <p data-aos-delay="500"  data-aos="slide-left">
-                                Date de fin    :<span className="ml-4">
-                                {dataDebut(eventDataRow.date_fin)}
-                                </span>
-                            </p>
-                            <p data-aos-delay="500"  data-aos="slide-left">
-                                Heure de fin    :<span className="ml-4">
-                                {dataMinute(eventDataRow.heure_fin)}
-                                </span>
-                            </p>
-                            <p data-aos-delay="500"  data-aos="slide-left">
-                                Ville    :<span className="ml-4">
-                                {eventDataRow.ville}
-                                </span>
-                            </p>
-                        </Col>
+                                    Date de fin    :<span className="ml-4">
+                                    {dataDebut(eventDataRow.date_fin)}
+                                    </span>
+                                </p>
+                                <p data-aos-delay="500"  data-aos="slide-left">
+                                    Heure de fin    :<span className="ml-4">
+                                    {dataMinute(eventDataRow.heure_fin)}
+                                    </span>
+                                </p>
+                                <p data-aos-delay="500"  data-aos="slide-left">
+                                    Ville    :<span className="ml-4">
+                                    {eventDataRow.ville}
+                                    </span>
+                                </p>
+                            </Col>
+                        </Row>
                     </Row>
+                    </Panel>
 
-                    <Row  data-aos="zoom-in-down" className="mt-3 px-2 ml-3">
-                        <Col data-aos-delay="700"  data-aos="slide-right"  md={24} sm={12}>
-                        <p data-aos-delay="500"  data-aos="slide-right">
-                                Description    :<span className="ml-4">
-                                {eventDataRow.description}
-                                </span>
-                        </p>
-                        </Col>
-                       
-                    </Row>
+                    <Panel bordered data-aos="zoom-in-down" className="mt-4">
+                        <Row className="mt-1">
+                            <Col md={24} sm={12}>
+                                <h6 className="text-center mx-auto font-weight-bold">
+                                        Description   
+                                </h6>
+                            </Col>
+                        
+                        </Row>
+                        <Row  className="mt-3 px-2 ml-3">
+                            <Col  md={24} sm={12}>
+                            <p > 
+                             {eventDataRow.description}
+                                   
+                            </p>
+                            </Col>
+                        
+                        </Row>
+                    </Panel>
                     <Row  data-aos="zoom-in-down">
                         <Col data-aos-delay="700"  data-aos="slide-right"  md={8} sm={12}>
                             <h6 color="violet"  className="mt-3 ml-3">

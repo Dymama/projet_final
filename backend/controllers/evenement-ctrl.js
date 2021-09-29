@@ -1,5 +1,7 @@
 const Evenement = require('../models/evenement-model')
 const Administrateur = require('../models/administrateur-model')
+const Conference = require('../models/conference-model')
+const Poste = require('../models/poste-model')
 
 
 
@@ -128,7 +130,60 @@ exports.update = async (req, res) => {
 
 // supprimer un evenement
 exports.deleteOne = async (req, res) => {
+
+    // await Evenement.findOneAndRemove({ _id: req.params.id  }, (err, response)  =>{
+    //     if (err) throw err;
+    //     Conference.update(
+    //         { "evenement": req.params.id },
+    //         { "$pull": { "evenement": req.params.id } },
+    //         function (err, res){
+    //             if (err) throw err;
+    //             Poste.update(
+    //                 { "evenement": req.params.id },
+    //                 { "$pull": { "evenement": req.params.id } },
+    //                 function (err, res){
+    //                     if (err) throw err;
+        
+    //                         res.json(res);
+                        
+    //                 }
+    //             );
+
+
+    //         }
+    //     );
+    // });
+
+     Conference.deleteMany({ evenement: req.params.id }, (err, conference) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        
+        
+
+    }).catch(err => console.log(err))
+    
+     Poste.deleteMany({ evenement: req.params.id }, (err, poste) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
   
+        
+    }).catch(err => console.log(err))
+
+    // Formation.deleteMany({ evenement: req.params.id }, (err, formation) => {
+    //     if (err) {
+    //         return res.status(400).json({ success: false, error: err })
+    //     }
+  
+    //     if (!formation) {
+    //         return res
+    //             .status(404)
+    //             .json({ success: false, error: `aucun formation trouvé` })
+    //     }
+  
+    // }).catch(err => console.log(err))
+
   await Evenement.findOneAndDelete({ _id: req.params.id }, (err, evenement) => {
       if (err) {
           return res.status(400).json({ success: false, error: err })
@@ -142,6 +197,7 @@ exports.deleteOne = async (req, res) => {
 
       return res.status(200).json({ success: true, data: evenement })
   }).catch(err => console.log(err))
+
 }
 
 

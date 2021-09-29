@@ -18,6 +18,9 @@
 
 .poste-infos h6{
     font-family: 'Open Sans', sans-serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .poste-infos .title-h{

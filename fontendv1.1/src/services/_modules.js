@@ -105,6 +105,7 @@ export const imageStruted = (data)=>{
          return{
             original: item,
             thumbnail: 'https://picsum.photos/id/1018/250/150/',
+            originalHeight:300
          }
 
         })

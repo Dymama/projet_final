@@ -33,4 +33,17 @@ export function openParticipateAlert(text) {
       </Row>)
     });
   }
+
+  
+  export function alertSuccess(text) {
+    Notification.success({
+      title: 'Génial !!',
+      duration: 5000,
+      description:(<Row style={{ width: 320 }} rows={3} >
+          <p >
+                {text}
+          </p>
+      </Row>)
+    });
+  }
   

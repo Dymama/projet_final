@@ -67,12 +67,12 @@ export default function ConferenceCard(props) {
                         {dataConference.theme}
                     </h6>
                 </Col>   
-                <Col className="" md={24} sm={24}>
+                <Col className="" md={24} sm={24} xs={24}>
                 <Media style={{height:"10em"}} width="100%"  src={events1} alt="event empower"  />
                 </Col>
             </Row>
             <Row className="pt-2 mx-auto text-center">      
-                <Col className="" md={12} sm={24}>
+                <Col className="" xs={12} md={12} sm={12}>
                     <Row className=" date-container-detail">
                       <Col className="font-weight-bold" md={24} sm={24}>
                         <Icon 
@@ -86,14 +86,14 @@ export default function ConferenceCard(props) {
                     </Row>
                 </Col>
                       
-                <Col className="" md={12} sm={24}>
+                <Col className="" xs={12} md={12} sm={12}>
                     <Row className=" date-container-detail">
                       <Col className="font-weight-bold" md={24} sm={24}>
                         <Icon 
                         
                         className="mr-2"  icon="clock-o"/>Heure de début
                       </Col>
-                      <Col className="" md={24} sm={24}>
+                      <Col className="" md={24} sm={24} >
                     
                       {dataMinute(dataConference.heure_debut)}
                     

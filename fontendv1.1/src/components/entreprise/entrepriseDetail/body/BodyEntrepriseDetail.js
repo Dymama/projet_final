@@ -95,36 +95,17 @@ const BodyEntrepriseDetail = (props) => {
                     Description de l'entreprise 
                 </h2>
                 <Row>
-                    <Col className="text-description"md={20} sm={24}>
+                    <Col className="text-description"md={24} sm={24}>
                     
                         <p>
                        {entrepriseData.description}
                         </p>
                     </Col>
-                    <Col className="text-description"md={4} sm={24}>
-                    <Media object src={event3}  alt="logoEmpower" className="img-entreprise-details" />
-                    </Col>
+                   
                 </Row>
             </div>
          
    
-            <div className="container-domaine-siege ">
-                <div className="container mx-auto text-center entreprise-detail-local">
-                    <div className="font-weight-bold" md={24} sm={24}>
-                        <Icon 
-                            className="mr-3"  icon="calendar"/>
-                           {entrepriseData.email}
-                    </div>
-                    <div className="font-weight-bold" md={24} sm={24}>
-                        <Icon 
-                            className="mr-3"  icon="calendar"/>
-                           {entrepriseData.linkedin}
-                    </div>
-               
-                </div>
-
-            </div>
-
                 
         </div>
 

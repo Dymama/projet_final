@@ -43,3 +43,35 @@ style de la page eventDetails
 .description-event-container-detail{
     
 }
+
+@media screen and (max-width: 768px) {
+    .header-event-detail-container{
+        /* height: 30em;
+        margin-top: 7.2em; */
+        padding: 1em  1em  0em  1em;
+        margin-top: 8em;
+        background: rgb(176,63,251);
+        background: radial-gradient(circle, rgb(51, 45, 54) 0%, rgb(29, 9, 26)100%);
+    
+    } 
+    
+
+}
+
+
+@media screen and (max-width: 580px) and (min-width: 480px) {
+        
+    .header-styled-container .info-date-container-detail ,.date-container-detail{
+        font-size: 10px;
+    }
+    .header-event-detail-container{
+        /* height: 30em;
+        margin-top: 7.2em; */
+        padding: 1em  1em  0em  1em;
+        margin-top: 8em;
+        background: rgb(176,63,251);
+        background: radial-gradient(circle, rgb(51, 45, 54) 0%, rgb(29, 9, 26)100%);
+    
+    }
+
+}

@@ -9,13 +9,14 @@ import './eventDetails.css';
 
 
 const EventDetails = (props) => {
-
+  const [updateParticipant, setUpdateParticipant] = useState([])
+  
   return (
     <>
       <NavbarHeader/>
      <div className="event-details-container">
-       <HeaderEventDetail/>
-       <BodyEventDetail/>
+       <HeaderEventDetail updateParticipant={updateParticipant} />
+       <BodyEventDetail setUpdateParticipant={setUpdateParticipant} />
        <Footer/>
      </div>
     </>

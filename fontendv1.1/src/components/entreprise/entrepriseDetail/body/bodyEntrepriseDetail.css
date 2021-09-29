@@ -3,23 +3,15 @@
 }
 
 .description-entreprise-container{
-    position:relative;
-    margin-left: 5em;
-    margin-right: 5em;
+
     padding:2em 4em;
-    top: -10em;
-    border:1px solid purple;
-    height: 20em;
 }
 .description-entreprise-container h2{
 
     color: purple;
     font-family: 'Open Sans' ,'sans-sherif'
   }
-.img-entreprise-details{
-    height: 50%;
-    width: 100%;
-}
+
 
 .description-entreprise-container .text-description{
 
@@ -28,22 +20,6 @@
     padding-top: 1%;
   }
 
-.container-domaine-siege{
-    background-color: rgba(109, 46, 106, 0.822);
-    padding: 2em 0;
-    color: white;
-}
-
-.entreprise-detail-local{
-   
-    display: flex;
-    justify-content:space-around;
-
-}
-
-.entreprise-postes-items{
-    
-}
 
 .entreprise-postes{
     background-color: #ffffffa1;
@@ -52,7 +28,6 @@
     background-position-x: left;
     z-index: 99;
 }
-
 
 
 .contact-us-entreprise{

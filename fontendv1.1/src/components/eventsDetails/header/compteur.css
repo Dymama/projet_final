@@ -8,7 +8,7 @@
   color: #ffffff;
   font-weight: 700;
   font-family: sans-serif;
-  background-color: #530453;
+  background-color: #041053;
   
 }
   
@@ -16,4 +16,51 @@
   font-size: 18px;
   font-weight: bold;
 
+}
+
+
+@media screen and (max-width: 768px) {
+ 
+.item-compteur{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: sans-serif;
+  background-color: #041053;
+  
+}
+  
+.text-item-compteur{
+  font-size: 18px;
+  font-weight: bold;
+
+}
+
+  
+
+}
+@media screen and (max-width: 430px) {
+  
+.item-compteur{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: sans-serif;
+  background-color: #041053;
+  
+}
+  
+.text-item-compteur{
+  font-size: 14px;
+  font-weight: bold;
+
+}
+
+ 
 }

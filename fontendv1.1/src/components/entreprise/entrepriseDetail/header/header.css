@@ -3,21 +3,44 @@ style de la page eventDetails
 */
 
 .header-entreprise-detail-container{
-    height: 30em;
+ 
     margin-top: 8em;
-    padding-top: 3em;
-}
-
-.container-entreprise-header{
-    height: 40em;
+    padding-top: 2em;
+    z-index: 0;
     position: relative;
 }
 
+.container-entreprise-header{
+    position: relative;
+    z-index: 1;
+    opacity: 999;
+    
+}
+
+.nom-entreprise-div{
+    z-index: 999;
+    color: #fff;
+    opacity: 1;
+}
+.nom-entreprise-div h1{
+    z-index: 999;
+    color: #fff;
+}
+
+.panel-entreprise-header{
+    font-size:18px;
+}
+
+.panel-entreprise-header .text-desc{
+    color: blue;
+    font-weight: bold;
+}
 
 .header-entreprise-detail-container .img-entreprise{
     height: 100%;
     width: 100%;
     position: relative;
+    opacity: 0.4;
 }
 
 .header-title-container{
@@ -49,22 +72,26 @@ style de la page eventDetails
     height:10em;
     background-color: rgb(255, 255, 255);
     position: relative;
-    top: -10em;
 
 }
 
 
 
-
-.header-styled-container button:first-child{
+@media screen and (max-width: 768px) {
    
-    
+.panel-entreprise-header .text-desc{
+    color: blue;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1em;
 }
 
-.header-styled-container button:last-child{
-   
 }
 
 
+@media screen and (max-width: 580px) and (min-width: 480px) {
+     
+
+}
 
 

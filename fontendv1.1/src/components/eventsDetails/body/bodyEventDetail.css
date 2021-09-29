@@ -12,22 +12,7 @@
 }
 
 .btn-annuler{
-    background-color:#a4a7a7;
     padding:1em 3em ;
-    color:rgb(255, 255, 255);
-}
-
-.btn-annuler:hover{
-    background-color:rgb(140, 145, 141);
-    padding:1em 3em ;
-    color:rgb(255, 255, 255);
-}
-
-
-.btn-annuler:focus{
-    background-color:#a4a7a7;
-    padding:1em 3em ;
-    color:rgb(255, 255, 255);
 }
 
 

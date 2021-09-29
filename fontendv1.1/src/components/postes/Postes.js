@@ -7,16 +7,25 @@ import events1 from '../../assets/images/others/event1.png'
 
 import './postes.css';
 import postes from '../../api/poste';
+import entreprises from '../../api/entreprise';
 
 
 const Postes = (props) => {
    const [dataPoste, setDataPoste] = useState(props.dataPoste)
+   const [dataEntreprise, setDataEntreprise] = useState([])
    
    
    useEffect(() => {
     postes.getPosteById(props.dataPoste._id)
         .then(res=>{
             setDataPoste(res.data.data)
+            entreprises.getEntrepriseById(res.data.data.entreprise)
+            .then(res=>{
+                setDataEntreprise(res.data.data)
+            })
+            .then(err=>{
+                
+            })
         })
         .catch(err=>{
             console.log(err)
@@ -31,6 +40,7 @@ const Postes = (props) => {
         .catch(err=>{
             console.log(err)
         })
+
     }, [props.updateOffre])
 
 
@@ -43,15 +53,15 @@ const Postes = (props) => {
                 onClick={()=>props.open(dataPoste)} >
                     
                <Row className="poste-infos">
-                   <Col md="4">
+                   <Col md="4" xs="4" sm="4">
                    <Media width="100%"  src={events1} alt="event empower"  />
                    <div>
                        <h6 className="h6 text-center">
-                           empower
+                           {dataEntreprise.nom}
                        </h6>
                    </div>
                    </Col>
-                   <Col md="8" className="col-informations">
+                   <Col md="8" sm="8" xs="8" className="col-informations">
                        <div className="title-h">
                            <h5 classNamz="text-center">
                            {dataPoste.titre}

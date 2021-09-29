@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from 'react'
-import { Table } from 'rsuite';
+import { Button, Table,ButtonToolbar } from 'rsuite';
 import { withRouter,Redirect } from 'react-router';
 import { connect } from 'react-redux'
 import { useHistory } from "react-router-dom";
 
 // import {apiOffreGet} from '../../../../redux/entreprise/getOffres/getOffreAction'
 // import postes from '../../../../api/poste'
-const { Column, HeaderCell, Cell, Pagination,ButtonToolbar,Icon,IconButton,Loader } = Table;
+const { Column, HeaderCell, Cell, Pagination,Loader } = Table;
 
 
 function dataDebut(date){
@@ -53,6 +53,8 @@ function constitueData(data){
       return (
         <div>
           <Table
+          fluid
+          virtualized={true}
             height={400}
             data={data}
             onRowClick={data => {
@@ -61,69 +63,27 @@ function constitueData(data){
             }}
           >
             
-            <Column width={200} fixed>
-              <HeaderCell>Titre</HeaderCell>
+            <Column width={300} >
+              <HeaderCell style={{background:'#000',color:"#fff"}}>Titre</HeaderCell>
               <Cell dataKey="titre" />
             </Column>
   
-            <Column width={200}>
-              <HeaderCell>Description</HeaderCell>
+            <Column width={300}>
+              <HeaderCell style={{background:'#000',color:"#fff"}}>Description</HeaderCell>
               <Cell dataKey="description" />
             </Column>
   
-            <Column width={200}>
-              <HeaderCell>Date début</HeaderCell>
+            <Column width={300}>
+              <HeaderCell style={{background:'#000',color:"#fff"}}>Date début</HeaderCell>
               <Cell dataKey="date_debut" />
             </Column>
 
-            <Column width={200}>
-              <HeaderCell>Heure début</HeaderCell>
+            <Column width={300}>
+              <HeaderCell style={{background:'#000',color:"#fff"}}>Heure début</HeaderCell>
               <Cell dataKey="heure_debut" />
             </Column>
   
-            <Column width={120} fixed="right">
-              <HeaderCell>Action</HeaderCell>
-  
-              <Cell>
-                {rowData => {
-                //   function handleAction() {
-                //     alert(`titre:${rowData._id}`);
-                //     console.log(`titre:${rowData._id}`);
-                   
-                //     if(rowData._id){
-                //       history.push({
-                //           pathname: '/dashboard/edition',
-                //           search: '?query=abc',
-                //           state: {idOffre: rowData._id}
-                //       });
-                //     }
-                //   }
-                  
-                //   function handleAction2() {
-                //     {/* alert(`titre delete:${rowData.titre}`); */}
-                //     postes.deletePosteById(rowData._id)
-                //         .then((res)=>{
-                //             console.log(res.data,'data deleted')
-                //         })
-                //         .catch(err=>{
-                //             console.log(err)
-                //         })
-
-                //   }
-                  return (
-
-                      <>
-
-                        <span>      
-                        <a > Editer </a> |{' '}
-                        <a> Supprimer </a>
-                        </span>
-                     </>
-                  
-                  );
-                }}
-              </Cell>
-            </Column>
+          
           </Table>
         </div>
       );
