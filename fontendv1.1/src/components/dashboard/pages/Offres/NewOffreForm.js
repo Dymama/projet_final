@@ -30,7 +30,7 @@ import configureStore from '../../../../redux/store';
 import { apiListEvent } from '../../../../redux/events/listEvent/listEventAction';
 import utilisateurs from '../../../../api/utilisateur';
 import { dataCountries } from '../../../../services/_dataCountries';
-import { alertError } from '../../../others/NotificationInfog';
+import { alertError, alertSuccess } from '../../../others/NotificationInfog';
 
 const { StringType, NumberType } = Schema.Types;
 
@@ -107,7 +107,7 @@ class NewOffreForm extends React.Component {
    
   handleActionNewOffre = e => {
     setTimeout(() => {
-      this.setState({evenement:''})
+      
       this.setState(initialState)
       this.props.history.push("/dashboard/new_offre");
       
@@ -127,6 +127,15 @@ class NewOffreForm extends React.Component {
     const { formValue,description,evenement } = this.state;
     if (!this.form.check()) {
       console.error('Form Error');
+      this.setState({load: true})
+      
+      setTimeout(() => {
+      
+          this.setState({load: false})
+          alertError("Une erreur s'est produite.")
+
+      },1000)
+
       return;
     }
     
@@ -266,7 +275,7 @@ class NewOffreForm extends React.Component {
         <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
               <Modal.Body>
                
-            <Message showIcon type="success" description="Bravo! L'offre a été créee avec succes." />
+            <Message showIcon type="success" description="Bravo! L'offre a été crée avec succes." />
                
               </Modal.Body>
             

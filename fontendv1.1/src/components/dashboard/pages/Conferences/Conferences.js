@@ -139,12 +139,21 @@ export default function Conferences({match}) {
     return (
        <>
 
-        <section className="content bg-white">
+    <Container className="bg-white p-3">
+        <Content>
+        {/* <section className="content bg-white">
+           */}
+        <div className="col-12 py-2">
+              <h4 className="mx-auto text-center">
+                  Liste des conférences
+              </h4>
+                
+            </div>
           <div className="container-fluid">
               <Row  data-aos="zoom-in-down">
                         <Col className="p-3 text-center"  data-aos="slide-right"  md={12} sm={12}>
                             <InputGroup inside>
-                                <Input placeholder="Recherche..." />
+                                <Input  size="lg" placeholder="Recherche..." />
                                 <InputGroup.Button>
                                     <Icon icon="search" />
                                 </InputGroup.Button>
@@ -152,18 +161,12 @@ export default function Conferences({match}) {
                        
                         </Col>
                         <Col className="p-3" md={12} sm={12}>
-                          <InputPicker className="float-md-right w-100" data={data} placeholder="Trier par..."/>
+                          <InputPicker  size="lg" className="float-md-right w-100" data={data} placeholder="Trier par..."/>
                         </Col>
 
               </Row>
 
             
-            <div className="col-12 py-2">
-              <h4 className="mx-auto text-center">
-                  Liste des conférences
-              </h4>
-                
-            </div>
             <Row  data-aos="zoom-in-down">
                         <Col data-aos-delay="500"  data-aos="zoom-up" className="p-3 text-center"  data-aos="slide-right"  md={8} sm={8}>
                           <Panel  style={{color:"green"}} className="p-0 text-center"   shaded>
@@ -256,7 +259,8 @@ export default function Conferences({match}) {
             </div>
 
           </div>
-        </section>
+        </Content>
+        </Container>
 
     </>
     

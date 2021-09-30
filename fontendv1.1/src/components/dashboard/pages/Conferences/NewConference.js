@@ -30,9 +30,9 @@ export default function NewConference(){
                 <div className="mx-auto">
                     <div className="header-new-conference mt-2 mb-3 py-3 text-center mx-auto">
                         <h4 className="text-center mx-auto">
-                            Nouvelle conférence
+                            Enregistrement d'une nouvelle conférence
                         </h4>
-                        <p className="text-center">Veuillez bien renseigner les informations</p>
+                        {/* <p className="text-center">Veuillez bien renseigner les informations</p> */}
                     </div>
                     <div className="body-new-conference row p-4">
 

@@ -68,60 +68,6 @@ exports.create = (req, res, next) => {
                             })
                         }) 
                             
-            
-
-
-
-
-
-            // verification de l'entreprise
-            // Entreprise.findOne({utilisateur: userSession.userId})
-            //     .then( entreprise => {
-            //         if (!entreprise) {
-            //             return res.status(401).json({ error: 'entreprise non trouvé !' });
-            //         }
-    
-            //         // poste container 
-            //         const poste = new Poste({
-            //             ...body,
-            //             administrateur: admin._id,
-            //             entreprise: entreprise
-        
-
-            //             })
-                
-            //         if (!poste) {
-            //             return res.status(400).json({ success: false, error: err })
-            //         }
-                
-            //         poste
-            //             .save()
-            //             .then(() => {
-            //                 return res.status(201).json({
-            //                     success: true,
-            //                     id: poste._id,
-            //                     message: 'poste crée!',
-            //                 })
-            //             })
-            //             .catch(error => {
-            //                 return res.status(400).json({
-            //                     error,
-            //                     message: 'poste non crée!',
-            //                 })
-            //             }) 
-                            
-            //     })
-                    
-            //     .catch(error => {
-            //             return res.status(400).json({
-            //                 error,
-            //                 message: 'poste non crée!',
-            //             })
-            //     })     
-            //     // end verification entreprise
-
-               
-
         })
         .catch(error => {
             return res.status(400).json({

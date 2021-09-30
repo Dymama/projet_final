@@ -18,6 +18,7 @@ var conferenceSchema = new Schema(
         password: { type: String, required: false},
         statut: { type: Boolean, required: false ,default:false},
 
+        employer: { type: Schema.Types.ObjectId,ref:'Utilisateur', required:false },
         entreprise: { type: Schema.Types.ObjectId,ref:'Entreprise', required:false },
         evenement: { type: Schema.Types.ObjectId,ref:'Evenement', required:true }
 

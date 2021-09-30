@@ -1,11 +1,13 @@
 const Conference = require('../models/conference-model')
-
+const Administrateur = require('../models/administrateur-model')
+  
 
 
 // creer un conference
 exports.create = (req, res, next) => {
 
   const body = req.body;
+  const userSession =  req.session.user;
   console.log(body)
   
     // verifier si le body contient des données
@@ -15,30 +17,57 @@ exports.create = (req, res, next) => {
             error: 'aucune donnée saisie',
         })
     }
-    
-    const conference = new Conference(body)
 
-    if (!conference) {
-        return res.status(400).json({ success: false, error: err })
-    }
 
-    conference
-        .save()
-        .then(() => {
-            return res.status(201).json({
-                success: true,
-                id: conference._id,
-                message: 'conference creer!',
-            })
+    // verification administrateur
+    Administrateur.findOne({utilisateur: userSession.userId})
+        .then( admin => {
+            if (!admin) {
+                return res.status(401).json({ error: 'administrateur non trouvé !' });
+              }
+
+                    // poste container 
+                    const conference = new Conference({
+                        ...body,
+                        employer: admin.utilisateur,
+                        entreprise:admin.entreprise
+        
+                        })
+                
+                        
+                        if (!conference) {
+                            return res.status(400).json({ success: false, error: err })
+                        }
+
+                        conference
+                            .save()
+                            .then(() => {
+                                return res.status(201).json({
+                                    success: true,
+                                    id: conference._id,
+                                    message: 'conference creer!',
+                                })
+                            })
+                            .catch(error => {
+                                return res.status(400).json({
+                                    error,
+                                    message: 'conference non creer!',
+                                })
+                            })
+
+       
+                            
         })
         .catch(error => {
             return res.status(400).json({
                 error,
-                message: 'conference non creer!',
+                message: 'Administrateur non trouvé!',
             })
         })
+        //end verification admin
 
-       
+    
+    
   };
 
 
