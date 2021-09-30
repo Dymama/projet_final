@@ -126,16 +126,17 @@ export default function SideBar({ ...props }) {
                     {userData && userData.type_compte ==="entreprise" 
                     ? 
                     (<> <Dropdown.Item eventKey="3-1" componentClass={Link} to="/dashboard/new_offre">Nouvelle offre</Dropdown.Item>
-                    <Dropdown.Item eventKey="3-2" componentClass={Link} to="/dashboard/ownoffres">Mes Offres</Dropdown.Item> </>)
+                    <Dropdown.Item eventKey="3-2" componentClass={Link} to="/dashboard/ownoffres">Liste offres</Dropdown.Item> </>)
                     : ""
                     }
                     {userData && userData.type_compte ==="candidat" 
                     ? 
                     (<> <Dropdown.Item eventKey="3-4" componentClass={Link} to="/dashboard/own_offres_candidat">Mes  offre</Dropdown.Item>
+                    <Dropdown.Item eventKey="3-3" componentClass={Link} to="/dashboard/offres">Liste offres</Dropdown.Item>
                      </>)
                     : ""
                     }
-                    <Dropdown.Item eventKey="3-3" componentClass={Link} to="/dashboard/offres">Liste offres</Dropdown.Item>
+                    
 
                   </Dropdown>
 

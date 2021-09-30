@@ -27,14 +27,14 @@ export default function NewOffres(){
         <>
         
         <Container  className="offre-container-tst">
-            <Content className="bg-white p-3 m-5">
+            <Content className="bg-white p-3 m-md-5">
                     <div className="header-new-offre">
                         <h4 className="text-center mx-auto">
                             Enregistrement de nouvelle offre
                         </h4>
-                        <p className="text-center">Veuillez bien renseigner les informations</p>
+                        {/* <p className="text-center">Veuillez bien renseigner les informations</p> */}
                     </div>
-                    <div className="body-new-offre ">
+                    <div className="body-new-offre mt-5">
 
                         <NewOffreForm/> 
                     </div>

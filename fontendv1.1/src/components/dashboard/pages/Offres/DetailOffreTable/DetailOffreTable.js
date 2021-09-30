@@ -28,6 +28,8 @@ import './DetailOffreTable.css';
 import postes from '../../../../../api/poste';
 import ShowCandidatModal from '../showCandidats/ShowCandidatModal';
 import utilisateurs from '../../../../../api/utilisateur';
+import { alertError, alertSuccess } from '../../../../others/NotificationInfog';
+import DeleteModal from '../../Events/DetailEventTable/DeleteModal';
 
  function dataDebut(date){
     var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
@@ -84,6 +86,47 @@ export default function DetailOffreTable(props) {
  
     const [listPostulant,setListPostulant] = useState([]);
  
+    const [showDeleteModal,setShowDeleteModal] = useState(false)
+    const [loadingDelete,setLoadingDelete] = useState(false)
+    
+    
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false );
+      }
+  
+    const openDeleteModal = () =>  {
+        setShowDeleteModal( true)
+    }
+    
+
+    const handleRetourTable = ()=> {
+        history.push({
+            pathname: '/dashboard/ownoffres',
+            });
+    }
+        
+
+
+    const handleDeleteOffre = ()=>{
+        setLoadingDelete(true)
+        
+        postes.deletePosteById(offreRowID)
+        .then( ()=>{
+
+            setTimeout(() => {
+                setLoadingDelete(false)
+                alertSuccess("Opération effectuée avec succes.")
+                handleRetourTable()
+            }, 3100);
+
+        })
+        .catch( ()=>{
+            setLoadingDelete(false)
+            alertError("Une erreur s'est produite.")
+        })
+    }
+
+
  
     function closeShowCandidat() {
      setShowShowCandidat(false);
@@ -148,6 +191,7 @@ export default function DetailOffreTable(props) {
     return (
     <>
     
+    <DeleteModal loadingDelete={loadingDelete} showDeleteModal={showDeleteModal} handleDeleteEvent={handleDeleteOffre} closeDeleteModal={closeDeleteModal} />
     <Container className="bg-white px-5">
         <Content>
         {loading ? (
@@ -163,22 +207,32 @@ export default function DetailOffreTable(props) {
                 <ShowCandidatModal listPostulant={listPostulant} rows={rowsShowCandidat} show={showShowCandidat} resetRows={resetRowsShowCandidat} close={closeShowCandidat} />
             
                     <Row  data-aos="zoom-in-down">
-                        <Col data-aos-delay="500"  data-aos="slide-right"  md={12} sm={12}>
+                    <Row  data-aos="zoom-in-down">
+                        <Col  md={12} sm={12}>
                            
                         <Button onClick={() => {history.goBack() }} color="violet"  className="mt-3 ml-3" appearance="ghost">
                             <Icon className="mr-2" icon="angle-double-left" /> retour
                         </Button>
                         </Col>
-                        <Col  data-aos-delay="600" data-aos="slide-up"  md={12} sm={12}>
+                        <Col  md={12} sm={12}>
+                         
+                            
+                            <ButtonToolbar className="float-md-right">
                           
-                            <Button onClick={() => handleActionEditEvent()} color="blue"  className="mt-3 ml-3 float-md-right" appearance="ghost">
-                                <Icon className="mr-2" icon="edit" /> Editer
-                            </Button>
+                                <Button onClick={() => handleActionEditEvent()} color="blue"  className="mt-3 ml-3 " appearance="ghost">
+                                    <Icon className="mr-2" icon="edit" /> Editer
+                                </Button>
+                                
+                                <Button onClick={() => openDeleteModal()} color="red"  className="mt-3 ml-3" appearance="ghost">
+                                    <Icon className="mr-2" icon="trash" /> Supprimer
+                                </Button>
+
+                            </ButtonToolbar>
                         </Col>
                        
                     </Row>
-                    <Row  data-aos="zoom-in-down">
-                        <Col data-aos-delay="700"  data-aos="slide-right"  md={8} sm={12}>
+                    <Row >
+                        <Col  md={8} sm={12}>
                             <h5 color="violet"  className="mt-3 ml-3">
                                 Details de l'offre
                             </h5>
@@ -186,27 +240,27 @@ export default function DetailOffreTable(props) {
                        
                     </Row>
                    
-                    <Row  data-aos="zoom-in-down" className="px-2 ml-3 mt-2">
-                        <Col  data-aos-delay="600" data-aos="slide-in"  md={12} sm={12}>
-                            <p data-aos-delay="500"  data-aos="slide-right">
+                    <Row  className="px-2 ml-3 mt-2">
+                        <Col    md={12} sm={12}>
+                            <p>
                                 Titre    :<span className="ml-4">
                                     {offreDataRow.titre}
                                 </span>
                             </p> 
-                            <p data-aos-delay="500"  data-aos="slide-right">
+                            <p >
                                 Type d'offre    :<span className="ml-4">
                                 {dataMinute(offreDataRow.type_emplois)}
                                 </span>
                             </p>
                         
                         </Col>
-                        <Col data-aos-delay="500"  data-aos="slide-right"  md={12} sm={12}> 
-                            <p data-aos-delay="500"  data-aos="slide-left">
+                        <Col   md={12} sm={12}> 
+                            <p>
                                 Pays    :<span className="ml-4">
                                 {offreDataRow.pays}
                                 </span>
                             </p>
-                            <p data-aos-delay="500"  data-aos="slide-left">
+                            <p >
                                 Ville    :<span className="ml-4">
                                 {offreDataRow.ville}
                                 </span>
@@ -217,7 +271,7 @@ export default function DetailOffreTable(props) {
                         </Col>
                        
                     </Row>
-                    <Row  data-aos="zoom-in-down" className="mt-3 ml-3">
+                    <Row className="mt-3 ml-3">
                         <Col md={8} sm={8}>
                             <h6 color="violet"  className="mt-3 ml-3">
                                 Postulants
@@ -238,8 +292,8 @@ export default function DetailOffreTable(props) {
                         </Col>
                     </Row>
 
-                    <Row  data-aos="zoom-in-down" className="mt-3 px-2 ml-3">
-                        <Col data-aos-delay="700"  data-aos="slide-right"  md={24} sm={24}>
+                    <Row className="mt-3 px-2 ml-3">
+                        <Col  md={24} sm={24}>
                         
                             <h6 color="violet"  className="mt-3">
                             Descriptif de l'offre
@@ -280,7 +334,7 @@ export default function DetailOffreTable(props) {
                       
                     </Row> */}
 
-                    <Row  data-aos="zoom-in-down" className="mx-5">
+                    <Row  className="mx-5">
                         <Col  md={8} sm={12}>
                             <h6 color="violet"  className="mt-3 ml-3">
                                 Crée par 
@@ -331,6 +385,7 @@ export default function DetailOffreTable(props) {
                     </Row> */}
 
                     {/* <CreateUserDetail offreDataRow={offreDataRow} /> */}
+                </Row>
                   
                 </>
 
