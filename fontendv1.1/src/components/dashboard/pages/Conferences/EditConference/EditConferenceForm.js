@@ -31,12 +31,11 @@ import {ButtonToolbar,
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
 
-// import { apiNewFormation } from '../../../../redux/entreprise/newFormation/newFormationAction';
-import FormationModal from './FormationModal';
-import './NewFormationForm.css'
-import configureStore from '../../../../redux/store';
-import { alertError } from '../../../others/NotificationInfog';
-import { apiNewFormation } from '../../../../redux/entreprise/formation/newFormation/newFormationAction';
+import { apiNewConference } from '../../../../../redux/entreprise/newConference/newConferenceAction';
+import ConferenceModal from '../ConferenceModal';
+import './EditConferenceForm.css'
+import configureStore from '../../../../../redux/store';
+import { alertError } from '../../../../others/NotificationInfog';
 
 const { StringType, NumberType, DateType} = Schema.Types;
 
@@ -71,6 +70,35 @@ const model = Schema.Model({
   }
 
 
+      function SliderNbParticipant() {
+        const [value, setValue] = React.useState(0);
+        return (
+          <div className="row">
+            <div className="col-md-9">
+              <Slider
+                progress
+                style={{ marginTop: 16 }}
+                value={value}
+                onChange={value => {
+                  setValue(value);
+                }}
+              />
+            </div>
+            <div className="col-md-3">
+              <InputNumber
+                min={0}
+                max={100}
+                value={value}
+                onChange={value => {
+                  setValue(value);
+                }}
+              />
+            </div>
+          </div>
+        );
+      }
+
+
 
   
       const initialState ={
@@ -81,6 +109,7 @@ const model = Schema.Model({
           date_debut: '',
           date_fin: '',
           heure_fin: '',
+          password:'',
         },
         evenement: "",
         formError: {},
@@ -89,6 +118,22 @@ const model = Schema.Model({
 
       }
 
+      const initialStateValue ={
+        formValue: {
+          theme: '',
+          description: '',
+          heure_debut: '',
+          date_debut: '',
+          date_fin: '',
+          heure_fin: '',
+          password:'',
+        },
+        evenement: "",
+        formError: {},
+        load: false,
+        show: false,
+
+      }
 
 
 class TextField extends React.PureComponent {
@@ -108,10 +153,25 @@ class TextField extends React.PureComponent {
 
 const {store} =configureStore()
 
-class NewFormationForm extends React.Component {
+class NewConferenceForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = initialState;
+    this.state = {
+      formValue: {
+        theme: props.dataConference.theme,
+        description:  props.dataConference.description,
+        heure_debut:  props.dataConference.heure_debut,
+        date_debut:  props.dataConference.date_debut,
+        date_fin:  props.dataConference.date_fin,
+        heure_fin:  props.dataConference.heure_fin,
+        password:'',
+      },
+      evenement:  props.dataConference.evenement,
+      formError: {},
+      load: false,
+      show: false,
+
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
@@ -127,11 +187,11 @@ class NewFormationForm extends React.Component {
     this.setState({ show: true });
   }
 
-  handleActionNewFormation = e => {
+  handleActionNewConference = e => {
     setTimeout(() => {
       this.setState({evenement:''})
       this.setState(initialState)
-      this.props.history.push("/dashboard/new_formation");
+      this.props.history.push("/dashboard/new_conference");
       
       this.close()
       
@@ -144,7 +204,7 @@ class NewFormationForm extends React.Component {
   }
 
   handleSubmit() {
-    const { formValue,evenement} = this.state;
+    const { formValue,nb_participant,password,evenement} = this.state;
     if (!this.form.check()) {  
       this.setState({load: true})
       
@@ -166,17 +226,16 @@ class NewFormationForm extends React.Component {
   }
 
   this.setState({load: true})
-    this.props.apiNewFormationFunc(dataSend)
+    this.props.apiNewConfFunc(dataSend)
 
   
   setTimeout(() => {
-    if(this.props.apiFormationData && this.props.apiFormationData.success === true){
+    if(this.props.apiConfData && this.props.apiConfData.success === true){
 
-      console.log(this.props.apiFormationData,'forma r')
       this.open()
       this.setState({load: false})
       
-      this.handleActionNewFormation()
+      this.handleActionNewConference()
     }
     else{
 
@@ -186,6 +245,9 @@ class NewFormationForm extends React.Component {
 
   },1000)
 
+
+    // console.log(dataSend,'conf value')
+    // this.props.apiNewConfFunc(dataSend)
 
   }
 
@@ -216,7 +278,7 @@ class NewFormationForm extends React.Component {
               <Content>
                   <Row  >
                         <Col md={8} sm={24}>
-                          <TextField size="lg" name="theme" placeholder="Ex: Formation" label="Titre de la formation" />  
+                          <TextField size="lg" name="theme" placeholder="Ex: Formation" label="Thème de la conference" />  
                         </Col>
 
                         <Col md={8} sm={24}>
@@ -235,7 +297,7 @@ class NewFormationForm extends React.Component {
                             placeholder="selectionner"
                             style={{ width: 300 }}
                             format='YYYY-MM-DD'
-                            label="Date de la formation" />
+                            label="Date de la conference" />
                         </Col>
                     </Row>
                   <Row className="mt-4" >
@@ -247,7 +309,7 @@ class NewFormationForm extends React.Component {
                           placeholder="selectionner"
                           style={{ width: 300 }}
                           format='YYYY-MM-DD'
-                          label="Date de la formation" />
+                          label="Date de la conference" />
                         </Col> */}
                         <Col md={8} sm={24}>
                         <TextField size="lg" name="heure_debut" 
@@ -256,7 +318,7 @@ class NewFormationForm extends React.Component {
                           placeholder="selectionner"
                           style={{ width: 300 }}
                           format="HH:mm"
-                          label="Heure de début de la formation" />
+                          label="Heure de début de la conference" />
                         </Col>
                         
                         <Col md={8} sm={24}>
@@ -266,7 +328,7 @@ class NewFormationForm extends React.Component {
                           placeholder="selectionner"
                           style={{ width: 300 }}
                           format='YYYY-MM-DD'
-                          label="Date de fin de la formation" />
+                          label="Date de fin de la conference" />
                         </Col>
                        
                         <Col md={8} sm={24}>
@@ -276,7 +338,7 @@ class NewFormationForm extends React.Component {
                           placeholder="selectionner"
                           style={{ width: 300 }}
                           format="HH:mm"
-                          label="Heure de fin de la formation" />
+                          label="Heure de fin de la conference" />
                         </Col>
                        
                     </Row>
@@ -289,7 +351,7 @@ class NewFormationForm extends React.Component {
                           placeholder="selectionner"
                           style={{ width: 300 }}
                           format='YYYY-MM-DD'
-                          label="Date de fin de la formation" />
+                          label="Date de fin de la conference" />
                         </Col>
                        
                         <Col md={12} sm={12}>
@@ -299,7 +361,7 @@ class NewFormationForm extends React.Component {
                           placeholder="selectionner"
                           style={{ width: 300 }}
                           format="HH:mm"
-                          label="Heure de fin de la formation" />
+                          label="Heure de fin de la conference" />
                         </Col>
                         
                     
@@ -388,7 +450,7 @@ class NewFormationForm extends React.Component {
                         <Col md={24} sm={24}>
                         <ButtonToolbar>
                           <Button loading={load} className="float-md-right btn-send-new-conf" appearance="primary" onClick={this.handleSubmit}>
-                            Creer la formation
+                            Creer la conference
                           </Button>
 
                         </ButtonToolbar>
@@ -418,18 +480,18 @@ class NewFormationForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    apiFormationData : state.formation
+    apiConfData : state.conference
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    apiNewFormationFunc : (data) => dispatch(apiNewFormation(data))
+    apiNewConfFunc : (data) => dispatch(apiNewConference(data))
   }
 }
 
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(NewFormationForm));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(NewConferenceForm));
 
 
 

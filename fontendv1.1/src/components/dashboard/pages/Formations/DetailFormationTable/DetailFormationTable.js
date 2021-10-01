@@ -22,12 +22,12 @@ import {ButtonToolbar,
 
 
 import 'rsuite/dist/styles/rsuite-default.css';
-import './DetailConferenceTable.css';
+import './DetailFormationTable.css';
 
 import CreateUserDetail from './CreateUserDetail';
 
 import utilisateurs from '../../../../../api/utilisateur';
-import conferences from '../../../../../api/conference';
+import formations from '../../../../../api/formation';
 
 
  function dataDebut(date){
@@ -58,24 +58,24 @@ import conferences from '../../../../../api/conference';
  
   
 
-export default function DetailConferenceTable(props) {
+export default function DetailFormationTable(props) {
   
     let history = useHistory();
     
     const location = useLocation();
-    const conferenceRowID = location.state.conferenceRowData;
+    const formationRowID = location.state.formationRowData;
 
-    const [conferenceDataRow, setconferenceDataRow] = useState([])
+    const [formationDataRow, setformationDataRow] = useState([])
     const [loading,setLoading] = useState(true)
     const [userData, setUserData] = useState([])
-    const [heureConference, setHeureConference] = useState(false)
+    const [heureFormation, setHeureFormation] = useState(false)
 
 
     useEffect(()=>{
-      conferences.getConferenceById(conferenceRowID)
+      formations.getFormationById(formationRowID)
         .then(res => {
             // console.log(res.data,'data response')
-            setconferenceDataRow(res.data.data)
+            setformationDataRow(res.data.data)
             // utilisateurs.getUtilisateurById(res.data.data.createur)
             // .then(res => {
             //     console.log(res.data.data,'data setUserData')
@@ -86,7 +86,7 @@ export default function DetailConferenceTable(props) {
 
             // })
             
-        setHeureConference(compareDate(res.data.data.date_debut,res.data.data.heure_debut))
+        setHeureFormation(compareDate(res.data.data.date_debut,res.data.data.heure_debut))
             
         })
         .catch(err => {
@@ -105,10 +105,10 @@ export default function DetailConferenceTable(props) {
 
 
   
-  function handleActionEditconference() {
+  function handleActionEditformation() {
     history.push({
-        pathname: '/dashboard/edit_conference',
-        state: {conferenceRowID: conferenceRowID}
+        pathname: '/dashboard/edit_formation',
+        state: {formationRowID: formationRowID}
     });
 
   }
@@ -119,8 +119,8 @@ export default function DetailConferenceTable(props) {
   function handleRedirectCall() {
  
     history.push({
-        pathname: `/dashboard/start_conference`,
-        state: {dataConf: conferenceDataRow,type:'entreprise'}
+        pathname: `/dashboard/start_formation`,
+        state: {dataConf: formationDataRow,type:'entreprise'}
     });
 
   }
@@ -150,7 +150,7 @@ export default function DetailConferenceTable(props) {
                           
                             <ButtonToolbar className="float-md-right">
                           
-                                <Button onClick={() => handleActionEditconference()} color="blue"  className="mt-3 ml-3 " appearance="ghost">
+                                <Button onClick={() => handleActionEditformation()} color="blue"  className="mt-3 ml-3 " appearance="ghost">
                                     <Icon className="mr-2" icon="edit" /> Editer
                                 </Button>
                                 
@@ -165,7 +165,7 @@ export default function DetailConferenceTable(props) {
                     <Row >
                         <Col md={8} sm={12}>
                             <h5 color="violet"  className="mt-3 ml-3">
-                                Details Conférence
+                                Details Formation
                             </h5>
                         </Col>
                        
@@ -176,7 +176,7 @@ export default function DetailConferenceTable(props) {
                         <Col  md={8} sm={12}>
                         <p>
                                 Theme    :<span className="ml-4">
-                                    {conferenceDataRow.theme}
+                                    {formationDataRow.theme}
                                 </span>
                             </p> 
                         </Col>
@@ -187,12 +187,12 @@ export default function DetailConferenceTable(props) {
                             
                             <p>
                                 Date de début    :<span className="ml-4">
-                                {dataDebut(conferenceDataRow.date_debut)}
+                                {dataDebut(formationDataRow.date_debut)}
                                 </span>
                             </p>
                             <p >
                                 Heure de début    :<span className="ml-4">
-                                {dataMinute(conferenceDataRow.heure_debut)}
+                                {dataMinute(formationDataRow.heure_debut)}
                                 </span>
                             </p>
                             
@@ -200,12 +200,12 @@ export default function DetailConferenceTable(props) {
                         <Col md={12} sm={12}>
                         <p>
                                 Date de fin    :<span className="ml-4">
-                                {dataDebut(conferenceDataRow.date_fin)}
+                                {dataDebut(formationDataRow.date_fin)}
                                 </span>
                             </p>
                             <p>
                                 Heure de fin    :<span className="ml-4">
-                                {dataMinute(conferenceDataRow.heure_fin)}
+                                {dataMinute(formationDataRow.heure_fin)}
                                 </span>
                             </p>
                            
@@ -216,20 +216,20 @@ export default function DetailConferenceTable(props) {
                         <Col  md={24} sm={12}>
                             
                         <h6 color="violet"  className="mt-3">
-                            Descriptif de la conférence
+                            Descriptif de la formation
                             </h6>
                             <Panel bordered>
-                                {conferenceDataRow.description}
+                                {formationDataRow.description}
                             </Panel>
                        
                         </Col>
                        
                     </Row>
-                    {!heureConference&&( 
+                    {!heureFormation&&( 
                         <Row  data-aos="zoom-up-down" className="mt-3 mx-auto text-center px-2 ml-3">
                             <Col md={24} sm={24}>
                                 <Button  onClick={() => handleRedirectCall()} color="blue"  className="mt-3 ml-3 mx-auto text-center" appearance="ghost">
-                                    <Icon className="mr-2" icon="link" /> joindre la conférence
+                                    <Icon className="mr-2" icon="link" /> joindre la formation
                                 </Button>
                             </Col>
                         
@@ -247,10 +247,10 @@ export default function DetailConferenceTable(props) {
                     </Row> */}
                     {/* <Row data-aos="zoom-in-down"  className="mt-3" data-aos-delay="700">
                         <Col md={16} sm={12}>
-                        <ChartComponent1 conferenceDataRow={conferenceDataRow}/>
+                        <ChartComponent1 formationDataRow={formationDataRow}/>
                         </Col>
                         <Col md={8} sm={12}>
-                        <CardconferenceChart conferenceDataRow={conferenceDataRow} />
+                        <CardformationChart formationDataRow={formationDataRow} />
 
                         </Col>
                       
@@ -265,11 +265,11 @@ export default function DetailConferenceTable(props) {
                     </Row>
                     <Row  data-aos="zoom-in-down"  className="mt-3" >
                         <Col md={8} sm={12}>
-                            <CardconferenceChart1 conferenceDataRow={conferenceDataRow} />
+                            <CardformationChart1 formationDataRow={formationDataRow} />
 
                         </Col>
                         <Col md={16} sm={12}>
-                            <ChartComponent2 conferenceDataRow={conferenceDataRow} />
+                            <ChartComponent2 formationDataRow={formationDataRow} />
                         </Col>
                       
                     </Row> */}
@@ -324,7 +324,7 @@ export default function DetailConferenceTable(props) {
                         </Col>
                     </Row> */}
 
-                    {/* <CreateUserDetail conferenceDataRow={conferenceDataRow} /> */}
+                    {/* <CreateUserDetail formationDataRow={formationDataRow} /> */}
                   
                 </>
 

@@ -5,7 +5,13 @@ import { useHistory,useLocation } from "react-router-dom";
 import { Placeholder ,
   Loader,
   Button,
-
+  Container,
+  Content,
+  Row,
+  Col,
+  IconButton,
+  Icon,
+  Panel,
 
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
@@ -30,11 +36,13 @@ const VideoConference1 = () => {
   
   const location = useLocation();
   const dataConf = location.state.dataConf;
+  const userType = location.state.type;
   const [room, setRoom] = useState('vickyth@')
   const [name, setName] = useState('')
   const [call, setCall] = useState(false)
   const [password, setPassword] = useState('')
   const [showDrawer, setShowDrawer] = useState(false)
+  const [showMessage, setShowMessage] = useState(false)
 
 
     
@@ -52,14 +60,48 @@ const VideoConference1 = () => {
     setCall(true)
   }
 
+
   
   
   let history = useHistory();
 
   const endConference = ()=>{
-    history.push('/dashboard/');
+    history.goBack();
   }
  
+  var configCandidat ={
+    
+    enableUnifiedOnChrome: true,
+    transcribeWithAppLanguage: true,
+    disableThirdPartyRequests: true,
+    toolbarButtons: [
+           'camera',
+           'chat',
+           'closedcaptions',
+           'desktop',
+           'etherpad',
+           'feedback',
+           'filmstrip',
+           'fullscreen',
+           'hangup',
+           'help',
+           'microphone',
+           'participants-pane',
+           'profile',
+           'raisehand',
+           'recording',
+           'security',
+           'select-background',
+           'settings',
+           'shortcuts',
+           'tileview',
+           'toggle-camera',
+           'videoquality',
+           '__end'
+        ],
+        
+  }
+
 
   var config ={
     
@@ -101,39 +143,36 @@ const VideoConference1 = () => {
            'videoquality',
            '__end'
         ],
- remoteVideoMenu: {
-        // If set to true the 'Kick out' button will be disabled.
-        disableKick: true,
-        // If set to true the 'Grant moderator' button will be disabled.
-        disableGrantModerator: true
-    },
-    moderatedRoomServiceUrl: 'https://moderated.jitsi-meet.example.com',
+        
   }
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="mx-auto conf-header mt-3 row">
-          <div className="p-3 col-11">
-              <h3 className="h3 text-center">
-                  {dataConf.titre}
-              </h3>
-          </div>
-         
-            <Button className="col-1 btn-conf-more my-1" onClick={()=>toggleDrawer()}>
-                      ...
-            </Button>
-         
-        </div>
-
-        <DrawerVideo toggleDrawer={toggleDrawer} close={close} showDrawer={showDrawer} dataConf={dataConf} />
+    <DrawerVideo toggleDrawer={toggleDrawer} close={close} showDrawer={showDrawer} dataConf={dataConf} />
+    <Container className="bg-white px-1 py-1 overflow-hidden">
+      <Content>
+       
+  
+                <Row  data-aos="zoom-in-down" className="mt-3">
+                    <Col className="px-3" md={22} sm={12}>
+                      <h4 className="" style={{color:"purple"}}>
+                        {dataConf.titre}
+                      </h4>
+                      </Col>
+                    <Col className="px-3" md={2} sm={12}>
+                      <IconButton appearance="ghost" onClick={()=>{toggleDrawer()}} className="float-right" icon={<Icon icon="more" />} circle size="md" />
+                    
+                    </Col>
+                </Row>
+            
 
         <div className="mx-auto conf-body">
-          <div className="test-style mt-3">
+          <Panel shaded style={{background:"radial-gradient(circle, rgba(176,63,251,1) 0%, rgba(219,70,252,1) 100%)"}}>
             <div className=" mx-2 jutsu-container card text-center">
 
               <Jutsu
-                configOverwrite= {config}
+              
+                configOverwrite= {userType ==='entreprise'? config : configCandidat}
                 roomName={room}
                 displayName={name}
                 password={password}
@@ -146,18 +185,8 @@ const VideoConference1 = () => {
       
 
             </div>
-            <div className="conf-participant-container card p-1 row">
-              <div className="col-md-6">
-                  <div className="">
-
-                  </div>
-              </div>
-              <div className="col-md-6">
-                
-              </div>
-             
-            </div>
-          </div>
+        
+          </Panel>
 
           <div className="">
 
@@ -166,7 +195,8 @@ const VideoConference1 = () => {
         </div>
 
 
-      </div>
+      </Content>
+    </Container>
 
     </>
   

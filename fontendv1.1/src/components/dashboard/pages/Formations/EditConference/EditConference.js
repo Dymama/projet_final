@@ -14,30 +14,46 @@ import {ButtonToolbar,
 
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
-import NewFormationForm from "./NewFormationForm";
-import postes from '../../../../api/poste'
-import './NewFormation.css';
+import EditConferenceForm from "./EditConferenceForm";
+import postes from '../../../../../api/poste'
+import './EditConference.css';
 
-import conf from '../../../../assets/images/dashboard/conferences/conf2.jpg'
+import conf from '../../../../../assets/images/dashboard/conferences/conf2.jpg'
+import conferences from "../../../../../api/conference";
 
-export default function NewFormation(){
-  
+export default function EditConference(){
     
+    const location = useLocation();
+    const conferenceId = location.state.conferenceRowID;
+  const [dataConference, setDataConference] = useState([])
+
+  useEffect(()=>{
+    conferences.getConferenceById(conferenceId)
+      .then(res => {
+        setDataConference(res.data.data)
+      })
+      .catch(err => {
+          console.log(err,'error response')
+
+      })
+
+    },[conferenceId])
+
 
     return (
         <>
             <div className="container bg-white">
                 <div className="mx-auto">
-                    <div className="header-new-foramtion mt-2 mb-3 py-3 text-center mx-auto">
+                    <div className="header-new-conference mt-2 mb-3 py-3 text-center mx-auto">
                         <h4 className="text-center mx-auto">
-                            Enregistrement d'une nouvelle Formation
+                            Edition d'une conférence
                         </h4>
                         {/* <p className="text-center">Veuillez bien renseigner les informations</p> */}
                     </div>
                     <div className="body-new-conference row p-4">
 
                         {/* <div className="col-md-8"> */}
-                            <NewFormationForm /> 
+                            <EditConferenceForm  dataConference={dataConference} /> 
                         {/* </div> */}
                         
                         {/* <div className="mx-auto col-md-4">

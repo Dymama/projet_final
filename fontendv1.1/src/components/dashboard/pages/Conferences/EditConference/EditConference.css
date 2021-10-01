@@ -1,6 +1,10 @@
 
-
 .body-conf-table-container{
     padding:5px;
     background:rgb(255, 255, 255);
+}
+
+.header-conferences{
+    background: #410639;
+    color:#fff;
 }

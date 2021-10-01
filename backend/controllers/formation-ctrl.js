@@ -1,4 +1,6 @@
+const Administrateur = require('../models/administrateur-model')
 const Formation = require('../models/formation-model')
+const { v4: uuidv4 } = require('uuid');
 
 
 
@@ -6,6 +8,9 @@ const Formation = require('../models/formation-model')
 exports.create = (req, res, next) => {
 
   const body = req.body;
+  const userSession =  req.session.user;
+  console.log(req.session)
+  
   
     // verifier si le body contient des données
     if (!body) {
@@ -15,28 +20,58 @@ exports.create = (req, res, next) => {
         })
     }
     
-    const formation = new Formation(body)
+    // verification administrateur
+    Administrateur.findOne({utilisateur: userSession.userId})
+        .then( admin => {
+            if (!admin) {
+                return res.status(401).json({ error: 'administrateur non trouvé !' });
+              }
 
-    if (!formation) {
-        return res.status(400).json({ success: false, error: err })
-    }
+                    // poste container 
+                    const formation = new Formation({
+                        ...body,
+                        employer: admin.utilisateur,
+                        lien: `formation${uuidv4()}`,
+                        entreprise:admin.entreprise
+        
+                        })
+                
+  console.log(formation)
+                    
 
-    formation
-        .save()
-        .then(() => {
-            return res.status(201).json({
-                success: true,
-                id: formation._id,
-                message: 'formation creer!',
+            if (!formation) {
+                return res.status(400).json({ success: false, error: err })
+            }
+
+            formation
+                .save()
+                .then(() => {
+                    return res.status(201).json({
+                        success: true,
+                        id: formation._id,
+                        message: 'formation creer!',
+                    })
+                })
+                .catch(error => {
+                    return res.status(400).json({
+                        error,
+                        message: 'formation non creer!',
+                    })
+                })
+
+            
+                                    
             })
-        })
-        .catch(error => {
-            return res.status(400).json({
+            .catch(error => {
+                return res.status(400).json({
                 error,
-                message: 'formation non creer!',
+                message: 'Administrateur non trouvé!',
             })
         })
+        //end verification admin
 
+    
+    
        
   };
 

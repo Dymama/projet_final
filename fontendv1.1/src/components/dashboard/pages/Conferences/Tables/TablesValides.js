@@ -1,146 +1,242 @@
 import React,{useState,useEffect} from 'react';
+import { Table,SelectPicker,Col,Row,FormGroup,ControlLabel,ButtonToolbar,IconButton,Icon } from 'rsuite';
 
-import { 
-    Table,
-    ButtonToolbar,
-    InputGroup,
-    Input,
-    Icon,
-    IconButton,
-    Badge,
-    InputPicker,
-    Button
-
-} from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
+import utilisateurs from '../../../../../api/utilisateur';
+import configureStore from '../../../../../redux/store';
+import { dataDebut,dataMinute } from '../../../../../services/_modules';
 
 import './TablesValides.css';
 const { Column, HeaderCell, Cell, Pagination } = Table;
-
-
-function dataDebut(date){
-  var m = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-  var d =  new Date(date)
-  
-  return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`
-}
-
-function dataMinute(date){
-  
-  var d =  new Date(date)
-  var min =`${d.getMinutes()}`
-  
-  return `${d.getHours()} h ${min.length === 1 ? '0'+min :min}`
-}
+const {store} =configureStore()
 
 
 function constitueData(data){
   return data.map((item,index)=>{
     
     return {
-      _id: item._id,
-      theme: item.titre,
-      description: item.description,
+
+      ...item,
       heure_debut: dataMinute(item.heure_debut),
-      date_debut: dataDebut(item.heure_debut),
-      statut: item.statut,
-      evenement: item.evenement,
+      date_debut: dataDebut(item.date_debut),
+      heure_fin: dataMinute(item.heure_fin),
+      date_fin: dataDebut(item.date_fin),
 
   }})
 }
 
 
-export default function TablesValides(props){
-    const [data,setData] = useState(props.conference);
-    const [load,setLoad]=useState(true);
-   
-    useEffect(()=>{
-      setData(constitueData(props.conference))
+const proprioConferenceData=[
+  {
+  "label":"Mes conférences",
+  "value":"own",
+  },
+  {
+    "label":"Toutes les conférences",
+    "value":"all",
+    }
+]
+
+
+  // fonction declassement des entreprise
+  function trierEvent(data){
+    var dataItem;
+
+    return data.map((item,index)=>{
+     
+        dataItem= {
+          "label": item.titre,
+          "value": item._id,
+        }
+        return dataItem;
+      
+    })
+    .filter((item,index)=> item !== undefined)
     
-    },[props.conference])
+  }
+
+
+
+
+
+  // fonction search data table
+  function constitueDataChanged(data,value){
+
+    return data.filter((item,index)=> item.evenement === value )
+    
+  }
+
+  function filterOwnConference(data,value){
+
+    return data.filter((item,index)=> item.entreprise === value )
+    
+  }
+
+
+export default function TablesValides(props){
+
+  
+  const user = store.getState().getInfoUser.user.data
+    const [data,setData] = useState([{}]);
+    // const [load,setLoad]=useState(true);
+   
+
+
+    const [dataChanged, setDataChanged] = useState([{}])
+    const [entrepriseData, setEntrepriseData] = useState([{}])
+    const [loadTable, setLoadTable] = useState(false)
+    const [selectEventValue, setSelectEventValue] = useState('')
+    const [etatPropio, setEtatPropio] = useState('own')
+    const [allData, setAllData] = useState([{}])
+    
 
     useEffect(()=>{
-      var timer = setTimeout(() => {
-        
-        setLoad(false)
+      setLoadTable(true)
 
-      }, 1000);
+      utilisateurs.getUserEntreprise(user._id)
+       .then(res=>{
+         setEntrepriseData(res.data.data)
+          setTimeout(() => {
 
-      return ()=>{
-        clearTimeout(timer)
-      }
+            setData(props.conference ? filterOwnConference(constitueData(props.conference),res.data.data._id): [{}])
+            setLoadTable(false)
+        }, 2000);
+
+       })
+       
     },[])
+
+
+    useEffect(()=>{
+      
+      const dataTable = props.conference ;
+      setAllData(props.conference)
+      setData(dataTable ? filterOwnConference(constitueData(dataTable),entrepriseData._id): [{}])
+      
+      if(etatPropio ==="own"){
+        setData(dataTable ? filterOwnConference(constitueData(dataTable),entrepriseData._id): [{}])
+      }
+      if(etatPropio ==="all"){
+        setData(dataTable ?constitueData(dataTable): [{}])
+      }
+      
+   },[props.conference])
+
+   
+
+    const selectEvent = (value,e)=>{
+      setLoadTable(true)
+      setSelectEventValue(value)
+      
+      setTimeout(() => {
+        setDataChanged(constitueDataChanged(data,value))
+        setLoadTable(false)
+        
+      }, 1000);
+    }
+
+    const selectProprioConference = (value,e)=>{
+    setLoadTable(true)
+    setEtatPropio(value)
+
+    setTimeout(() => {
+      setLoadTable(false)
+
+      if(value ==="own"){
+        setData(allData ? filterOwnConference(constitueData(allData),entrepriseData._id): [])
+      }
+      if(value ==="all"){
+        setData(allData ?constitueData(allData): [])
+      }
+
+      
+    }, 1000);
+    }
+
 
 
 
       return (
         <div>
+        <Row >
+          {user.admin && (<Col className="pb-3"  md={8} sm={24}>
+          <FormGroup  className="float-md-left mx-auto">
+            <ControlLabel> Selectionner un propriétaire </ControlLabel>
+              <SelectPicker
+              onChange={(value,e)=>selectProprioConference(value,e)}
+              size="lg"
+              placeholder="Mes conférences"
+              data={proprioConferenceData}
+              style={{ width: 300, display: 'block', }}
+              />
+          </FormGroup>
+          </Col>)
+          }
+          <Col className="pb-3"  md={user.admin?8:12} sm={24}>
+          <FormGroup  className="float-md-left mx-auto">
+            <ControlLabel> Selectionner un événement </ControlLabel>
+              <SelectPicker
+              onChange={(value,e)=>selectEvent(value,e)}
+              size="lg"
+              placeholder="Selectionner"
+              data={trierEvent(store.getState().listEvent.listEvent.data)}
+              style={{ width: 300, display: 'block', }}
+              />
+          </FormGroup>
+          </Col>
+          <Col className="pb-3"  md={user.admin?8:12} sm={24}>
+          <ButtonToolbar className="float-md-right mx-auto">
+              <IconButton onClick={()=>props.handleActionNewConference()}   appearance="ghost" icon={<Icon icon="plus" />} placement="right">
+                                  Nouvelle conférence
+              </IconButton>
+          </ButtonToolbar>
+
+          </Col>
+
+        </Row>
           <Table
-          rowHeight={55}
-          loading ={load}
+          loading={loadTable}
+          fluid
+          virtualized={true}
             height={400}
-            data={data}
+            data={selectEventValue? dataChanged :data}
             onRowClick={data => {
-              props.dataClickConf(data)
-              // props.openModal()
+              props.handleActionShowDetail(data);
             }}
           >
-          
-  
+            
             <Column width={200} fixed>
-              <HeaderCell className="tab-valide-header" >Theme</HeaderCell>
+              <HeaderCell style={{background:'#000',color:'#fff'}} >Theme</HeaderCell>
               <Cell dataKey="theme" />
             </Column>
   
             <Column width={200}>
-              <HeaderCell className="tab-valide-header" >Description</HeaderCell>
+              <HeaderCell style={{background:'#000',color:'#fff'}} >Description</HeaderCell>
               <Cell dataKey="description" />
             </Column>
   
             <Column width={200}>
-              <HeaderCell className="tab-valide-header" >Date début</HeaderCell>
+              <HeaderCell style={{background:'#000',color:'#fff'}} >Date de début</HeaderCell>
               <Cell dataKey="date_debut" />
             </Column>
 
             <Column width={200}>
-              <HeaderCell className="tab-valide-header" >Heure début</HeaderCell>
+              <HeaderCell style={{background:'#000',color:'#fff'}} >Heure de début</HeaderCell>
               <Cell dataKey="heure_debut" />
             </Column>
 
             <Column width={200}>
-              <HeaderCell className="tab-valide-header" >Evénement</HeaderCell>
-              <Cell dataKey="evenement" />
+              <HeaderCell style={{background:'#000',color:'#fff'}} >Date de fin</HeaderCell>
+              <Cell dataKey="date_fin" />
             </Column>
-  
+
             <Column width={200}>
-              <HeaderCell className="tab-valide-header" >Statut</HeaderCell>
-              <Cell dataKey="statut" />
+              <HeaderCell style={{background:'#000',color:'#fff'}} >Heure de fin</HeaderCell>
+              <Cell dataKey="heure_fin" />
             </Column>
+
   
            
-            <Column width={150} fixed="right">
-              <HeaderCell className="tab-valide-header" >Action</HeaderCell>
-  
-              <Cell>
-                {rowData => {
-                  function handleAction() {
-                    alert(`id:${rowData.id}`);
-                  }
-                  return (
-                    
-                    <ButtonToolbar>
-                    <IconButton icon={<Icon icon="edit" />} color="blue" circle />
-
-                    <IconButton icon={<Icon icon="warning" />} color="orange" circle />
-
-                    <IconButton icon={<Icon icon="trash" />} color="red" circle />
-
-                    </ButtonToolbar>
-                                
-                  );
-                }}
-              </Cell>
-            </Column>
           </Table>
         </div>
       );

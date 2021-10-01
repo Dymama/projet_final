@@ -16,7 +16,7 @@ import store from '../../../../redux/store'
 const {Paragraph} = Placeholder
 
 
-class FormationModal extends React.Component {
+class ConferenceModal extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -87,4 +87,4 @@ class FormationModal extends React.Component {
     }
   }
   
-  export default FormationModal;
+  export default ConferenceModal;

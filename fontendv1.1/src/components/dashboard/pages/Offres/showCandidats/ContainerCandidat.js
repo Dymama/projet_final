@@ -7,7 +7,11 @@ import {
   List,
   FlexboxGrid,
   Icon,
-  Avatar
+  Avatar,
+  Panel,
+  Col,
+  Row,
+  ButtonToolbar,
 
 } from 'rsuite';
 
@@ -25,34 +29,79 @@ function ContainerCandidat(props){
 
   
     return (
+        <div className="overflow-hidden"  >
 
-        <div className="overflow-hidden">
-            <div className="row">
+        <Panel className="overflow-hidden m-2" style={{borderBottom:"2px solid blue"}} shaded>
+            <Row className="">
 
-                <div className="col-md-4 col-11 mx-auto">
-                    <div className="row m-auto">
+                <Col md={8} sm={24} className="mx-auto">
                         <img
                             circle
                             style={{height:"11em"}}
                             src={userData.photo}
                         />
         
-                    </div>
-              
-              
-                    <div className="row mt-2">
-                       
-                        <Button color="violet" >
-                            <Icon icon="weibo"  /> Voir CV
-                        </Button>
-    
-                </div>
-    
-                </div>
+            
+                </Col>
          
-                <div className="col-md-8 col-11 mx-auto">
-                    
-                    <div className="row">
+                <Col md={16} sm={24} className="mx-auto">
+                    <Row className="">
+                        <Col md={8} sm={24} className="mx-auto">
+                            <span className="font-weight-bold">  Nom  : </span> 
+                        </Col>
+                        <Col md={8} sm={24} className="mx-auto">
+                            <p className=""> {userData.nom} </p> 
+                        </Col>
+                    </Row>
+                    <Row className="">
+                        <Col md={8} sm={24} className="mx-auto">
+                            <span className="font-weight-bold">  Prénom  : </span> 
+                        </Col>
+                        <Col md={8} sm={24} className="mx-auto">
+                            <p className=""> {userData.prenom} </p> 
+                        </Col>
+                    </Row>
+                    <Row className="">
+                        <Col md={8} sm={24} className="mx-auto">
+                            <span className="font-weight-bold">  Civilité  : </span> 
+                        </Col>
+                        <Col md={8} sm={24} className="mx-auto">
+                            <p className=""> {userData.civilite} </p> 
+                        </Col>
+                    </Row>
+                    <Row className="">
+                        <Col md={8} sm={24} className="mx-auto">
+                            <span className="font-weight-bold">  Niveau d'étude  : </span> 
+                        </Col>
+                        <Col md={8} sm={24} className="mx-auto">
+                            <p className=""> {userData.niveau} </p> 
+                        </Col>
+                    </Row>
+                    <Row className="">
+                        <Col md={8} sm={24} className="mx-auto">
+                            <span className="font-weight-bold">  Poste actuel  : </span> 
+                        </Col>
+                        <Col md={8} sm={24} className="mx-auto">
+                            <p className=""> {userData.poste} </p> 
+                        </Col>
+                    </Row>
+                    <Row className="">
+                        <Col md={8} sm={24} className="mx-auto">
+                            <span className="font-weight-bold">  Expérience  : </span> 
+                        </Col>
+                        <Col md={8} sm={24} className="mx-auto">
+                            <p className=""> {userData.experience} </p> 
+                        </Col>
+                    </Row>
+                    {/* <Row className="">
+                        <Col md={8} sm={24} className="mx-auto">
+                            <span className="font-weight-bold">  Niveau d'étude  : </span> 
+                        </Col>
+                        <Col md={8} sm={24} className="mx-auto">
+                            <p className=""> {userData.niveau} </p> 
+                        </Col>
+                    </Row>
+
                         <div className="col-md-5">
                             <div className="row mt-0">
                                 <div className="col-11 mx-auto">
@@ -88,12 +137,23 @@ function ContainerCandidat(props){
                                 <span className="font-weight-bold">  Expérience   </span> :  {userData.experience} {' '} 
                                 </div>   
                             </div>
-                        </div>
+                        </div> */}
 
-                    </div>
-                    </div>
-            </div>
-        </div>
+                </Col>
+            </Row>
+        </Panel>
+        <Row>
+            <Col md={24} sm={24}>
+
+                <ButtonToolbar>
+                <Button className="float-md-left" appearance="ghost" >Voir mon CV</Button>
+                <Button className="float-md-right" appearance="ghost" >Programmer un entretien</Button>
+                
+                </ButtonToolbar>
+            </Col>
+        </Row>
+
+      </div>
       );
     
   }

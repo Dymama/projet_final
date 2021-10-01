@@ -5,11 +5,11 @@ const formation = axios.create({
     withCredentials: true,
 })
 
-export const insertFormation = payload => formation.post(`/`, payload)
-export const getAllFormation = () => formation.get(`/`)
-export const updateFormationById = (id, payload) => formation.put(`/${id}`, payload)
-export const getFormationById = id => formation.get(`/${id}`)
-export const deleteFormationById = id => formation.delete(`/${id}`)
+const insertFormation = payload => formation.post(`/`, payload)
+const getAllFormation = () => formation.get(`/`)
+const updateFormationById = (id, payload) => formation.put(`/${id}`, payload)
+const getFormationById = id => formation.get(`/${id}`)
+const deleteFormationById = id => formation.delete(`/${id}`)
 
 
 
@@ -17,7 +17,7 @@ const formations = {
     insertFormation,
     getAllFormation,
     getFormationById,
-    getFormationById,
+    updateFormationById,
     deleteFormationById,
 }
 

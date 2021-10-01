@@ -11,6 +11,10 @@ import {ButtonToolbar,
         InputPicker,
         Button,
         ButtonGroup,
+        Loader,
+        Placeholder,
+        Alert,
+        
 
     } from 'rsuite';
 
@@ -22,6 +26,8 @@ import 'rsuite/dist/styles/rsuite-default.css';
 import ConferenceCard from './ConferenceCard';
 
 import './AllConferenceOwn.css';
+import ConferenceEventModal from '../../../eventsDetails/Conferences/ConferenceEventModal';
+import { restTime } from '../../../../services/_modules';
 
 const data= [
     
@@ -35,30 +41,79 @@ const data= [
     }
   ]
 
+export default function AllConferenceOwn(props) {
+  
 
-export default function AllConferenceOwn({match}) {
-   function clickCard(){
-     alert('ok');
-   }
-    
+  const [showConferenceModal, setShowConferenceModal] = useState(false);
+  const [rowsConferenceModal, setRowsConferenceModal] = useState(0);
+  const [cardClickDataConferenceModal,setCardClickDataConferenceModal] = useState([])
+
+
+const confData = props.allConf
   let history = useHistory();
-  function affiche(url){ 
-    history.push(url);
+
+  // const handleCall = (rowClickData)=> {
+
+  //   history.push({
+  //       pathname: `/dashboard/start_conference`,
+  //       state: {dataConf: rowClickData,type:'candidat'}
+  //   });
+  // }
+ 
+  
+  
+  function closeConferenceModal() {
+    setShowConferenceModal(false);
   }
-    
+
+function resetRowsConferenceModal() {
+    setRowsConferenceModal(0);
+  }
+
+  function openConferenceModal(data) {
+    setShowConferenceModal(true);
+    setCardClickDataConferenceModal(data)
+    setTimeout(() => {
+      setRowsConferenceModal(80)
+    }, 1000);
+
+}
+
+
+function showAlertConfNotDisponible(date,heure) {
+   
+    Alert.info(`Veuillez patienter dans moins de ${restTime(date,heure)} Minutes.`,8000)
+
+}
+
+
     return (
     <>
+    
+        <ConferenceEventModal 
+                show={showConferenceModal} 
+                close={closeConferenceModal}  
+                resetRows={resetRowsConferenceModal} 
+                rows={rowsConferenceModal}
+                dataClicker={cardClickDataConferenceModal} 
+                showAlertConfNotDisponible={showAlertConfNotDisponible}
+                /> 
         <div className="allconf-own-container py-3 container">
             <div className="row mx-auto">
-                <div className="col-md-4">
-                    <ConferenceCard onClick={()=>clickCard()} />
-                </div>
-                <div className="col-md-4">
-                    <ConferenceCard onClick={()=>clickCard()}/>
-                </div>
-                <div className="col-md-4">
-                    <ConferenceCard onClick={()=>clickCard()}/>
-                </div>
+
+              {
+                confData !== undefined ? 
+                  confData.map((item,index) => {
+                    return <ConferenceCard handleOnClickItem={openConferenceModal} key={item._id} index={index} dataConf= {item} />
+                  })
+                  : <>
+                      <div className="mx-auto text-center" style={{height:300,padding:'10em'}}>
+                        <Loader size="lg" content="Chargement..." />
+                      </div>
+                    
+                    </>
+              }
+               
             </div>
         </div>
 

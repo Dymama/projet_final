@@ -1,0 +1,79 @@
+
+.allconf-card-container{
+    width: 300px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.allconf-fisrt-card{
+    box-shadow:5px 5px 15px #d3cfcf,-5px -5px 15px #d3cfcf
+}
+
+.allconf-card-header{
+    position: absolute;
+
+}
+
+.allconf-card-header >div{
+    text-align: center;
+    opacity: 1;
+    z-index: 999;
+}
+
+.allconf-card-header >div p{
+    color: #fff;
+    background-color: purple;
+    padding:1em;
+    font-family: "Open Sans","Sans Serif";
+    font-weight: 100 !important;
+    border:1px solid white;
+    border-bottom-right-radius: 2em;
+    opacity: 1;
+    
+}
+
+
+.allconf-img-event-container{
+    height: 15em;
+    padding:0.5em;
+}
+
+.allconf-img-event-container >img{
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+
+}
+
+
+.allconf-img-conf-container{
+    height:15em;
+    width:100%;
+    position: absolute;
+    display: flex;
+    justify-content:center;
+    justify-items: center;
+}
+
+.allconf-img-conf-container >img{
+    height:7.5em;
+    width: 10em;
+    margin-top: 4em;
+}
+
+.allconf-event-info{
+    padding:2em 1em;
+    color:purple;
+    font-family:"Open Sans", sans-serif;
+}
+
+
+.bg-content-left{
+    font-size:12px;
+}
+
+.theme-contenair-h6{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

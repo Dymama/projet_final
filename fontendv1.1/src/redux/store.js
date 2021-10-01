@@ -19,7 +19,6 @@ import { updateStatutReducer } from './entretiens/updateStatut/updateStatutReduc
 import { agendaGetReducer } from './agenda/agendaGet.js/agendaGetReducer';
 import { getInfoEntrepriseReducer } from './entreprise/getInfo/getInfoEntrepriseReducer';
 import { getAdminReducer } from './admin/adminReducer';
-import NewEventForm from '../components/dashboard/pages/Events/NewEvent/NewEventForm';
 import { newEventReducer } from './events/newEvents/newEventReducer';
 import { listEventReducer } from './events/listEvent/listEventReducer';
 import { participateEventReducer } from './events/participateEvent/participateEventReducer';
@@ -27,6 +26,8 @@ import { participateVerifyReducer } from './events/participateVerify/participate
 import { postulerOffreReducer } from './offres/postulerOffre/postulerOffreReducer';
 import { listCandidatReducer } from './candidats/listCandidat/listCandidatReducer';
 import { getAllUserByTypeReducer } from './utilisateur/getAllUserByType/getAllUserByTypeReducer';
+import { newFormationReducer } from './entreprise/formation/newFormation/newFormationReducer';
+import { getFormationReducer } from './entreprise/formation/getFormation/getFormationReducer';
 
 
 const rootReducer = combineReducers(
@@ -55,6 +56,9 @@ const rootReducer = combineReducers(
         postulerOffre: postulerOffreReducer,
         listCandidat: listCandidatReducer,
         getAllUserByType: getAllUserByTypeReducer,
+
+        formation: newFormationReducer,
+        getFormations: getFormationReducer,
 
     }
 )

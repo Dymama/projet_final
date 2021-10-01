@@ -3,19 +3,24 @@ const Schema = mongoose.Schema;
        
 var formationSchema = new Schema(
     {
-        titre: { type: String, required: true },
+        theme: { type: String, required: true },
         description: { type: String, required: true },
-        pays: { type: String, required: true },
-        ville: { type: String, required: true },
-        video: { type: String, required: true },
-        image: { type: String, required: true },
+        // pays: { type: String, required: true },
+        // ville: { type: String, required: true },
+        video: { type: String, required: false },
+        image: { type: String, required: false },
         date_debut: { type: String, required: true },
         date_fin: { type: String, required: true },
+        heure_debut: { type: String, required: true },
+        heure_fin: { type: String, required: true },
         statut: { type: Boolean, required: false ,default:false},
         
-        entreprise: { type: Schema.Types.ObjectId,ref:'Entreprise', required:true },
-        event: { type: Schema.Types.ObjectId,ref:'Evenement', required:true }
 
+        lien: { type: String, required: false },
+
+        employer: { type: Schema.Types.ObjectId,ref:'Utilisateur', required:false },
+        entreprise: { type: Schema.Types.ObjectId,ref:'Entreprise', required:false },
+        evenement: { type: Schema.Types.ObjectId,ref:'Evenement', required:true }
     },
     { timestamps: true },
 )

@@ -103,9 +103,19 @@ function constitueData(data){
      
 
      useEffect(()=>{
+       
+      props.apiOffreGetFunc();
+      setLoadTable(true)
       utilisateurs.getUserEntreprise(user._id)
         .then(res=>{
           setEntrepriseData(res.data.data)
+          
+          setTimeout(() => {
+
+            setData(props.apiOffreGetData.offre.data ? filterOwnPostes(constitueData(props.apiOffreGetData.offre.data),res.data.data._id): [{}])
+            setLoadTable(false)
+        }, 2000);
+
         })
         
    },[])

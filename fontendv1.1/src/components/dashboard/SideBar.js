@@ -147,17 +147,17 @@ export default function SideBar({ ...props }) {
                     ? 
                     (<>
                     <Dropdown.Item eventKey="4-1" componentClass={Link} to="/dashboard/new_conference">Nouvelle conférence</Dropdown.Item>
-                    <Dropdown.Item eventKey="4-2" componentClass={Link} to="/dashboard/conferences">Mes Conférences</Dropdown.Item> </>)
+                    <Dropdown.Item eventKey="4-2" componentClass={Link} to="/dashboard/conferences">Liste conférences</Dropdown.Item> </>)
                     : ""
                     }
                     
                     {userData && userData.type_compte ==="candidat" 
                     ? 
                     (<> <Dropdown.Item eventKey="4-1" componentClass={Link} to="/dashboard/own_conferences_candidat">Mes  conferences</Dropdown.Item>
+                    <Dropdown.Item eventKey="4-3" componentClass={Link} to="/dashboard/allconferences">Toutes les conférences</Dropdown.Item>
                      </>)
                     : ""
                     }
-                    <Dropdown.Item eventKey="4-3" componentClass={Link} to="/dashboard/allconferences">Toutes les conférences</Dropdown.Item>
 
                   </Dropdown>
 
@@ -173,11 +173,12 @@ export default function SideBar({ ...props }) {
                     {userData && userData.type_compte ==="candidat" 
                     ? 
                     (<> <Dropdown.Item eventKey="5-1" componentClass={Link} to="/dashboard/own_formations_candidat">Mes  formations</Dropdown.Item>
+                    
+                    <Dropdown.Item eventKey="5-3"  componentClass={Link} to="/dashboard/new_formation">Toutes les formation</Dropdown.Item>
                      </>)
                     : ""
                     }
 
-                    <Dropdown.Item eventKey="5-3"  componentClass={Link} to="/dashboard/new_formation">Toutes les formation</Dropdown.Item>
                   </Dropdown>
 
 
@@ -190,8 +191,14 @@ export default function SideBar({ ...props }) {
                     : ""
                     }
 
-                   
-                    <Dropdown.Item eventKey="6-3" componentClass={Link} to="/dashboard/own_entretiens">Mes  entretiens</Dropdown.Item>
+                    {userData && userData.type_compte ==="candidat" 
+                    ? 
+                    (<>
+                      <Dropdown.Item eventKey="6-3" componentClass={Link} to="/dashboard/own_entretiens">Mes  entretiens</Dropdown.Item>
+                      </>)
+                    : ""
+                    }
+
                     
 
                   </Dropdown>

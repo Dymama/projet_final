@@ -9,17 +9,32 @@ import {ButtonToolbar,
         IconButton,
         Badge,
         InputPicker,
-        Button
+        Button,
+        Loader,
+        Row,
+        Col,
+        Content,
+        Container,
+        Panel,
+
     } from 'rsuite';
 
 
 
 import 'rsuite/dist/styles/rsuite-default.css';
-import './Formation.css';
-
+import EventCards from '../Events/EventCards';
+import './Formations.css';
+import FormationNav from './FormationNav';
+import EventDetailsDash from '../Events/EventDetailsDash';
+import Home from '../Home/Home';
 import TablesValides from './Tables/TablesValides';
-import { apiGetConference } from '../../../../redux/entreprise/getConference/getConferenceAction';
+import TablesAnnules from './Tables/TablesAnnules';
+import TablesAttentes from './Tables/TablesAttentes';
+
 import ModalShowConf from './ModalShowConf';
+import { UserFromToken } from 'stream-chat';
+import configureStore from '../../../../redux/store';
+import { apiGetFormation } from '../../../../redux/entreprise/formation/getFormation/getFormationAction';
 
 
 const data= [
@@ -33,23 +48,26 @@ const data= [
       "value": "Nom"
     }
   ]
+const {store} = configureStore()
 
-
-export default function Formation({match}) {
+export default function Formations({match}) {
+  const user = store.getState().getInfoUser.user.data
   
-  const allConferences = useSelector(state => state.getConferences)
+  const allFormations = useSelector(state => state.getFormations)
   const usedispatch = useDispatch()
   
-  const [conferences, setConferences] = useState(allConferences.conference.data)
+  const [formations, setFormations] = useState(allFormations.formation.data)
 
   const [showModal, setShowModal] = useState(false)
   const [rowClickData, setRowClickData] = useState({})
   const [rows, setRows] = useState(false)
   
+  const [umptyData,setUmptyData] = useState(false)
+  const [loading,setLoading] = useState(true)
+
+
   let history = useHistory();
-  function affiche(url){ 
-    history.push(url);
-  }
+  
 
   
   const closeModal = ()=>{
@@ -68,8 +86,7 @@ export default function Formation({match}) {
   const handleEdit = () => {
     history.push({
         pathname: '/dashboard/edit_formation',
-        search: '?query=abc',
-        state: {idConf: ''}
+        
     });
   }
 
@@ -78,79 +95,170 @@ export default function Formation({match}) {
 
     history.push({
         pathname: `/dashboard/start_formation`,
-        state: {dataConf: rowClickData}
+        state: {dataConf: rowClickData,type:'entreprise'}
     });
   }
 
-  const dataClickConf = (value)=>{
-    setRowClickData(value)
+  
+  const handleActionNewFormation = ()=> {
+
+    history.push({
+        pathname: `/dashboard/new_formation`,
+    });
   }
 
-  console.log(allConferences.conference,'Formation side')
-  console.log(conferences,'conf from')
+ 
+  const dataClickConf = (data)=>{
+    history.push({
+      pathname: '/dashboard/detail_formation',
+      search: '?query=abc',
+      state: {formationRowData: data._id}
+    });
+  }
 
   useEffect(()=>{
-    usedispatch(apiGetConference())
+    usedispatch(apiGetFormation())
   },[usedispatch])
 
   useEffect(()=>{
-    setConferences(allConferences.conference.data)
-  },[allConferences.conference])
+    var timer1 = setTimeout(() => {
+    if(allFormations.formation.length !== 0 && allFormations.formation.success === true ){
+      setLoading(false)
+      setUmptyData(false)
+      setFormations(allFormations.formation.data)
+    } 
+    if(allFormations.formation.length === 0 && allFormations.formation.success === true ){
+            
+      setLoading(false)
+      setUmptyData(true)
+
+  }
+        
+  }, 1000);
+
+  return () => {
+    clearTimeout(timer1);
+  };
+
+  },[allFormations.formation])
 
   
+
     return (
        <>
 
-        <section className="content">
+    <Container className="bg-white p-3">
+        <Content>
+        {/* <section className="content bg-white">
+           */}
+        <div className="col-12 py-2">
+              <h4 className="mx-auto text-center">
+                  Liste des formations
+              </h4>
+                
+            </div>
           <div className="container-fluid">
-            <div className="header-conferences mx-auto row py-4 px-3">
-            
-                    <div className="col-12 col-md-4 mx-auto">
-                        <InputGroup inside>
-                                <Input placeholder="Recherche..." />
+              <Row  data-aos="zoom-in-down">
+                        <Col className="p-3 text-center"  data-aos="slide-right"  md={12} sm={12}>
+                            <InputGroup inside>
+                                <Input  size="lg" placeholder="Recherche..." />
                                 <InputGroup.Button>
                                     <Icon icon="search" />
                                 </InputGroup.Button>
                             </InputGroup>
-                    </div>
+                       
+                        </Col>
+                        <Col className="p-3" md={12} sm={12}>
+                          <InputPicker  size="lg" className="float-md-right w-100" data={data} placeholder="Trier par..."/>
+                        </Col>
 
-                    <div className="col-12 col-md-4">
-                    
-                    </div>
+              </Row>
 
-                    <div className="col-md-4 col-12 mx-auto">
-                        <InputPicker className="float-md-right w-100" data={data} placeholder="Trier par..."/>
-
-                    </div>
-
-            </div>
-            
-            <div className="conferences-table-container">
+            {user.admin &&
+            <Row  data-aos="zoom-in-down">
+                        <Col data-aos-delay="500"  data-aos="zoom-up" className="p-3 text-center"  data-aos="slide-right"  md={8} sm={8}>
+                          <Panel  style={{color:"green"}} className="p-0 text-center"   shaded>
+                          <h4 className="mx-auto text-center mb-2" color="green"  circle >
+                          {formations?formations.length:0}
+                            
+                          </h4>
+                          <p className="pt-2 text-center" > Validées </p>
+                          </Panel>
+                       
+                        </Col>
+                        <Col  data-aos-delay="600" className="p-3"   data-aos="zoom-up"  md={8} sm={8}>
+                          <Panel style={{color:"orange"}} className="p-0 text-center"   shaded>
+                          <h4 className="mx-auto text-center mb-2" color="orange"  circle >
+                            0
+                          </h4>
+                          <p className="pt-2 text-center" > En attentes </p>
+                          </Panel>
+                           
+                        </Col>
+                        <Col  data-aos-delay="600" className="p-3"   data-aos="zoom-up"  md={8} sm={8}>
+                          <Panel style={{color:"red"}} className="p-0 text-center"   shaded>
+                          <h4 className="mx-auto text-center mb-2" color="green"  circle >
+                            0
+                          </h4>
+                          <p className="pt-2 text-center" > Annulées </p>
+                          </Panel>
+                        </Col>
+                       
+              </Row>
+            }
+            <div className="formations-table-container">
+              <Router>
+                <FormationNav/>
                 <div className="body-conf-table-container">
                 
-                  <div className="row">
-                      <div className="col-12 mx-auto pb-3">
-                          
-                          <ButtonToolbar className="float-md-right mx-auto">
-                              <IconButton icon={<Icon icon="plus" />} placement="right">
-                                  Nouvelle formation
-                              </IconButton>
-                          </ButtonToolbar>
+                
+                  {loading ? (
+                    <>
+                        <div className="mx-auto text-center mt-5" >
+                            <Loader
+                             className="m-auto text-center mt-5 " backdrop size="md" content="chargement..." vertical />
+                        </div> 
+                    </>
+                ):(
+                    <>
 
-                      </div>
-                  </div>
+                    {umptyData ? (
+                        <>
 
-                  <TablesValides conference={conferences} dataClickConf={(value)=>dataClickConf(value)} dataM={rowClickData} openModal={openModal} /> 
-              
-              
-                  <ModalShowConf rows={rows} rowClickData={rowClickData} showModal={showModal} closeModal= {()=>closeModal} handleCall={ ()=>handleCall} handleEdit={()=> handleEdit} />
+                        <p>
+                            aucun entretien 
+                        </p>
 
+                        </>
+                    ):(
+                        <>
+                    <Panel shaded>
+                        
+                         
+                    <Route  exact path="/dashboard/formations" component={()=> <TablesValides formation={formations} handleActionNewFormation={handleActionNewFormation}  handleActionShowDetail={dataClickConf} dataM={rowClickData} openModal={openModal} /> }/>
+                   
+                    <Route path="/dashboard/formations/attentes" component={TablesAttentes}/>
+
+                    {/* <Route path="/dashboard/formations/annules" component={TablesAnnules}/> */}
+                    </Panel>
+                    </>
+                   
+                    )}
+                   
+                    </>
+                   
+                    )}
                 </div>
+              </Router>
+
+            
+            <ModalShowConf rows={rows} rowClickData={rowClickData} showModal={showModal} closeModal= {()=>closeModal} handleCall={ ()=>handleCall} handleEdit={()=> handleEdit} />
 
             </div>
 
           </div>
-        </section>
+        </Content>
+        </Container>
 
     </>
     

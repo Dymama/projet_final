@@ -32,6 +32,8 @@ import TablesAnnules from './Tables/TablesAnnules';
 import TablesAttentes from './Tables/TablesAttentes';
 import { apiGetConference } from '../../../../redux/entreprise/getConference/getConferenceAction';
 import ModalShowConf from './ModalShowConf';
+import { UserFromToken } from 'stream-chat';
+import configureStore from '../../../../redux/store';
 
 
 const data= [
@@ -45,9 +47,10 @@ const data= [
       "value": "Nom"
     }
   ]
-
+const {store} = configureStore()
 
 export default function Conferences({match}) {
+  const user = store.getState().getInfoUser.user.data
   
   const allConferences = useSelector(state => state.getConferences)
   const usedispatch = useDispatch()
@@ -82,8 +85,7 @@ export default function Conferences({match}) {
   const handleEdit = () => {
     history.push({
         pathname: '/dashboard/edit_conference',
-        search: '?query=abc',
-        state: {idConf: ''}
+        
     });
   }
 
@@ -93,6 +95,14 @@ export default function Conferences({match}) {
     history.push({
         pathname: `/dashboard/start_conference`,
         state: {dataConf: rowClickData,type:'entreprise'}
+    });
+  }
+
+  
+  const handleActionNewConference = ()=> {
+
+    history.push({
+        pathname: `/dashboard/new_conference`,
     });
   }
 
@@ -166,12 +176,13 @@ export default function Conferences({match}) {
 
               </Row>
 
-            
+            {user.admin &&
             <Row  data-aos="zoom-in-down">
                         <Col data-aos-delay="500"  data-aos="zoom-up" className="p-3 text-center"  data-aos="slide-right"  md={8} sm={8}>
                           <Panel  style={{color:"green"}} className="p-0 text-center"   shaded>
                           <h4 className="mx-auto text-center mb-2" color="green"  circle >
-                            1
+                          {conferences.length?conferences.length:0}
+                            
                           </h4>
                           <p className="pt-2 text-center" > Validées </p>
                           </Panel>
@@ -180,7 +191,7 @@ export default function Conferences({match}) {
                         <Col  data-aos-delay="600" className="p-3"   data-aos="zoom-up"  md={8} sm={8}>
                           <Panel style={{color:"orange"}} className="p-0 text-center"   shaded>
                           <h4 className="mx-auto text-center mb-2" color="orange"  circle >
-                            1
+                            0
                           </h4>
                           <p className="pt-2 text-center" > En attentes </p>
                           </Panel>
@@ -189,30 +200,19 @@ export default function Conferences({match}) {
                         <Col  data-aos-delay="600" className="p-3"   data-aos="zoom-up"  md={8} sm={8}>
                           <Panel style={{color:"red"}} className="p-0 text-center"   shaded>
                           <h4 className="mx-auto text-center mb-2" color="green"  circle >
-                            1
+                            0
                           </h4>
                           <p className="pt-2 text-center" > Annulées </p>
                           </Panel>
                         </Col>
                        
               </Row>
-            
+            }
             <div className="conferences-table-container">
               <Router>
                 <ConferenceNav/>
                 <div className="body-conf-table-container">
                 
-                  <div className="row">
-                      <div className="col-12 mx-auto pb-3">
-                          
-                          <ButtonToolbar className="float-md-right mx-auto">
-                              <IconButton appearance="ghost" icon={<Icon icon="plus" />} placement="right">
-                                  Nouvelle conférence
-                              </IconButton>
-                          </ButtonToolbar>
-
-                      </div>
-                  </div>
                 
                   {loading ? (
                     <>
@@ -237,11 +237,11 @@ export default function Conferences({match}) {
                     <Panel shaded>
                         
                          
-                    <Route  exact path="/dashboard/conferences" component={()=> <TablesValides conference={conferences} dataClickConf={dataClickConf} dataM={rowClickData} openModal={openModal} /> }/>
+                    <Route  exact path="/dashboard/conferences" component={()=> <TablesValides conference={conferences} handleActionNewConference={handleActionNewConference}  handleActionShowDetail={dataClickConf} dataM={rowClickData} openModal={openModal} /> }/>
                    
                     <Route path="/dashboard/conferences/attentes" component={TablesAttentes}/>
 
-                    <Route path="/dashboard/conferences/annules" component={TablesAnnules}/>
+                    {/* <Route path="/dashboard/conferences/annules" component={TablesAnnules}/> */}
                     </Panel>
                     </>
                    

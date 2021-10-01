@@ -41,6 +41,12 @@ const DetailCandidarTable = lazy(() => import('../../components/dashboard/pages/
 
 const DetailEntretienTable = lazy(() => import('../../components/dashboard/pages/Entretiens/DetailEntretienTable/DetailEntretienTable'));
 
+const EditConference = lazy(() => import('../../components/dashboard/pages/Conferences/EditConference/EditConference'));
+
+const NewFormation = lazy(() => import('../../components/dashboard/pages/Formations/NewFormation'));
+const Formations = lazy(() => import('../../components/dashboard/pages/Formations/Formation'));
+const DetailFormationTable = lazy(() => import('../../components/dashboard/pages/Formations/DetailFormationTable/DetailFormationTable'));
+
 
 export default function Dashboard({match}){
   
@@ -84,6 +90,7 @@ export default function Dashboard({match}){
             <Route path={`${match.url}/start_conference`} component={VideoConference1}/ >
 
             <Route path={`${match.url}/new_conference`} component={NewConference}/ >
+            <Route path={`${match.url}/edit_conference`} component={EditConference}/ >
             <Route path={`${match.url}/detail_conference`} component={DetailConferenceTable}/ >
 
             <Route path={`${match.url}/new_entretien`} component={NewEntretien}/ >
@@ -102,6 +109,10 @@ export default function Dashboard({match}){
             <Route path={`${match.url}/show_candidat_detail`} component={DetailCandidarTable}/ >
 
             <Route path={`${match.url}/detail_entretien`} component={DetailEntretienTable}/ >
+
+            <Route path={`${match.url}/new_formation`} component={NewFormation}/ >
+            <Route path={`${match.url}/formations`} component={Formations}/>
+            <Route path={`${match.url}/detail_formation`} component={DetailFormationTable}/ >
             
             {/* <Route path={`${match.url}/voir`} component={Page}/ > */}
             

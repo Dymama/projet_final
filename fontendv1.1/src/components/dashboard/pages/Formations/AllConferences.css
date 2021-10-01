@@ -1,5 +1,6 @@
 
 .allconferences-table-container{
+    
 
 }
 
@@ -8,7 +9,14 @@
 }
 
 .allconference-btn-control-container{
-
+    border-left: 3px solid #440544;
+    border-right: 3px solid #440544;
+    border-bottom: 3px solid #440544;
+    border-radius: 0em 0em 1em 1em ;
+    -webkit-border-radius: 0em 0em 1em 1em ;
+    -moz-border-radius: 0em 0em 1em 1em ;
+    -ms-border-radius: 0em 0em 1em 1em ;
+    -o-border-radius: 0em 0em 1em 1em ;
 }
 
 .allconf-btn{
@@ -35,4 +43,10 @@
 }
 
 
+.container-general-allconf{
+    background:#fff;
+}
 
+.style-special-bg{
+    background: #440544;
+}

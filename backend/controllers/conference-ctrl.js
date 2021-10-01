@@ -1,7 +1,7 @@
 const Conference = require('../models/conference-model')
 const Administrateur = require('../models/administrateur-model')
   
-
+const { v4: uuidv4 } = require('uuid');
 
 // creer un conference
 exports.create = (req, res, next) => {
@@ -30,6 +30,7 @@ exports.create = (req, res, next) => {
                     const conference = new Conference({
                         ...body,
                         employer: admin.utilisateur,
+                        lien: `conference${uuidv4()}`,
                         entreprise:admin.entreprise
         
                         })
