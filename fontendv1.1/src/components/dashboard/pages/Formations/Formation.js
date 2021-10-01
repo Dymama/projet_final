@@ -32,7 +32,6 @@ import TablesAnnules from './Tables/TablesAnnules';
 import TablesAttentes from './Tables/TablesAttentes';
 
 import ModalShowConf from './ModalShowConf';
-import { UserFromToken } from 'stream-chat';
 import configureStore from '../../../../redux/store';
 import { apiGetFormation } from '../../../../redux/entreprise/formation/getFormation/getFormationAction';
 
