@@ -21,6 +21,30 @@ import 'rsuite/dist/styles/rsuite-default.css';
 
 function ContainerCandidat(props){
   const [userData, setUserData] = useState(props.candidatClickData)
+  
+    
+  const [show,setShowCandidatInfo] = useState(false);
+  const [rowsCandidatInfo,setRowsCandidatInfo] = useState(0);
+  const [candidatClickData,setCandidatClickData] = useState([]);
+  
+
+    function closeCandidatInfo() {
+      setShowCandidatInfo(false);
+    }
+
+  function resetRowsCandidatInfo() {
+    setRowsCandidatInfo(0);
+    }
+
+  function openCandidatInfo(data) {
+      setShowCandidatInfo(true);
+      setCandidatClickData(data)
+      setTimeout(() => {
+        setRowsCandidatInfo(80)
+      }, 1000);
+
+  }
+
   useEffect(() => {
     setUserData(props.candidatClickData)
   
@@ -93,57 +117,12 @@ function ContainerCandidat(props){
                             <p className=""> {userData.experience} </p> 
                         </Col>
                     </Row>
-                    {/* <Row className="">
-                        <Col md={8} sm={24} className="mx-auto">
-                            <span className="font-weight-bold">  Niveau d'étude  : </span> 
-                        </Col>
-                        <Col md={8} sm={24} className="mx-auto">
-                            <p className=""> {userData.niveau} </p> 
-                        </Col>
-                    </Row>
-
-                        <div className="col-md-5">
-                            <div className="row mt-0">
-                                <div className="col-11 mx-auto">
-                                <span className="font-weight-bold">  Nom   </span> : {userData.nom}
-                                </div>   
-                            </div>
-                            <div className="row mt-0">
-                                <div className="col-11 mx-auto">
-                                <span className="font-weight-bold">  Prénom   </span> : {userData.prenom}
-                                </div>   
-                            </div>
-                            <div className="row mt-0">
-                                <div className="col-11 mx-auto">
-                                <span className="font-weight-bold">  Civilité   </span> : {userData.civilite}
-                                </div>   
-                            </div>
-                    
-                        </div>
-                        
-                        <div className="col-md-5">
-                            <div className="row mt-0">
-                                    <div className="col-11 mx-auto">
-                                <span className="font-weight-bold">  Niveau d'étude   </span> : {userData.niveau}
-                                </div>   
-                            </div>
-                            <div className="row mt-0">
-                                    <div className="col-11 mx-auto">
-                                <span className="font-weight-bold">  Poste actuel   </span> : {userData.poste}
-                                </div>   
-                            </div>
-                            <div className="row mt-0">
-                                    <div className="col-11 mx-auto">
-                                <span className="font-weight-bold">  Expérience   </span> :  {userData.experience} {' '} 
-                                </div>   
-                            </div>
-                        </div> */}
-
+                  
                 </Col>
             </Row>
         </Panel>
-        <Row>
-            <Col md={24} sm={24}>
+        <Row className="">
+            <Col md={24}  className="mt-2" sm={24}>
 
                 <ButtonToolbar>
                 <Button className="float-md-left" appearance="ghost" >Voir mon CV</Button>
