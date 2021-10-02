@@ -41,18 +41,18 @@ export default function NewEntretien(){
                             <h4 className="text-center mx-auto">
                                 Nouvel Entretien
                             </h4>
-                            <p className="text-center">Veuillez bien renseigner les informations</p>
+                            {/* <p className="text-center">Veuillez bien renseigner les informations</p> */}
                         </div>
                         <div className="body-new-entretien py-3 row">
-                        <div className="col-md-3">
-                        <img atl="logo"
-                        src={entretien1}
-                        className="img-fluid"
-                        /></div>
-                        
-                        <div className="col-md-9 ">
-                            <NewEntretienForm clicker={handleClicker} handleClickerFalse={handleClickerFalse} /> 
-                        </div>
+                            {/* <div className="col-md-3">
+                            <img atl="logo"
+                            src={entretien1}
+                            className="img-fluid"
+                            /></div> */}
+                            
+                            <div className="col-12 px-5">
+                                <NewEntretienForm clicker={handleClicker} handleClickerFalse={handleClickerFalse} /> 
+                            </div>
                         </div>
 
                         </>

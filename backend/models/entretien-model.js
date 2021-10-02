@@ -11,8 +11,10 @@ const entretienSchema = new Schema(
         heure_debut: { type: Date ,required:true},
         statut: { type: Boolean, required: false ,default:false},
         concerner: { type: Schema.Types.ObjectId, required:true },
+        lien: { type: String, required: false },
 
-        entreprise_demandeur: { type: Schema.Types.ObjectId,ref:'Utilisateur', required:true },
+        employer: { type: Schema.Types.ObjectId,ref:'Utilisateur', required:false },
+        entreprise: { type: Schema.Types.ObjectId,ref:'Entreprise', required:false },
 
     },
     { timestamps: true },

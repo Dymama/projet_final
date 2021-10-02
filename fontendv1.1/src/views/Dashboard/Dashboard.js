@@ -15,8 +15,6 @@ import Page from './Voir';
 
 
 
-
-
 // importation des components dynamiquement
 const Home = lazy(() => import('../../components/dashboard/pages/Home/Home'));
 const Events = lazy(() => import('../../components/dashboard/pages/Events/Events'));
@@ -46,6 +44,14 @@ const EditConference = lazy(() => import('../../components/dashboard/pages/Confe
 const NewFormation = lazy(() => import('../../components/dashboard/pages/Formations/NewFormation'));
 const Formations = lazy(() => import('../../components/dashboard/pages/Formations/Formation'));
 const DetailFormationTable = lazy(() => import('../../components/dashboard/pages/Formations/DetailFormationTable/DetailFormationTable'));
+
+
+const EntretienBtoB = lazy(() => import('../../components/dashboard/pages/Entretiens/EntretienBtoB/EntretienBtoB'));
+const EntretienCandidat = lazy(() => import('../../components/dashboard/pages/Entretiens/EntretienCandidat/EntretienCandidat'));
+const EntretienDemandes = lazy(() => import('../../components/dashboard/pages/Entretiens/EntretienDemandes/EntretienDemandes'));
+
+
+const Statistiques = lazy(() => import('../../components/dashboard/pages/Statistiques/Statistiques'));
 
 
 export default function Dashboard({match}){
@@ -113,7 +119,13 @@ export default function Dashboard({match}){
             <Route path={`${match.url}/new_formation`} component={NewFormation}/ >
             <Route path={`${match.url}/formations`} component={Formations}/>
             <Route path={`${match.url}/detail_formation`} component={DetailFormationTable}/ >
+
+            <Route path={`${match.url}/entretiens_b_to_b`} component={EntretienBtoB}/ >
+            <Route path={`${match.url}/entretiens_candidats`} component={EntretienCandidat}/ >
+            <Route path={`${match.url}/entretiens_demandes`} component={EntretienDemandes}/ >
             
+            <Route path={`${match.url}/statistiques`} component={Statistiques}/ >
+
             {/* <Route path={`${match.url}/voir`} component={Page}/ > */}
             
             

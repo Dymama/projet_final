@@ -18,29 +18,29 @@ import {
 import 'rsuite/dist/styles/rsuite-default.css';
 
  import './DetailCandidat.css';
+import ProgrammeEntretien from './ProgrammeEntretien/ProgrammeEntretien';
 
 function ContainerCandidat(props){
   const [userData, setUserData] = useState(props.candidatClickData)
+
   
-    
-  const [show,setShowCandidatInfo] = useState(false);
-  const [rowsCandidatInfo,setRowsCandidatInfo] = useState(0);
+  const [showMeetCandidat,setShowMeetCandidat] = useState(false);
+  const [rowsMeetCandidat,setRowsMeetCandidat] = useState(0);
   const [candidatClickData,setCandidatClickData] = useState([]);
   
 
-    function closeCandidatInfo() {
-      setShowCandidatInfo(false);
+    function closeMeetCandidat() {
+        setShowMeetCandidat(false);
     }
 
-  function resetRowsCandidatInfo() {
-    setRowsCandidatInfo(0);
+  function resetRowsMeetCandidat() {
+    setRowsMeetCandidat(0);
     }
 
-  function openCandidatInfo(data) {
-      setShowCandidatInfo(true);
-      setCandidatClickData(data)
+  function openMeetCandidat() {
+    setShowMeetCandidat(true);
       setTimeout(() => {
-        setRowsCandidatInfo(80)
+        setRowsMeetCandidat(80)
       }, 1000);
 
   }
@@ -53,6 +53,9 @@ function ContainerCandidat(props){
 
   
     return (
+      <>
+      <ProgrammeEntretien closeMeetCandidat={closeMeetCandidat} resetRowsMeetCandidat={resetRowsMeetCandidat} showMeetCandidat={showMeetCandidat} rowsMeetCandidat={rowsMeetCandidat} userData={userData} />
+
         <div className="overflow-hidden"  >
 
         <Panel className="overflow-hidden m-2" style={{borderBottom:"2px solid blue"}} shaded>
@@ -126,13 +129,14 @@ function ContainerCandidat(props){
 
                 <ButtonToolbar>
                 <Button className="float-md-left" appearance="ghost" >Voir mon CV</Button>
-                <Button className="float-md-right" appearance="ghost" >Programmer un entretien</Button>
+                <Button className="float-md-right" onClick={() =>openMeetCandidat()} appearance="ghost" >Programmer un entretien</Button>
                 
                 </ButtonToolbar>
             </Col>
         </Row>
 
       </div>
+      </>
       );
     
   }

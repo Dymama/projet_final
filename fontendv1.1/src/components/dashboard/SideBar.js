@@ -187,14 +187,17 @@ export default function SideBar({ ...props }) {
                     ? 
                     (<>
                     <Dropdown.Item eventKey="6-1" componentClass={Link} to="/dashboard/new_entretien">Nouvel entretien</Dropdown.Item>
-                    <Dropdown.Item eventKey="6-2" componentClass={Link} to="/dashboard/entretiens">Liste entretiens</Dropdown.Item></>)
+                    <Dropdown.Item eventKey="6-2" componentClass={Link} to="/dashboard/entretiens_b_to_b">Liste B2B</Dropdown.Item>
+                    <Dropdown.Item eventKey="6-3" componentClass={Link} to="/dashboard/entretiens_candidats">Liste entretiens candidat</Dropdown.Item>
+                    <Dropdown.Item eventKey="6-4" componentClass={Link} to="/dashboard/entretiens_demandes">Liste demandes</Dropdown.Item>
+                    </>)
                     : ""
                     }
 
                     {userData && userData.type_compte ==="candidat" 
                     ? 
                     (<>
-                      <Dropdown.Item eventKey="6-3" componentClass={Link} to="/dashboard/own_entretiens">Mes  entretiens</Dropdown.Item>
+                      <Dropdown.Item eventKey="6-5" componentClass={Link} to="/dashboard/own_entretiens">Mes  entretiens</Dropdown.Item>
                       </>)
                     : ""
                     }

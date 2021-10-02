@@ -17,12 +17,14 @@ import {ButtonToolbar,
     SelectPicker,
     DatePicker,
     Toggle,
-    InputNumber,
-    Slider,
+    Col,
+    Row,
     Tooltip,
     Whisper,
     Avatar,
-    Alert,
+    Modal,
+    Message,
+
 
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
@@ -37,13 +39,15 @@ import ModalGeneric from '../generiques/ModalGeneric';
 import agendas from '../../../../api/agenda';
 
 import './NewEntretienForm.css'
+import { alertError } from '../../../others/NotificationInfog';
+import entretiens from '../../../../api/entretien';
 
 const { StringType, NumberType, DateType} = Schema.Types;
 const {store} = configureStore()
 const model = Schema.Model({
 
-    titre: StringType().isRequired('Champ Obligatoire.'),
-    description: StringType().isRequired('Champ Obligatoire.'),
+  titre: StringType().isRequired('Champ Obligatoire.'),
+  description: StringType().isRequired('Champ Obligatoire.'),
 
 });
 
@@ -129,6 +133,27 @@ function ShowUserData({data}){
   )
 }
 
+const initialState ={
+  show: false,
+  rows: 0,
+  title:'',
+  msg:'',
+  formValue: {
+    titre: '',
+    description: '',
+    date_debut: '',
+    heure_debut: '',
+    date_fin: '',
+    heure_fin: '',
+  },
+  concerner:'',
+  type:'',
+  data:null,
+  disponible:false,
+  choix_date:'',
+  choix_heure:'',
+  loadingEtat:false,
+}
 
 class TextField extends React.PureComponent {
   render() {
@@ -146,61 +171,29 @@ class TextField extends React.PureComponent {
 class NewEntretienForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      show: false,
-      rows: 0,
-      title:'',
-      msg:'',
-      formValue: {
-        titre: '',
-        description: '',
-        date_debut: '',
-        heure_debut: '',
-      },
-      concerner:'',
-      type:'',
-      data:null,
-      disponible:false,
-      choix_date:'',
-      choix_heure:'',
-      loadingEtat:false,
-    };
+    this.state = initialState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
-    this.resetRows = this.resetRows.bind(this);
+    this.handleActionNewEntretien = this.handleActionNewEntretien.bind(this);
     
   }
-
-   // componentDidUpdate(prevProps) {
-  
-  //   if (this.props.userID !== prevProps.userID) {
-  //     this.fetchData(this.props.userID);
-  //   }
-  //   this.setState({choix_date:this.state.date_debut})
-  //   this.setState({choix_heure:this.state.heure_debut})
-  //   console.log(this.state.choix_date,'choix date')
-  //   console.log(this.state.choix_heure,'choix heure')
-  // }
 
   close() {
     this.setState({ show: false });
   }
-  resetRows() {
-    this.setState({ rows: 0 });
+  open() {
+    this.setState({ show: true });
   }
-  open(event) {
-    // this.setState({ show: true });
+
+  handleActionNewEntretien = () => {
     setTimeout(() => {
-    this.setState({ loadingEtat: false });
-    Alert.success('Entretien crée avec succes.', 5000)
-      // this.setState({
-      //   rows: 80
-      // });
-    }, 2000);
-  }
-
-
+        
+      // this.setState(initialState)
+      this.close()
+      
+    },2000)
+  };
 
   handleSubmit() {
     const { formValue,concerner,type } = this.state;
@@ -208,7 +201,7 @@ class NewEntretienForm extends React.Component {
       console.error('Form Error');
       return;
     }
-    this.setState({ show: true });
+    
     this.setState({ loadingEtat: true });
     
     const formData ={
@@ -217,50 +210,46 @@ class NewEntretienForm extends React.Component {
         heure_debut: formValue.heure_debut,
         concerner,
         type,
-        entreprise_demandeur :store.getState().getAdmin.admin.data.entreprise,
+        
     }
 
     const startDate= formValue.date_debut;
     const startHeure= formValue.heure_debut;
 
-    const agendaData =  {
-       name          : "ENTRETIEN",
-       startDateTime :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours(), startHeure.getMinutes()) ,
-       endDateTime   :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours()+4, startHeure.getMinutes()+30),
-       classes       : 'color-3 color-2',
-     }
+  const agendaData =  {
+     name          : "ENTRETIEN",
+     startDateTime :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours(), startHeure.getMinutes()) ,
+     endDateTime   :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours()+4, startHeure.getMinutes()+30),
+     classes       : 'color-3 color-2',
+   }
 
+  
+      agendas.modifAgenda(concerner,agendaData)
+        .then(agenda=>{
 
-    this.props.apiNewEntretienFunc(formData)
+            entretiens.insertEntretien(formData)
+                  .then(res =>{
+                  setTimeout(() => {
 
-    console.log(formData,'formData entretien')
-    setTimeout(() => {
+                      this.open()
+                      this.setState({loadingEtat: false})
+                      
+                      this.handleActionNewEntretien()
+                  }, 3000);
+                  })
+                  .catch(err =>{
+                      
+                  alertError("Une erreur s'est produite")
+                  })
 
-      if(this.props.apiEntretienData.entretien.length !== 0 && this.props.apiEntretienData.entretien.success === true ){
-        this.setState({ msg: this.props.apiEntretienData.entretien.message });
+        })
+        .catch(err=>{
+          console.log(err,'erreur')
 
+        })
 
-        
-        agendas.modifAgenda(concerner,agendaData)
-          .then(agenda=>{
-            console.log(agenda,'mise a jour fait')
-
-            this.open()
-            this.setState({formValue:{} })
-            this.setState({concerner: ''})
-
-          })
-          .catch(err=>{
-            console.log(err,'erreur')
-          })
-
-
-
-      }
-    }, 1000);
-
-    
-  }
+  
+}
 
 
 
@@ -314,6 +303,7 @@ class NewEntretienForm extends React.Component {
       <div className="mx-auto">
       
         <Form
+        fluid
           ref={ref => (this.form = ref)}
           onChange={formValue => {
             this.setState({ formValue });
@@ -324,50 +314,36 @@ class NewEntretienForm extends React.Component {
           formValue={formValue}
           model={model}
         >
-            <div className="row">
-                <div className="col-md-6 my-2">
-                    <TextField name="titre" label="Titre" />  
-                </div>
-                <div className="col-md-6 my-2">
+            <Row className="">
+                <Col md={8} sm={12} xs={24} className="">
+                    <TextField name="titre" 
+                    size="lg" placeholder="Ex: Entretien" label="Titre" />  
+                </Col>
+                <Col md={8} sm={12} xs={24} className="">
                   
-                <FormGroup>
-                  <ControlLabel>Type d'entretien ?</ControlLabel>
-                  <SelectPicker
-                    
-                    onChange={(value)=> this.typeChange(value)}
-                    data={dataChoixCandidat}
-                    searchable={false}
-                    style={{ width: 300 }}
+                  <FormGroup>
+                    <ControlLabel>Type d'entretien ?</ControlLabel>
+                    <SelectPicker
+                      
+                    size="lg"
+                      onChange={(value)=> this.typeChange(value)}
+                      data={dataChoixCandidat}
+                      searchable={false}
+                      style={{ width: 300 }}
 
-                    placeholder="choisissez"
-                  />
-                </FormGroup>
+                      placeholder="choisissez"
+                    />
+                  </FormGroup>
+                  
+                </Col>
                 
-                                
-                </div>
-            </div>
-            
-            <div className="row">
-                <div className="col-md-6 my-2">
-                    <TextField 
-                    oneTap
-                    placement="auto"
-                    name="date_debut" 
-                    accepter={DatePicker} 
-                    placement="auto"
-                    placeholder="selectionner"
-                    style={{ width: 300 }}
-                    format="DD MMM YYYY"
-                    showWeekNumbers
-                    label="Choisisser la date" />
-                
-                </div>
-                <div className="col-md-6 my-2">
-                 <FormGroup>
+                <Col md={8} sm={12} xs={24} className="">
+                  <FormGroup>
                   <ControlLabel>Avec qui passez l'entretien ?</ControlLabel>
                     <SelectPicker
                     placement="auto"
                     
+                    size="lg"
                     name="concerner"
                     onChange={(value)=> this.concerneChange(value)}
                     data={this.state.data? this.state.data : data}
@@ -412,28 +388,85 @@ class NewEntretienForm extends React.Component {
                   />
                   </FormGroup>
 
-                </div>
-            </div>
+                </Col>
+                  
 
-     
-            <div className="row">
-                <div className="col-md-6 my-2">
+            </Row>
+            
+            <Row className="mt-3">                
+              <Col md={12} sm={12} xs={24} className="">
+                    <TextField 
+                    oneTap
+                    placement="auto"
+                    name="date_debut" 
+                    accepter={DatePicker} 
+                    placement="auto"
+                    placeholder="selectionner"
+                    style={{ width: 300 }}
+                    size="lg"
+                    format="DD MMM YYYY"
+                    showWeekNumbers
+                    label="Choisisser la date de début" />
+                
+                </Col>
+              <Col md={12} sm={12} xs={24} className="">
                 <TextField name="heure_debut"
                     
                     placement="auto" 
                     accepter={DatePicker} 
-                   
+                    size="lg"
                     placeholder="selectionner"
                     style={{ width: 300 }}
                     format="HH:mm"
-                    label="Heure de l'entretien" />
-                </div>
-                <div className="col-md-6 my-2">
-                <TextField name="description" rows={1} componentClass="textarea" label="Description" />
-                   
-                </div>
-            </div>
+                    label="Choisisser l'heure de début " />
 
+              </Col>
+
+            </Row>
+
+            
+            <Row className="mt-3">                
+              <Col md={12} sm={12} xs={24} className="">
+                    <TextField 
+                    oneTap
+                    size="lg"
+                    placement="auto"
+                    name="date_fin" 
+                    accepter={DatePicker} 
+                    placement="auto"
+                    placeholder="selectionner"
+                    style={{ width: 300 }}
+                    format="DD MMM YYYY"
+                    showWeekNumbers
+                    label="Choisisser la date fin" />
+                
+                </Col>
+              <Col md={12} sm={12} xs={24} className="">
+                <TextField name="heure_fin"
+                    
+                    placement="auto" 
+                    accepter={DatePicker} 
+                   
+                    size="lg"
+                    placeholder="selectionner"
+                    style={{ width: 300 }}
+                    format="HH:mm"
+                    label="Choisisser heure de fin" />
+
+              </Col>
+
+            </Row>
+
+     
+            <Row className="mt-3">
+              <Col md={24} sm={24} xs={24} className="">
+
+                <TextField name="description" 
+                    size="lg" rows={5} placeholder="Ex: Description de l'entretien " componentClass="textarea" label="Description" />
+                   
+              </Col>
+
+            </Row>
           <ButtonToolbar className="p-5 ">
             <Button 
             disabled={
@@ -458,8 +491,14 @@ class NewEntretienForm extends React.Component {
           </ButtonToolbar>
         </Form>
 
-        {/* <ModalGeneric msg={this.state.msg} show={this.state.show} rows={this.state.rows} open={this.open} close={this.close} resetRows={this.resetRows}   /> */}
-
+        <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
+              <Modal.Body>
+               
+            <Message showIcon type="success" description="Bravo! Entretien a été crée avec succes." />
+               
+              </Modal.Body>
+            
+        </Modal>
       </div>
     );
   }

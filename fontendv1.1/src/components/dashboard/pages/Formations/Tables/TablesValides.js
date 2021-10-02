@@ -28,11 +28,11 @@ function constitueData(data){
 
 const proprioFormationData=[
   {
-  "label":"Mes conférences",
+  "label":"Mes formations",
   "value":"own",
   },
   {
-    "label":"Toutes les conférences",
+    "label":"Toutes les formations",
     "value":"all",
     }
 ]

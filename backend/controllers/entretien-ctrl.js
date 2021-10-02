@@ -1,11 +1,14 @@
 const Entretien = require('../models/entretien-model')
+const Administrateur = require('../models/administrateur-model')
 
+const { v4: uuidv4 } = require('uuid');
 
 
 // creer un Entretien
 exports.create = (req, res, next) => {
 
   const body = req.body;
+  const userSession =  req.session.user;
   console.log(body)
     // verifier si le body contient des données
     if (!body) {
@@ -17,29 +20,59 @@ exports.create = (req, res, next) => {
    
     
 
+    // verification administrateur
+    Administrateur.findOne({utilisateur: userSession.userId})
+        .then( admin => {
+            if (!admin) {
+                return res.status(401).json({ error: 'administrateur non trouvé !' });
+              }
 
-    const entretien = new Entretien(body)
+                    // poste container 
+                    const entretien = new Entretien({
+                        ...body,
+                        employer: admin.utilisateur,
+                        lien: `entretien${uuidv4()}`,
+                        entreprise:admin.entreprise
+        
+                        })
 
-    if (!entretien) {
-        return res.status(400).json({ success: false, error: err })
-    }
-
-    entretien
-        .save()
-        .then(() => {
-            return res.status(201).json({
-                success: true,
-                id: entretien._id,
-                message: 'entretien creer!',
-            })
+                        if (!entretien) {
+                            return res.status(400).json({ success: false, error: err })
+                        }
+                    
+                        entretien
+                            .save()
+                            .then(() => {
+                                return res.status(201).json({
+                                    success: true,
+                                    id: entretien._id,
+                                    message: 'entretien creer!',
+                                })
+                            })
+                            .catch(error => {
+                                return res.status(400).json({
+                                    error,
+                                    message: 'entretien non creer!',
+                                })
+                            })
+                    
+                
+                       
+                            
         })
         .catch(error => {
             return res.status(400).json({
                 error,
-                message: 'entretien non creer!',
+                message: 'Administrateur non trouvé!',
             })
         })
+        //end verification admin
 
+    
+    
+
+
+   
        
   };
 
@@ -220,4 +253,124 @@ console.log(body)
   })
 
 }
+
+
+// obtenir  getEntrepriseEntretien
+exports.getEntrepriseEntretien = async (req, res) => {
+    
+    
+    await Administrateur.findOne({utilisateur: req.params.id})
+        .then( admin => {
+            if (!admin) {
+                return res.status(401).json({ error: 'administrateur non trouvé !' });
+              }
+
+                       
+             Entretien.find({entreprise: admin.entreprise,type:"entreprise" }, (err, entretien) => {
+                if (err) {
+                    return res.status(400).json({ success: false, error: err })
+                }
+        
+                if (!entretien) {
+                    return res
+                        .status(404)
+                        .json({ success: false, error: `aucun entretien trouvé` })
+                }
+                return res.status(200).json({ success: true, data: entretien })
+            }).catch(err => console.log(err))
+                            
+        })
+        .catch(error => {
+            return res.status(400).json({
+                error,
+                message: 'Administrateur non trouvé!',
+            })
+        })
+        //end verification admin
+
+
+
+  }
+
+
+
+  
+// obtenir  getEntrepriseEntretien
+exports.getCandidatEntretien = async (req, res) => {
+    
+    
+    await Administrateur.findOne({utilisateur: req.params.id})
+        .then( admin => {
+            if (!admin) {
+                return res.status(401).json({ error: 'administrateur non trouvé !' });
+              }
+
+                       
+             Entretien.find({entreprise: admin.entreprise,type:"candidat" }, (err, entretien) => {
+                if (err) {
+                    return res.status(400).json({ success: false, error: err })
+                }
+        
+                if (!entretien) {
+                    return res
+                        .status(404)
+                        .json({ success: false, error: `aucun entretien trouvé` })
+                }
+                return res.status(200).json({ success: true, data: entretien })
+            }).catch(err => console.log(err))
+                            
+        })
+        .catch(error => {
+            return res.status(400).json({
+                error,
+                message: 'Administrateur non trouvé!',
+            })
+        })
+        //end verification admin
+
+
+
+  }
+
+  
+  
+  
+  
+// obtenir  demande
+exports.getDemandeEntretien = async (req, res) => {
+    
+    
+    await Administrateur.findOne({utilisateur: req.params.id})
+        .then( admin => {
+            if (!admin) {
+                return res.status(401).json({ error: 'administrateur non trouvé !' });
+              }
+
+                       
+             Entretien.find({concerner: admin.entreprise }, (err, entretien) => {
+                if (err) {
+                    return res.status(400).json({ success: false, error: err })
+                }
+        
+                if (!entretien) {
+                    return res
+                        .status(404)
+                        .json({ success: false, error: `aucun entretien trouvé` })
+                }
+                return res.status(200).json({ success: true, data: entretien })
+            }).catch(err => console.log(err))
+                            
+        })
+        .catch(error => {
+            return res.status(400).json({
+                error,
+                message: 'Administrateur non trouvé!',
+            })
+        })
+        //end verification admin
+
+
+
+  }
+
   

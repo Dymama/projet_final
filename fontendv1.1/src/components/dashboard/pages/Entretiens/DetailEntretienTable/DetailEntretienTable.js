@@ -28,6 +28,7 @@ import CreateUserDetail from './CreateUserDetail';
 
 import utilisateurs from '../../../../../api/utilisateur';
 import entretiens from '../../../../../api/entretien';
+import configureStore from '../../../../../redux/store';
 
 
  function dataDebut(date){
@@ -54,21 +55,26 @@ import entretiens from '../../../../../api/entretien';
 
     return dateNow.getTime() > d3.getTime()
   }
-
+const {store} = configureStore()
  
   
 
 export default function DetailEntretienTable(props) {
   
+    const user = store.getState().getInfoUser.user.data
     let history = useHistory();
     
     const location = useLocation();
-    const entretienRowID = location.state.entretienRowData;
+    const entretienRowID = location.state.entretienRowDataId;
+    const retour = location.state.retour;
+    const type = location.state.type;
 
     const [entretienDataRow, setentretienDataRow] = useState([])
+    const [etatDemande, setEtatDemande] = useState(location.state.etatDemande)
     const [loading,setLoading] = useState(true)
     const [userData, setUserData] = useState([])
     const [heureEntretien, setHeureEntretien] = useState(false)
+    const [loadingBtn,setLoadingBtn] = useState(false)
 
 
     useEffect(()=>{
@@ -105,28 +111,56 @@ export default function DetailEntretienTable(props) {
 
 
   
-  function handleActionEditentretien() {
+  function handleActionJoindreEntretien() {
     history.push({
-        pathname: '/dashboard/edit_entretien',
-        search: '?query=abc',
-        state: {entretienRowData: entretienRowID}
+        pathname: '/dashboard/start_conference',
+        state: {dataConf: entretienDataRow,type:type}
     });
 
   }
+
+
 
   
   function retourEntretien() {
     history.push({
-        pathname: '/dashboard/entretiens',
+        pathname: `/dashboard/${retour}`,
     });
 
   }
     
+  
+  function handleAcceptEntretien() {
+    setLoadingBtn(true)
+   entretiens.updateStatutEntretienById(entretienRowID,{statut:true})
+    .then(res=>{
+        var timer =  setTimeout(() => {
+        setEtatDemande('validé')
+        setLoadingBtn(false)
+        }, 2000);
+
+    })
+
+  }
+  
+  function handleAnnuleEntretien() {
+    entretiens.updateStatutEntretienById(entretienRowID,{statut:false})
+     .then(res=>{
+        var timer =  setTimeout(() => {
+            setEtatDemande('attente')
+        setLoadingBtn(false)
+        }, 2000);
+     })
+ 
+   }
+   
+
+
     return (
     <>
     
-    <Container className="bg-white px-5">
-        <Content>
+    <Container className="bg-white px-5 overflow-hidden">
+        <Content  data-aos="zoom-in-down">
         {loading ? (
                 <>
                     <div className="mx-auto text-center mt-5" >
@@ -136,30 +170,41 @@ export default function DetailEntretienTable(props) {
                 </>
               ):(
                 <> 
-                    <Row  data-aos="zoom-in-down">
-                        <Col data-aos-delay="500"  data-aos="slide-right"  md={12} sm={12}>
+                    <Row >
+                        <Col  md={12} sm={12}>
                            
                         <Button onClick={() => {retourEntretien() }} color="violet"  className="mt-3 ml-3" appearance="ghost">
                             <Icon className="mr-2" icon="angle-double-left" /> retour
                         </Button>
                         </Col>
-                        <Col  data-aos-delay="600" data-aos="slide-up"  md={12} sm={12}>
-                          
-                            <Button onClick={() => handleActionEditentretien()} color="blue"  className="mt-3 ml-3 float-md-right" appearance="ghost">
-                                <Icon className="mr-2" icon="edit" /> Editer
+                        
+                        <Col  md={12} sm={12}>
+                          {(etatDemande && etatDemande==="validé") && (
+                            <Button  loading={loadingBtn} onClick={() => handleAnnuleEntretien()} color="red"  className="mt-3 ml-3 float-md-right" appearance="ghost">
+                                <Icon className="mr-2" icon="warning" /> Annuler la démande
                             </Button>
+
+                          ) }
+
+                        {(etatDemande && etatDemande==="attente") && (
+                            <Button onClick={() => handleAcceptEntretien()} loading={loadingBtn} color="green"  className="mt-3 ml-3 float-md-right" appearance="ghost">
+                                <Icon className="mr-2" icon="check-circle" /> Accepter la démande
+                            </Button>
+                            ) }
+
+
                         </Col>
                        
                     </Row>
                     <Row  data-aos="zoom-in-down">
-                        <Col data-aos-delay="700"  data-aos="slide-right"  md={8} sm={12}>
+                        <Col md={8} sm={12}>
                             <h5 color="violet"  className="mt-3 ml-3">
                                 Details Entretiens
                             </h5>
                         </Col>
                        
                     </Row>
-                    <Row  data-aos="zoom-in-down" className="mt-1 px-2 ml-3">
+                    <Row  className="mt-1 px-2 ml-3">
                         <Col data-aos-delay="700"  data-aos="slide-right"  md={8} sm={12}>
                         <p data-aos-delay="500"  data-aos="slide-right">
                                 Titre    :<span className="ml-4">
@@ -169,28 +214,28 @@ export default function DetailEntretienTable(props) {
                         </Col>
                        
                     </Row>
-                    <Row  data-aos="zoom-in-down" className="px-2 ml-3">
-                        <Col data-aos-delay="500"  data-aos="slide-right"  md={12} sm={12}>
+                    <Row  className="px-2 ml-3">
+                        <Col  data-aos="slide-right"  md={12} sm={12}>
                             
-                            <p data-aos-delay="500"  data-aos="slide-right">
+                            <p >
                                 Date de début    :<span className="ml-4">
                                 {dataDebut(entretienDataRow.date_debut)}
                                 </span>
                             </p>
-                            <p data-aos-delay="500"  data-aos="slide-right">
+                            <p >
                                 Heure de début    :<span className="ml-4">
                                 {dataMinute(entretienDataRow.heure_debut)}
                                 </span>
                             </p>
                             
                         </Col>
-                        <Col  data-aos-delay="600" data-aos="slide-in"  md={12} sm={12}>
-                        <p data-aos-delay="500"  data-aos="slide-left">
+                        <Col   md={12} sm={12}>
+                        <p>
                                 Date de fin    :<span className="ml-4">
                                 {dataDebut(entretienDataRow.date_fin)}
                                 </span>
                             </p>
-                            <p data-aos-delay="500"  data-aos="slide-left">
+                            <p >
                                 Heure de fin    :<span className="ml-4">
                                 {dataMinute(entretienDataRow.heure_fin)}
                                 </span>
@@ -209,11 +254,11 @@ export default function DetailEntretienTable(props) {
                         </Col>
                        
                     </Row>
-                    {heureEntretien&&( 
+                    {etatDemande ==="validé" &&( 
                         <Row  data-aos="zoom-up-down" className="mt-3 mx-auto text-center px-2 ml-3">
                             <Col md={24} sm={24}>
-                                <Button  onClick={() => handleActionEditentretien()} color="blue"  className="mt-3 ml-3 mx-auto text-center" appearance="ghost">
-                                    <Icon className="mr-2" icon="link" /> joindre la conférence
+                                <Button  onClick={() => handleActionJoindreEntretien()} color="blue"  className="mt-3 ml-3 mx-auto text-center" appearance="ghost">
+                                    <Icon className="mr-2" icon="link" /> joindre l'entretien
                                 </Button>
                             </Col>
                         

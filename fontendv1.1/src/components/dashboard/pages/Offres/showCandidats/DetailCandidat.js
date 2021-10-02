@@ -18,6 +18,7 @@ import ContainerCandidat from './ContainerCandidat';
  
 function DetailCandidat(props){
   const [userData, setUserData] = useState(props.candidatClickData)
+  
   useEffect(() => {
     setUserData(props.candidatClickData)
     console.log(props.candidatClickData.photo)

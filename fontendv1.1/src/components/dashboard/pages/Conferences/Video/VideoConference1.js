@@ -19,9 +19,10 @@ import 'rsuite/dist/styles/rsuite-default.css';
 
 import './VideoConference.css'
 import DrawerVideo from './DrawerVideo';
+import configureStore from '../../../../../redux/store';
 
 
-
+const {store} = configureStore()
 
 const Paragraph = Placeholder
 
@@ -34,17 +35,24 @@ const instance = (
 
 const VideoConference1 = () => {
   
+  
+  let history = useHistory();
+
+  const user = store.getState().getInfoUser.user.data
   const location = useLocation();
   const dataConf = location.state.dataConf;
   const userType = location.state.type;
-  const [room, setRoom] = useState('vickyth@')
+  const [room, setRoom] = useState("vickyth@-1234")
   const [name, setName] = useState('')
   const [call, setCall] = useState(false)
   const [password, setPassword] = useState('')
   const [showDrawer, setShowDrawer] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
 
+useEffect(() => {
+  console.log(location.state.dataConf,"dadada")
 
+}, [])
     
   const close = ()=> {
     setShowDrawer(false)
@@ -62,13 +70,12 @@ const VideoConference1 = () => {
 
 
   
-  
-  let history = useHistory();
-
   const endConference = ()=>{
     history.goBack();
   }
  
+
+
   var configCandidat ={
     
     enableUnifiedOnChrome: true,
@@ -178,7 +185,7 @@ const VideoConference1 = () => {
                 password={password}
                 onMeetingEnd={() => endConference() }
                 loadingComponent={instance}
-                errorComponent={<p>Oops, something went wrong</p>}
+                errorComponent={<p>Oops, une erreur s'est produite</p>}
                 containerStyles={{ width: '100%', height: '40em' }}
                 
                  />
