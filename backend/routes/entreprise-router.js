@@ -1,11 +1,11 @@
 const express = require('express')
 
-const upload = require('../middleware/multer-config');
+const uploadEntreprise = require('../middleware/multer-config-entreprise');
 const EntrepriseCtrl = require('../controllers/entreprise-ctrl')
 
 const router = express.Router()
 
-router.post('/',upload, EntrepriseCtrl.create)
+router.post('/',uploadEntreprise, EntrepriseCtrl.create)
 router.put('/:id', EntrepriseCtrl.update)
 router.delete('/:id', EntrepriseCtrl.deleteOne)
 router.get('/:id', EntrepriseCtrl.getOne)

@@ -104,7 +104,7 @@ class FormLogin2 extends React.Component {
         
     return (
 
-      <div>
+      <div className="form-login-container">
         <Form
           ref={ref => (this.form = ref)}
           onChange={formValue => {

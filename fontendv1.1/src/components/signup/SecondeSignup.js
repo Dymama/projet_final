@@ -1,28 +1,21 @@
 import React,{useState,useEffect} from 'react';
 import { Form, FormGroup, FormControl, 
-        ControlLabel, HelpBlock,Schema ,
+        ControlLabel, InputNumber,Schema ,
         Button,ButtonToolbar,DatePicker,
-        InputPicker,Uploader ,Steps,Icon,Modal,
-        Content,Container,Col,Row,
+        InputPicker ,SelectPicker,Icon,Modal,
+        Content,Container,Col,Row, Loader,
     } from 'rsuite';
 
-import { withRouter ,Redirect} from 'react-router';
+import { Redirect} from 'react-router';
     
 import utilisateurs from '../../api/utilisateur';
 import candidats from '../../api/candidat';
 import entreprise from '../../api/entreprise'
-import administrateur from '../../api/administrateur'
-import svg from '../../assets/images/others/event2.png';
-
 import 'rsuite/dist/styles/rsuite-default.css'
 
 
 import './SecondeSignup.css'
-import VerifCandidat from './VerifCandidat';
-import VerifEntreprise from './VerifEntreprise';
-import Verify from './Verify';
-import agendas from '../../api/agenda';
-import CountrySelector from './CountrySelector';
+import { dataCountries } from '../../services/_dataCountries';
 
 
 const { StringType,DateType, } = Schema.Types;
@@ -62,11 +55,11 @@ const model = Schema.Model({
                 .isRequired('Champ obligatoire.'), 
   civilite: StringType()
          .isRequired('Champ obligatoire.'),
+  pays: StringType()
+                .isRequired('Champ obligatoire.'),
   ville: StringType()
-         .isRequired('Champ obligatoire.'),
+                       .isRequired('Champ obligatoire.'),
   telephone: StringType()
-         .isRequired('Champ obligatoire.'), 
-  linkedin: StringType()
          .isRequired('Champ obligatoire.'), 
    
 });
@@ -180,6 +173,7 @@ class FormSignup extends React.Component {
         prenom: '',
         civilite: '',
         date_naissance: null,
+        pays: '',
         ville: '',
         telephone: '',
         linkedin: '',
@@ -227,10 +221,16 @@ class FormSignup extends React.Component {
 
   close() {
     this.setState({ show: false });
-    this.setState({ waiting: true });
   }
   open() {
     this.setState({ show: true });
+
+    setTimeout(() => {
+    this.setState({ isCreate: true });
+    this.setState({ waiting: true });
+    this.setState({ show: false });
+      
+    }, 2000);
   }
 
   onFileChange(e) {
@@ -252,12 +252,13 @@ class FormSignup extends React.Component {
 
   handleSubmit() {
     const { formValue,photo,photo_entreprise ,cv} = this.state;
+    this.setState({ isCreate: false });
+
     if (!this.form.check()) {
       console.error('Form Error');
       return;
     }
    
-    
       const formData = new FormData();
 
       formData.append('type_compte',formValue.type_compte )
@@ -265,7 +266,7 @@ class FormSignup extends React.Component {
       formData.append('prenom',formValue.prenom)
       formData.append('date_naissance', formValue.date_naissance)
       formData.append('civilite',formValue.civilite)
-      formData.append('pays',this.props.valueCountry.label)
+      formData.append('pays',formValue.pays)
       formData.append('ville', formValue.ville)
       formData.append('telephone',formValue.telephone)
       formData.append('linkedin', formValue.linkedin)
@@ -274,7 +275,6 @@ class FormSignup extends React.Component {
       formData.append('photo',photo)
 
 
-  // console.log(formData, 'Form Value');
     utilisateurs.insertUtilisateur(formData)
      .then(utilisateur =>{
        
@@ -289,33 +289,20 @@ class FormSignup extends React.Component {
               formDataCandidat.append('point_fort', formValue.point_fort)
               formDataCandidat.append('point_faible',formValue.point_faible)
               formDataCandidat.append('utilisateur', utilisateur.data.id)
+              formDataCandidat.append('type_compte', formValue.type_compte)
               
-  
             candidats.insertCandidat(formDataCandidat)
             .then(candidat =>{
-
-              const agendaData ={
-                proprietaire:utilisateur.data.id,
-                type_compte:formValue.type_compte
-              }
-
-              if(candidat.data.success) {
-                agendas.insertAgenda(agendaData)
-                  .then(agenda =>{
-
-                    console.log(agenda,'agenda candidat')
-
-                    this.open()
-                    this.setState({isCreate:true})
-
-                  })
-                  .catch(err =>{
-                    console.log(err,'erreur creation candidat')
-                  })
-                } 
+              
+                  this.open()
+                  console.log(candidat,"braindepl")
+            })
+            .catch(err =>{
+              
             })
 
           }
+
           if(formValue.type_compte === 'entreprise'){
             const formDataEntreprise = new FormData();
 
@@ -331,43 +318,19 @@ class FormSignup extends React.Component {
             formDataEntreprise.append('email',formValue.email_entreprise)
             formDataEntreprise.append('facebook', formValue.facebook_entreprise)
             formDataEntreprise.append('photo',photo_entreprise)
+            formDataEntreprise.append('type_compte', formValue.type_compte)
             
-            
-
-
            
             entreprise.insertEntreprise(formDataEntreprise)
               .then(entreprise =>{
 
-                const dataAdmin = {
-                  entreprise:  entreprise.data.id ,
-                  utilisateur: utilisateur.data.id
-                  }
-                  const agendaData ={
-                    proprietaire:entreprise.data.id,
-                    type_compte:formValue.type_compte
-                  }
-                  administrateur.insertAdmin(dataAdmin)
-                    .then(admin =>{
+                this.open()
+                console.log(entreprise,"braindepl")
 
-                      if(admin.data.success) {
-                        agendas.insertAgenda(agendaData)
-                          .then(agenda =>{
-      
-                          console.log(agenda,'agenda entreprise')
-      
-                          this.open()
-                          
-                          this.setState({isCreate:true})
-                          
-                          })
-                          .catch(err =>{
-                            console.log(err,'erreur creation entreprise')
-                          })
-                        
-                      } 
-      
-                    })
+              })
+              .catch(err =>{
+
+                
               })
           }
 
@@ -389,8 +352,20 @@ class FormSignup extends React.Component {
     return (
 
       <div className="container">
-      
-            <Form
+      {this.props.changeStepLoading ? (
+           <>  
+           <Row>    
+            <Col className="mx-auto" md={24}  sm={24}>  
+              <Loader backdrop className="mx-auto"  size="md" center vertical />  
+            </Col>  
+            </Row>  
+         </>  
+
+      ):
+      (
+        <>
+        <Form
+            fluid
               ref={ref => (this.form = ref)}
               onChange={formValue => {
                 this.setState({ formValue });
@@ -410,116 +385,122 @@ class FormSignup extends React.Component {
               
                 <Row className="mx-auto">
                     <Row className="">
-                        <Col className="" md={12} sm={24}>
-                          <TextField name="type_compte" label="Type de compte" accepter={InputPicker}  placeholder="Type de compte" data={dataTypeCompte} block  />
+                        <Col className="px-4" md={12} sm={24}>
+                          <TextField size="lg" name="type_compte" label="Quel type de compte voullez-vous créer ?" className="input-other-structure"  accepter={InputPicker}  placeholder="Choisissez" data={dataTypeCompte} block  />
                         </Col>
-                        <Col className="" md={12} sm={24}>
-                          <TextField name="email" label="Email" />
+                        <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                          <TextField  size="lg" placeholder="Ex: monemail@gmail.com" name="email" label="Saisissez votre adresse Email" />
                         </Col>
                     </Row>
 
                     <Row className="mt-4">
-                        <Col className="" md={12} sm={24}>
-                          <TextField name="password" label="Votre mot de passe" type="password" />
+                        <Col className="px-4" md={12} sm={24}>
+                          <TextField placeholder="**********"   size="lg" name="password" label="Saisissez un mot de passe" type="password" />
                         </Col>
-                        <Col className="" md={12} sm={24}>
-                          <TextField name="verifyPassword" label="Confirmez votre mot de passe" type="password" />
+                        <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                          <TextField  size="lg" placeholder="**********" name="verifyPassword" label="Confirmez votre mot de passe" type="password" />
                         </Col>
                     </Row>
                 </Row>
                 
+                <Row className="mt-4">
 
-              </div>
-
-              <div className="second" data-aos="zoom-in-down"  style={ this.props.step == 1 ? dBlock : dNone}>
-
-                <Row className="">
-
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="nom" label="Nom" />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField size="lg" placeholder="Ex: Kone" name="nom" label="Saisissez votre nom" />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="prenom" label="Prenom" />
-                  </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="civilite" accepter={InputPicker}  data={dataCivilite} label="Civilité" />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField size="lg" placeholder="Ex: vakaramoko" name="prenom" label="Saisissez votre prénom" />
                   </Col>
                 </Row>
 
                 <Row className="mt-4">
-                  <Col className="" md={8} sm={24}>
-                    <TextField  placement="auto" oneTap name="date_naissance" placeholder="Date de naissance" accepter={DatePicker} label="Date de naissance" locale={Locale} />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField size="lg" name="civilite" placeholder="Choisir" accepter={InputPicker}className="input-other-structure"   data={dataCivilite} label="Quel est votre civilité ?" />
                   </Col>
-
-                  <Col className="" md={8} sm={24}>
-                    <ControlLabel> Pays de résidence </ControlLabel>
-                    <CountrySelector optionsValueCountry={this.props.optionsValueCountry} valueCountry={this.props.valueCountry} changeHandlerValueCountry={this.props.changeHandlerValueCountry}/>
-                    {/* <TextField name="pays" label="Pays"  accepter={InputPicker}  data={dataPays}  /> */}
-                  </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="ville" label="Ville de résidence" />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField size="lg" placement="auto" oneTap name="date_naissance" placeholder="Date de naissance" className="input-other-structure"  accepter={DatePicker} label="Saisissez votre date de naissance" locale={Locale} />
                   </Col>
 
                 </Row>
 
                 <Row className="mt-4">
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="telephone" label="Téléphone" />
-                  </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="linkedin" label="LinkedIn" />
-                  </Col>
+                    <Col className="px-4" md={12} sm={24}>
+                      <TextField size="lg" name="pays" placeholder="Choisir" accepter={SelectPicker} className="input-other-structure"  data={dataCountries} label=" Quel est votre pays de résidence ?" />
+                      
+                    </Col>
+                    <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                      <TextField size="lg" name="ville" placeholder="Ex: Abidjan" label="Saisissez votre ville de résidence" />
+                    </Col>
+
+
+                </Row>
                   
-                  <Col className="" md={8} sm={24}>
-                    <ControlLabel>Photo de profil </ControlLabel>
-                     <div className="js">
-
-                      <div className="input-file-container">
-                        <input 
-                        onChange={this.onFileChange} className="input-file" id="my-file" type="file"/>
-                        <label  className="input-file-trigger" tabindex="0">
-                          Choisir une photo
-                        </label>
-                      </div>
-                      <p className="file-return"></p>
+                  
+                <Row className="mt-4">
+                    <Col className="px-4" md={12} sm={24}>
+                      <TextField size="lg" name="telephone" placeholder="+225 00 00 00 00" label="Saisissez votre numéro de téléphone ( valide )" />
+                    </Col>
+                    <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                      <TextField size="lg" placeholder="Ex: https://www.linkedin.com/in/empowertaca" name="linkedin" label="Saisissez votre lien linkedIn" />
+                    </Col>
                     
-                    </div>
-                   
-                  </Col>
+                </Row>
+
+                <Row className="mt-4">
+                    <Col className="px-4" md={8} sm={24}>
+                      <ControlLabel>Photo de profil </ControlLabel>
+                      <div className="js">
+
+                        <div className="input-file-container">
+                          <input 
+                          onChange={this.onFileChange} className="input-file" id="my-file3" type="file"/>
+                          <label  className="input-file-trigger" tabindex="0">
+                            Choisir une photo
+                          </label>
+                        </div>
+                        <p className="file-return"></p>
+                      
+                      </div>
+                    
+                    </Col>
                 </Row>
                 
+
               </div>
-              
 
               {/* troisieme partie */}
-              <div className="third" data-aos="zoom-in-down" style={ this.props.step == 2 && this.state.formValue.type_compte ==="candidat" ? dBlock : dNone}>
+              <div className="third" data-aos="zoom-in-down" style={ this.props.step == 1 && this.state.formValue.type_compte ==="candidat" ? dBlock : dNone}>
                 <Row >
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="secteur_activite" label="Secteur d'activité" />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField placeholder="Ex: Informatique" name="secteur_activite" label="Saisissez votre secteur d'activité ?" />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="poste_actuel" label="Poste actuel" />
-                  </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField  name="salaire_actuel" label="Salaire actuel"  accepter={InputPicker}  data={dataSalaire} />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField size="lg" placeholder="Ex: Developper Full-Stack" name="poste_actuel" label="Saisissez votre poste actuel" />
                   </Col>
                 </Row>
 
                
                 <Row className="mt-4">
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="annee_experience" label="Année d'experience" />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField className="input-other-structure" size="lg" name="salaire_actuel" label="Choisissez votre fouchette salariale" placeholder="Choisissez" accepter={InputPicker}  data={dataSalaire} />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="niveau_etude" label="Niveau d'étude" />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField accepter={InputNumber} placeholder="0" name="annee_experience" size="lg" className="input-other-structure" label="Combien d'année d'expérience avez-vous ?" />
                   </Col>
-                  <Col className="" md={8} sm={24}>
+                </Row>
+
+                <Row className="mt-4">
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField name="niveau_etude" className="input-other-structure" size="lg" label="Quel est votre dernier diplôme ?" />
+                  </Col>
+
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
                     <ControlLabel>Votre CV </ControlLabel>
                      <div className="js">
 
                       <div className="input-file-container">
                         <input 
-                         onChange={this.onFileChangeCv} className="input-file" id="my-file" type="file"/>
+                         onChange={this.onFileChangeCv} className="input-file" id="my-file2" type="file"/>
                         <label  className="input-file-trigger" tabindex="0">
                           Choisir un fichier
                         </label>
@@ -530,13 +511,12 @@ class FormSignup extends React.Component {
                       
                   </Col>
                 </Row>
-
                 <Row className="mt-4">
-                  <Col className="" md={12} sm={24}>
-                    <TextField name="point_fort" label="Vos atouts" />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField componentClass="textarea" size="lg" name="point_fort" label="Vos atouts" />
                   </Col>
-                  <Col className="" md={12} sm={24}>
-                    <TextField name="point_faible" label="Vos points faible" />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField name="point_faible" componentClass="textarea" size="lg" label="Vos points faible" />
                   </Col>
                 </Row>
 
@@ -546,57 +526,63 @@ class FormSignup extends React.Component {
         
 
               {/* entreprise */}
-              <div className="third" data-aos="zoom-in-down"  style={ this.props.step == 2 && this.state.formValue.type_compte ==="entreprise"  ? dBlock : dNone}>
+              <div className="third" data-aos="zoom-in-down"  style={ this.props.step == 1 && this.state.formValue.type_compte ==="entreprise"  ? dBlock : dNone}>
                 <Row className="mt-4">
                   
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="secteur_entreprise" label="Secteur d'activité" />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField placeholder="Ex: Recrutement" name="secteur_entreprise" size="lg" label="Quel est le secteur d'activité de votre entreprise" />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="nom_entreprise" label="Nom" />
-                  </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="email_entreprise" label="Email" />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField placeholder="Ex: Empower talents and careers" name="nom_entreprise" size="lg" label="Saisissez le nom de l'entreprise" />
                   </Col>
                 </Row>
 
                 <Row className="mt-4">
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="telephone_entreprise" label="Téléphone" />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField placeholder="Ex: empowertaca@gmail.com" name="email_entreprise" size="lg" label="Saisissez l'adresse Email de l'entreprise " />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="pays_entreprise" label="Pays" />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField placeholder="Ex: +225 00 00 00 00" name="telephone_entreprise" size="lg" label="Saisissez le numéro de téléphone" />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="ville_entreprise" label="Ville" />
+
+                </Row>
+                
+                <Row className="mt-4">
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField accepter={SelectPicker} placeholder="Choisissez" className="input-other-structure"  data={dataCountries} size="lg" name="pays_entreprise" label="Dans quel pays est situé l'entreprise ?" />
+                  </Col>
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField placeholder="Ex: Abidjan" size="lg" name="ville_entreprise" label="Saisissez la ville" />
                   </Col>
 
 
                 </Row>
 
                 <Row className="mt-4">
-                  <Col className="" md={8} sm={24}>
-                    <TextField  name="adresse_entreprise" label="Adresse "  />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField size="lg" placeholder="Ex: Angré cocody" name="adresse_entreprise" label="Saisissez l'adresse "  />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="site_internet" label="Site internet" />
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField placeholder="Ex: https://empowertaca.com" name="site_internet" size="lg" label="Saissez le lien de votre site internet" />
                   </Col>
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="facebook_entreprise" label="Facebook" />
+                </Row>
+                
+                <Row className="mt-4">
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField size="lg" name="facebook_entreprise" label="Saissez le nom sur Facebook" label="Facebook" />
+                  </Col>
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
+                    <TextField size="lg" placeholder="Ex: https://www.linkedin.com/in/empowertaca" name="linkedin_entreprise" label="Saisissez le lien LinkedIn de l'entreprise" />
                   </Col>
 
                 </Row>
               
                 <Row className="mt-4">
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="linkedin_entreprise" label="Linkedin" />
-                  </Col>
-
-                  <Col className="" md={8} sm={24}>
-                    <TextField name="description_entreprise" label="Description" />
+                  <Col className="px-4" md={12} sm={24}>
+                    <TextField size="lg" placeholder="Ex: Recrutement ..." name="description_entreprise" label="Decrivez l'activité de l'entreprise" />
                   </Col>
                 
-                  <Col className="" md={8} sm={24}>
+                  <Col className="px-4 mt-4 mt-md-0" md={12} sm={24}>
                         <ControlLabel>Logo entreprise </ControlLabel>
                      <div className="js">
 
@@ -635,6 +621,13 @@ class FormSignup extends React.Component {
                 </Content>
               </Container >   
             </Form>
+            </>
+            
+
+
+      )
+
+      }
             
          
             <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
@@ -656,11 +649,7 @@ class FormSignup extends React.Component {
                   </Col>
                 </Row>
               </Modal.Body>
-              <Modal.Footer>
-                <Button style={{ color: 'green', }} onClick={this.close} appearance="ghost">
-                  Ok
-                </Button>
-              </Modal.Footer>
+            
             </Modal>
 
       </div>

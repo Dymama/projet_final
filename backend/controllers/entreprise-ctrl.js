@@ -1,5 +1,5 @@
 const Entreprise = require('../models/entreprise-model')
-
+const Agenda = require('../models/agenda-model')
 
 
 // creer un Entreprise
@@ -17,12 +17,24 @@ exports.create = (req, res, next) => {
     
     const entreprise = new Entreprise({
         ...body,
-        photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        photo: `${req.protocol}://${req.get('host')}/images/entreprise/${req.file.filename}`
        } )
 
     if (!entreprise) {
         return res.status(400).json({ success: false, error: err })
     }
+    
+        const agenda = new Agenda({
+            type_compte : body.type_compte,
+            proprietaire: entreprise._id,
+        })
+
+        if (!agenda) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        agenda.save()
+        
 
     entreprise
         .save()

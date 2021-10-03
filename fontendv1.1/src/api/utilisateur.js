@@ -20,6 +20,7 @@ const utilisateur = axios.create({
 })
 
 const insertUtilisateur = payload => utilisateur.post(`/signup`, payload)
+const insertUtilisateurEntreprise = payload => utilisateur.post(`/signup/entreprise`, payload)
 const login = async payload => await utilisateur.post(`/login`, payload)
 const getLogin = (id) => utilisateur.get(`/getlogin/${id}`)
 
@@ -49,6 +50,7 @@ const utilisateurs = {
     getUserEntreprise,
     getInfoUSerCandidat,
     getAllUserByType,
+    insertUtilisateurEntreprise,
     
 
 }

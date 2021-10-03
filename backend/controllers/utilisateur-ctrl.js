@@ -135,6 +135,60 @@ exports.signup = (req, res, next) => {
  
 
 
+  
+
+// inscription entreprise
+exports.signupEntreprise = (req, res, next) => {
+
+  // const body = JSON.parse(req.body);
+  const body = req.body;
+  console.log(body,'body')
+   
+  // delete body._id;
+  
+  //   // verifier si le body contient des données
+  //   if (!body) {
+  //       return res.status(400).json({
+  //           success: false,
+  //           error: 'aucune donnée saisie',
+  //       })
+  //   }
+
+  //   // hasher le mot de passe de l'utilisateur
+  //   bcrypt.hash(body.password, 10)
+  //     .then(hash => {
+
+  //       // creation d'un utilisateur
+  //       const utilisateur = new Utilisateur({
+  //         ...body,
+  //         // admin: true,
+  //         // statut: true,
+  //         password: hash,
+  //         photo: `${req.protocol}://${req.get('host')}/images/entreprise/${req.file.filename}`
+
+  //       });
+
+  //       //si l'utilisateur n'a pas été bien creer
+  //       if (!utilisateur) {
+  //         return res.status(400).json({ success: false, error: err })
+  //       }
+
+  //       // sauvegarde de l'utilisateur
+  //       utilisateur.save()
+  //         .then(() => { 
+  //           return res.status(201).json({
+  //           success: true,
+  //           id: utilisateur._id,
+  //           message: 'Utilisateur créé !' 
+  //           })}
+  //           )
+  //         .catch(error => res.status(400).json({ error }));
+  //     })
+  //     .catch(error => res.status(500).json({ error }));
+  };
+ 
+
+
   // connexion
 exports.login = (req, res, next) => {
 

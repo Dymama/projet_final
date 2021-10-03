@@ -1,4 +1,5 @@
 const Candidat = require('../models/candidat-model')
+const Agenda = require('../models/agenda-model')
 
 const Utilisateur = require('../models/utilisateur-model')
 
@@ -25,6 +26,17 @@ exports.create = (req, res, next) => {
         return res.status(400).json({ success: false, error: err })
     }
 
+        const agenda = new Agenda({
+            type_compte : body.type_compte,
+            proprietaire: body.utilisateur,
+        })
+
+        if (!agenda) {
+            return res.status(400).json({ success: false, error: err })
+        }
+    
+        agenda.save()
+           
     candidat
         .save()
         .then(() => {
@@ -43,6 +55,7 @@ exports.create = (req, res, next) => {
 
        
   };
+
 
 
 // mettre à jour un candidat

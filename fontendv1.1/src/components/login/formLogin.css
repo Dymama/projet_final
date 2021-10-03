@@ -1,9 +1,9 @@
-.first label{
+.form-login-container .first label{
   
     margin-top: 1em;
     padding: 0.5em;
 }
-.first input{
+.form-login-container .first input{
   border: 1px solid purple;
   margin-top: 0em;
   padding: 0.5em;

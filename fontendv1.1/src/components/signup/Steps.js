@@ -1,30 +1,16 @@
-import React,{useState,useEffect,useMemo} from 'react';
-import axios from 'axios';
-import { Form, FormGroup, FormControl, 
-        ControlLabel, HelpBlock,Schema ,
-        Button,ButtonToolbar,DatePicker,
-        InputPicker,Uploader ,Steps,Placeholder,
-        Panel,ButtonGroup,Loader
+import React,{useState,useEffect} from 'react';
+import {
+        Button,Icon ,Steps,
+        Row,Col
     } from 'rsuite';
 
-    
-import countryList from 'react-select-country-list'
 import 'rsuite/dist/styles/rsuite-default.css';
 import './Steps.css';
 import FormSignup from './SecondeSignup';
 
 
-import svg from '../../assets/images/others/event2.png';
-
-const { Paragraph } = Placeholder;
 
 const Stepsform = () => {
-  const [valueCountry, setValueCountry] = useState('')
-  const optionsValueCountry = useMemo(() => countryList().getData(), [])
-
-  const changeHandlerValueCountry = value => {
-    setValueCountry(value)
-  }
 
   const [step, setStep] = useState(0);
   const [valide, setValide] = useState(false);
@@ -32,69 +18,64 @@ const Stepsform = () => {
     
     
     
+  const loadStep = () => {
+    setChangeStepLoading(true)
+    setTimeout(() => {
+    setChangeStepLoading(false)
+      
+    }, 1000);
+  }
+ 
+
+
+    
     const onChange = nextStep => {
       setStep(nextStep < 0 ? 0 : nextStep > 2 ? 2 : nextStep);
     };
   
-    const onNext = () => onChange(step + 1);
-    const onPrevious = () => onChange(step - 1);
-   
-    const onSubmit = ()=> setValide(true);
-
-    //  useEffect(() => {
-       
-    //   setChangeStepLoading(true)
-    //    var timer = setTimeout(() => {
-    //      setChangeStepLoading(false)
-    //    }, 500);
-    //    return () => {
-    //      clearTimeout(timer)
-    //    }
-    //  }, [step]) 
-
+    const onNext = () =>{ 
+      onChange(step + 1)
+      loadStep()
+    };
+    const onPrevious = () =>{ 
+      onChange(step - 1)
+      loadStep()
+    };
 
 
 
     return (
-      <div className="steps-form-container container card p-md-5">
-        <div className="steps-container">
+      <div className="steps-form-container container  p-md-5 py-3">
+        <div className="steps-container container">
           
           <Steps current={step}>
-            <Steps.Item title="Etape 1" description="Description" />
-            <Steps.Item title="Etape 2" description="Description" />
-            <Steps.Item title="Etape 3" description="Description" />
+            <Steps.Item title="Informations personnelle" icon={<Icon icon="avatar" size="lg" />}  />
+            <Steps.Item title="Autres Informations" icon={<Icon icon="list" size="lg" />}   />
+            <Steps.Item title="Vérification"  icon={<Icon icon="check-circle" size="lg" />}  />
           </Steps>
 
         </div>
 
         <div className="form-container pt-5">
-          {/* {changeStepLoading?(
-
-              <Loader size="md" center vertical />)
-              :( */}
-              <FormSignup  step={step} valide={valide} changeHandlerValueCountry={changeHandlerValueCountry} valueCountry={valueCountry} optionsValueCountry={optionsValueCountry} />
-              {/* )
-
-           } */}
+            
+              <FormSignup  step={step} valide={valide} changeStepLoading={changeStepLoading} />
+            
         </div>
 
-       
-        <ButtonGroup>
-          <div className="row pt-5">
-            <div className="col-md-6">
-              <Button className="float-md-left btn-style" onClick={onPrevious} disabled={step === 0}>
+        <Row className="mt-4">    
+            <Col className="mx-auto" md={12}  sm={12}>  
+              <Button className="float-left btn-style" onClick={onPrevious} disabled={step === 0}>
               Précedent
               </Button>
-            </div>
-            <div className="col-md-6">
-            <Button className="float-md-right btn-style" onClick={onNext} disabled={step === 2}>
+            </Col>  
+            <Col className="mx-auto" md={12}  sm={12}>  
+              <Button className="float-right btn-style" onClick={onNext} disabled={step === 2}>
                 Suivant
               </Button>
-             
-              
-            </div>
-          </div>
-        </ButtonGroup>
+            </Col>  
+        </Row> 
+       
+       
       </div>
     );
   };
