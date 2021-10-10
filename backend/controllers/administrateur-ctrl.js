@@ -154,3 +154,21 @@ exports.getAll = async (req, res) => {
       return res.status(200).json({ success: true, data: administrateur })
   }).catch(err => console.log(err))
 }
+
+
+
+// obtenir tous les administrateur
+exports.getCollaborateurs = async (req, res) => {
+    await Administrateur.find({entreprise:req.params.id,role:"collaborateur"}, (err, administrateur) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!administrateur.length) {
+            return res
+                .status(200)
+                .json({ success: true, data:[] })
+        }
+        return res.status(200).json({ success: true, data: administrateur })
+    }).catch(err => console.log(err))
+  }
+  

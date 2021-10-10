@@ -14,7 +14,6 @@ import NewConference from './../../components/dashboard/pages/Conferences/NewCon
 import Page from './Voir';
 
 
-
 // importation des components dynamiquement
 const Home = lazy(() => import('../../components/dashboard/pages/Home/Home'));
 const Events = lazy(() => import('../../components/dashboard/pages/Events/Events'));
@@ -52,6 +51,14 @@ const EntretienDemandes = lazy(() => import('../../components/dashboard/pages/En
 
 
 const Statistiques = lazy(() => import('../../components/dashboard/pages/Statistiques/Statistiques'));
+
+
+const DetailEntretienTableBtoB = lazy(() => import('../../components/dashboard/pages/Entretiens/EntretienBtoB/DetailEntretienTableBtoB/DetailEntretienTableBtoB'));
+
+
+const NewCollaborateur = lazy(() => import('../../components/dashboard/pages/Collaborateurs/NewCollaborateur/NewCollaborateur'));
+const ListCollaborateurs = lazy(() => import('../../components/dashboard/pages/Collaborateurs/ListCollaborateurs/ListCollaborateurs'));
+const DetailsCollaborateur = lazy(() => import('../../components/dashboard/pages/Collaborateurs/DetailsCollaborateur/DetailsCollaborateur'));
 
 
 export default function Dashboard({match}){
@@ -115,6 +122,7 @@ export default function Dashboard({match}){
             <Route path={`${match.url}/show_candidat_detail`} component={DetailCandidarTable}/ >
 
             <Route path={`${match.url}/detail_entretien`} component={DetailEntretienTable}/ >
+            <Route path={`${match.url}/detail_entretien_b_to_b`} component={DetailEntretienTableBtoB}/ >
 
             <Route path={`${match.url}/new_formation`} component={NewFormation}/ >
             <Route path={`${match.url}/formations`} component={Formations}/>
@@ -124,6 +132,10 @@ export default function Dashboard({match}){
             <Route path={`${match.url}/entretiens_candidats`} component={EntretienCandidat}/ >
             <Route path={`${match.url}/entretiens_demandes`} component={EntretienDemandes}/ >
             
+            <Route path={`${match.url}/new_collaborateur`} component={NewCollaborateur}/ >
+            <Route path={`${match.url}/list_collaborateurs`} component={ListCollaborateurs}/ >
+            <Route path={`${match.url}/detail_collaborateur`} component={DetailsCollaborateur}/ >
+
             <Route path={`${match.url}/statistiques`} component={Statistiques}/ >
 
             {/* <Route path={`${match.url}/voir`} component={Page}/ > */}

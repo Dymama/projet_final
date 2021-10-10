@@ -11,7 +11,7 @@ const utilisateurSchema = new Schema(
 
         nom: { type: String, required: true },
         prenom: { type: String, required: true },
-        date_naissance: { type: Date, required: true },
+        date_naissance: { type: Date, required: false },
         civilite: { type: String, required: true },
         pays: { type: String, required: true },
         ville: { type: String, required: true },

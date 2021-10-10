@@ -15,12 +15,13 @@ if(user && user.token)
 
 const utilisateur = axios.create({
     baseURL: 'http://localhost:5000/utilisateur/',
-    headers: {Authorization:`Bearer ${token}`},
     withCredentials: true,
 })
 
 const insertUtilisateur = payload => utilisateur.post(`/signup`, payload)
 const insertUtilisateurEntreprise = payload => utilisateur.post(`/signup/entreprise`, payload)
+const insertCollaborateur = payload => utilisateur.post(`/collaborateur_signup`, payload)
+
 const login = async payload => await utilisateur.post(`/login`, payload)
 const getLogin = (id) => utilisateur.get(`/getlogin/${id}`)
 
@@ -51,7 +52,7 @@ const utilisateurs = {
     getInfoUSerCandidat,
     getAllUserByType,
     insertUtilisateurEntreprise,
-    
+    insertCollaborateur,
 
 }
 

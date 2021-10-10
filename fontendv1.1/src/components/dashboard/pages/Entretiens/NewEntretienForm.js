@@ -87,6 +87,7 @@ const data = [
     .filter((item,index)=> item !== undefined)
     
   }
+  
 
   // fonction declassement des entreprise
   function trierEntreprise(data){
@@ -147,6 +148,7 @@ const initialState ={
     heure_fin: '',
   },
   concerner:'',
+  collaborateur:'',
   type:'',
   data:null,
   disponible:false,
@@ -253,6 +255,19 @@ class NewEntretienForm extends React.Component {
 
 
 
+collaborateurChange = (value)=>{
+   agendas.getAgenda(value)
+   .then(res =>{
+       console.log(res.data.data.items,"data agenda")
+      // alertError("Une erreur s'est produite")
+    })
+    .catch(err =>{
+        
+      alertError("Une erreur s'est produite")
+    })
+  // this.setState({collaborateur:value})
+}
+
 
   
   concerneChange = (value)=>{
@@ -294,6 +309,9 @@ class NewEntretienForm extends React.Component {
   }
 
 
+  
+
+
   render() {
     const { formError, formValue } = this.state;
 
@@ -314,12 +332,32 @@ class NewEntretienForm extends React.Component {
           formValue={formValue}
           model={model}
         >
+
+          
             <Row className="">
-                <Col md={8} sm={12} xs={24} className="">
+                <Col md={12} sm={12} xs={24} className="px-md-4 px-2">
                     <TextField name="titre" 
                     size="lg" placeholder="Ex: Entretien" label="Titre" />  
                 </Col>
-                <Col md={8} sm={12} xs={24} className="">
+                <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
+                  
+                  <FormGroup>
+                    <ControlLabel>Définir modérateur ?</ControlLabel>
+                    <SelectPicker
+                      size="lg"
+                      onChange={(value)=> this.collaborateurChange(value)}
+                      data={this.props.listCollaborateurs}
+                      searchable={true} 
+                      className="input-style-entretien"
+                      placeholder="choisissez"
+                    />
+                  </FormGroup>
+                  
+                </Col>
+            </Row>
+
+            <Row className="mt-3">
+                <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
                   
                   <FormGroup>
                     <ControlLabel>Type d'entretien ?</ControlLabel>
@@ -328,16 +366,15 @@ class NewEntretienForm extends React.Component {
                     size="lg"
                       onChange={(value)=> this.typeChange(value)}
                       data={dataChoixCandidat}
-                      searchable={false}
-                      style={{ width: 300 }}
-
+                      searchable={false} 
+                      className="input-style-entretien"
                       placeholder="choisissez"
                     />
                   </FormGroup>
                   
                 </Col>
                 
-                <Col md={8} sm={12} xs={24} className="">
+                <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
                   <FormGroup>
                   <ControlLabel>Avec qui passez l'entretien ?</ControlLabel>
                     <SelectPicker
@@ -347,7 +384,7 @@ class NewEntretienForm extends React.Component {
                     name="concerner"
                     onChange={(value)=> this.concerneChange(value)}
                     data={this.state.data? this.state.data : data}
-                    style={{ width: 300 }}
+                    className="input-style-entretien"
                     placeholder="Choisissez"
                     renderMenuItem={(label, item) => {
                       
@@ -394,31 +431,31 @@ class NewEntretienForm extends React.Component {
             </Row>
             
             <Row className="mt-3">                
-              <Col md={12} sm={12} xs={24} className="">
+              <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
                     <TextField 
                     oneTap
                     placement="auto"
                     name="date_debut" 
                     accepter={DatePicker} 
                     placement="auto"
-                    placeholder="selectionner"
-                    style={{ width: 300 }}
+                    placeholder="selectionner" 
+                    className="input-style-entretien"
                     size="lg"
                     format="DD MMM YYYY"
                     showWeekNumbers
-                    label="Choisisser la date de début" />
+                    label="Définissez la date de début" />
                 
                 </Col>
-              <Col md={12} sm={12} xs={24} className="">
+              <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
                 <TextField name="heure_debut"
                     
                     placement="auto" 
                     accepter={DatePicker} 
                     size="lg"
                     placeholder="selectionner"
-                    style={{ width: 300 }}
+                    className="input-style-entretien"
                     format="HH:mm"
-                    label="Choisisser l'heure de début " />
+                    label="Définissez l'heure de début " />
 
               </Col>
 
@@ -426,7 +463,7 @@ class NewEntretienForm extends React.Component {
 
             
             <Row className="mt-3">                
-              <Col md={12} sm={12} xs={24} className="">
+              <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
                     <TextField 
                     oneTap
                     size="lg"
@@ -435,13 +472,13 @@ class NewEntretienForm extends React.Component {
                     accepter={DatePicker} 
                     placement="auto"
                     placeholder="selectionner"
-                    style={{ width: 300 }}
+                    className="input-style-entretien"
                     format="DD MMM YYYY"
                     showWeekNumbers
-                    label="Choisisser la date fin" />
+                    label="Définissez la date fin" />
                 
                 </Col>
-              <Col md={12} sm={12} xs={24} className="">
+              <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
                 <TextField name="heure_fin"
                     
                     placement="auto" 
@@ -449,9 +486,9 @@ class NewEntretienForm extends React.Component {
                    
                     size="lg"
                     placeholder="selectionner"
-                    style={{ width: 300 }}
+                    className="input-style-entretien"
                     format="HH:mm"
-                    label="Choisisser heure de fin" />
+                    label="Définissez heure de fin" />
 
               </Col>
 
@@ -459,10 +496,10 @@ class NewEntretienForm extends React.Component {
 
      
             <Row className="mt-3">
-              <Col md={24} sm={24} xs={24} className="">
+              <Col md={24} sm={24} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
 
                 <TextField name="description" 
-                    size="lg" rows={5} placeholder="Ex: Description de l'entretien " componentClass="textarea" label="Description" />
+                    size="lg" rows={5} placeholder="Ex: Description de l'entretien " componentClass="textarea" label="Saisissez une description de l'entretien" />
                    
               </Col>
 

@@ -13,11 +13,11 @@ var agendaSchema = new Schema(
              classes       :{ type: String, required: false },
            }] ,
         selected:[],
-        cellHeight:{ type: Number, required: true ,default:30},
-        showModal:{ type: Boolean, required: true,default:false },
-        locale:{ type: String, required: true ,default: "fr"},
-        rowsPerHour:{ type: Number, required: true ,default:2},
-        numberOfDays:{ type: Number, required: true ,default:4},
+        cellHeight:{ type: Number, required: false ,default:30},
+        showModal:{ type: Boolean, required: false,default:false },
+        locale:{ type: String, required: false ,default: "fr"},
+        rowsPerHour:{ type: Number, required: false ,default:2},
+        numberOfDays:{ type: Number, required: false ,default:4},
 
 
         type_compte:{ type: String, required: true },

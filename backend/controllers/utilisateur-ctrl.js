@@ -99,7 +99,7 @@ exports.signup = (req, res, next) => {
             error: 'aucune donnée saisie',
         })
     }
-
+   
     // hasher le mot de passe de l'utilisateur
     bcrypt.hash(body.password, 10)
       .then(hash => {
@@ -110,7 +110,7 @@ exports.signup = (req, res, next) => {
           // admin: true,
           // statut: true,
           password: hash,
-          photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+          photo:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
         });
 
@@ -138,53 +138,74 @@ exports.signup = (req, res, next) => {
   
 
 // inscription entreprise
-exports.signupEntreprise = (req, res, next) => {
+exports.signupCollaborateur = (req, res, next) => {
 
   // const body = JSON.parse(req.body);
   const body = req.body;
-  console.log(body,'body')
    
-  // delete body._id;
+  delete body._id;
   
-  //   // verifier si le body contient des données
-  //   if (!body) {
-  //       return res.status(400).json({
-  //           success: false,
-  //           error: 'aucune donnée saisie',
-  //       })
-  //   }
+    // verifier si le body contient des données
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'aucune donnée saisie',
+        })
+    }
 
-  //   // hasher le mot de passe de l'utilisateur
-  //   bcrypt.hash(body.password, 10)
-  //     .then(hash => {
+    // hasher le mot de passe de l'utilisateur
+    bcrypt.hash(body.password, 10)
+      .then(hash => {
+        console.log(body,'body')
 
-  //       // creation d'un utilisateur
-  //       const utilisateur = new Utilisateur({
-  //         ...body,
-  //         // admin: true,
-  //         // statut: true,
-  //         password: hash,
-  //         photo: `${req.protocol}://${req.get('host')}/images/entreprise/${req.file.filename}`
+        // creation d'un utilisateur
+        const utilisateur = new Utilisateur({
+          ...body,
+          password: hash,
+        
+        });
 
-  //       });
+        //si l'utilisateur n'a pas été bien creer
+        if (!utilisateur) {
+          return res.status(400).json({ success: false, error: err })
+        }
+        
+        console.log(utilisateur,'utilisateur')
 
-  //       //si l'utilisateur n'a pas été bien creer
-  //       if (!utilisateur) {
-  //         return res.status(400).json({ success: false, error: err })
-  //       }
+        const agenda = new Agenda({
+          type_compte : body.type_compte,
+          proprietaire: utilisateur._id,
+          })
 
-  //       // sauvegarde de l'utilisateur
-  //       utilisateur.save()
-  //         .then(() => { 
-  //           return res.status(201).json({
-  //           success: true,
-  //           id: utilisateur._id,
-  //           message: 'Utilisateur créé !' 
-  //           })}
-  //           )
-  //         .catch(error => res.status(400).json({ error }));
-  //     })
-  //     .catch(error => res.status(500).json({ error }));
+          if (!agenda) {
+              return res.status(400).json({ success: false, error: err })
+          }
+      
+          const admin = new Administrateur({
+              role:"collaborateur",
+              entreprise: body.entreprise,
+              utilisateur: utilisateur._id
+          })
+          
+          if (!admin) {
+            return res.status(400).json({ success: false, error: err })
+        }
+    
+          admin.save()
+          agenda.save()
+
+        // sauvegarde de l'utilisateur
+        utilisateur.save()
+          .then(() => { 
+            return res.status(201).json({
+            success: true,
+            id: utilisateur._id,
+            message: 'collaborateur créé !' 
+            })}
+            )
+          .catch(error => res.status(400).json({ error }));
+      })
+      .catch(error => res.status(500).json({ error }));
   };
  
 

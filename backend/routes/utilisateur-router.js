@@ -10,7 +10,8 @@ const userCtrl = require('../controllers/utilisateur-ctrl');
 // router pour l'inscription
 // router.post('/signup',auth,multer, userCtrl.signup);
 router.post('/signup',upload, userCtrl.signup);
-router.post('/signup/entreprise',uploadEntreprise, userCtrl.signupEntreprise);
+// router.post('/signup/entreprise',uploadEntreprise, userCtrl.signupEntreprise);
+router.post('/collaborateur_signup',upload, userCtrl.signupCollaborateur);
 
 // router pour la connexion
 router.post('/login', userCtrl.login);

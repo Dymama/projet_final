@@ -28,6 +28,7 @@ import { listCandidatReducer } from './candidats/listCandidat/listCandidatReduce
 import { getAllUserByTypeReducer } from './utilisateur/getAllUserByType/getAllUserByTypeReducer';
 import { newFormationReducer } from './entreprise/formation/newFormation/newFormationReducer';
 import { getFormationReducer } from './entreprise/formation/getFormation/getFormationReducer';
+import { newCollaborateurReducer } from './collaborateur/newCollaborateur/newCollaborateurReducer';
 
 
 const rootReducer = combineReducers(
@@ -59,7 +60,7 @@ const rootReducer = combineReducers(
 
         formation: newFormationReducer,
         getFormations: getFormationReducer,
-
+        newCollaborateur: newCollaborateurReducer
     }
 )
 

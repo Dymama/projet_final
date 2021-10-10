@@ -96,10 +96,6 @@ const dataCivilite=[
   {
     "label": "Madame",
     "value": "madame",
-  }, 
-  {
-    "label": "Mademoiselle",
-    "value": "mademoiselle",
   },
   {
     "label": "Monsieur",

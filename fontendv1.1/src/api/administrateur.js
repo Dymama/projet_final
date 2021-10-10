@@ -5,12 +5,13 @@ const admin = axios.create({
     withCredentials: true,
 })
 
-export const insertAdmin = payload => admin.post(`/`, payload)
-export const getAllAdmin = () => admin.get(`/`)
-export const updateAdminById = (id, payload) => admin.put(`/${id}`, payload)
-export const getAdminById = id => admin.get(`/${id}`)
-export const getAdminByUser = id => admin.get(`/getbyuser/${id}`)
-export const deleteAdminById = id => admin.delete(`/${id}`)
+const insertAdmin = payload => admin.post(`/`, payload)
+const getAllAdmin = () => admin.get(`/`)
+const updateAdminById = (id, payload) => admin.put(`/${id}`, payload)
+const getAdminById = id => admin.get(`/${id}`)
+const getAdminByUser = id => admin.get(`/getbyuser/${id}`)
+const deleteAdminById = id => admin.delete(`/${id}`)
+const getCollaborateur = id => admin.get(`/get_collaborateurs/${id}`)
 
 
 
@@ -21,6 +22,8 @@ const admins = {
     getAdminById,
     deleteAdminById,
     getAdminByUser,
+    getCollaborateur,
+
 }
 
 export default admins

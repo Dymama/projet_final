@@ -208,7 +208,7 @@ export default function SideBar({ ...props }) {
                   {userData && userData.admin ===true && userData.type_compte ==="entreprise" 
                   ? 
                   (<>
-                    <Dropdown eventKey="7" title="Candidats" icon={<Icon icon="peoples-map" />}>
+                    <Dropdown eventKey="7" title="Candidats" icon={<Icon icon="people-group" />}>
 
                       <Dropdown.Item eventKey="7-1" componentClass={Link} to="/dashboard/new_candidat">Nouveau candidat</Dropdown.Item>
                       <Dropdown.Item eventKey="7-2" componentClass={Link} to="/dashboard/list_candidats">Liste candidats</Dropdown.Item>
@@ -224,10 +224,26 @@ export default function SideBar({ ...props }) {
                   </>)
                     : ""
                     }
+
+                  {userData && userData.type_compte ==="entreprise" 
+                  ? 
+                  (<>
+                    <Dropdown eventKey="9" title="Collaborateurs" icon={<Icon icon="peoples-map" />}>
+
+                      <Dropdown.Item eventKey="9-1" componentClass={Link} to="/dashboard/new_collaborateur">Nouveau Collaborateur</Dropdown.Item>
+                      <Dropdown.Item eventKey="9-2" componentClass={Link} to="/dashboard/list_collaborateurs">Liste collaborateurs</Dropdown.Item>
+
+                    </Dropdown>
+                   
+                  </>)
+                    : ""
+                    }
                   {userData && userData.type_compte ==="entreprise" 
                     ? 
                     (<>
-                      <NavLink eventKey="9" icon={<Icon icon="line-chart"/>} componentClass={Link} to="/dashboard/statistiques">Statistique</NavLink>  </>)
+                      <NavLink eventKey="10" icon={<Icon icon="line-chart"/>} componentClass={Link} to="/dashboard/statistiques">Statistique</NavLink> 
+                      
+                       </>)
                     : ""
                     }
 

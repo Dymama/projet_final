@@ -83,11 +83,12 @@ export default function EntretienBtoB({match}) {
   
   const dataClickEntretien = (dataId)=>{
     history.push({
-      pathname: '/dashboard/detail_entretien',
+      pathname: '/dashboard/detail_entretien_b_to_b',
       state: {entretienRowDataId: dataId,retour:"entretiens_b_to_b",etatDemande:etatDemande,type:"entreprise"}
     });
   }
   
+
   useEffect(()=>{
     setLoadingTable(true)
     entretiens.getAllEntrepriseEntretien(user._id)
@@ -108,6 +109,28 @@ export default function EntretienBtoB({match}) {
       })
 
   },[])
+
+  
+  useEffect(()=>{
+    setLoadingTable(true)
+    entretiens.getAllEntrepriseEntretien(user._id)
+      .then((res) => {
+        setLoadingTable(false)
+        setLoading(false)
+        setEntretienData(res.data.data)
+        setDataValide(trieEntretien(res.data.data).dataValide)
+        setDataAttente(trieEntretien(res.data.data).dataAttente)
+        
+        console.log(res.data.data,'entretien')
+
+      })
+      .catch((err) => {
+        setLoadingTable(false)
+        console.log(err,'entretien')
+
+      })
+
+  },[entretiens])
 
 
 

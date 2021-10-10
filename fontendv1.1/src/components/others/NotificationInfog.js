@@ -37,7 +37,7 @@ export function openParticipateAlert(text) {
   
   export function alertSuccess(text) {
     Notification.success({
-      title: 'Génial !!',
+      title: 'Félicitation !!',
       duration: 5000,
       description:(<Row style={{ width: 320 }} rows={3} >
           <p >

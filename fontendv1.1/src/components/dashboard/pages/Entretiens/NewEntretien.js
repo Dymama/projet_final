@@ -1,5 +1,6 @@
 import { useEffect,useState } from "react";
 import { useLocation } from "react-router-dom";
+import {useSelector, useDispatch,useStore} from 'react-redux'
 import {ButtonToolbar,
     IconButton,
     Icon,
@@ -19,10 +20,36 @@ import postes from '../../../../api/poste'
 import './NewEntretien.css';
 
 import entretien1 from '../../../../assets/images/dashboard/entretiens/entretien1.jpg'
+import utilisateurs from "../../../../api/utilisateur";
+import admins from "../../../../api/administrateur";
+import configureStore from "../../../../redux/store";
+
+
+ 
+// fonction declassement des utilisateurs
+function structureDataCollab(data){
+    var dataItem;
+
+    return data.map((item,index)=>{
+     
+        dataItem= {
+          "label": item.prenom+' '+item.nom,
+          "value": item._id
+        }
+        return dataItem;
+      
+
+    })
+    .filter((item,index)=> item !== undefined)
+    
+  }
 
 
 export default function NewEntretien(){
+    const store = useStore();
+
   const [clicker, setClicker] = useState(false)
+  const [listCollaborateurs, setListCollaborateurs] = useState([])
     
     const handleClicker = ()=> {
         setClicker(true)
@@ -30,6 +57,41 @@ export default function NewEntretien(){
     const handleClickerFalse = ()=> {
         setClicker(false)
     }
+
+    
+  useEffect(()=>{
+    const tableCollaborateurs=[]
+    utilisateurs.getUserEntreprise(store.getState().getInfoUser.user.data._id)
+    .then(res=>{
+      admins.getCollaborateur(res.data.data._id)
+       .then(res=>{
+          if(res.data.data){
+            res.data.data.forEach(item => {
+              utilisateurs.getUtilisateurById(item.utilisateur)
+                .then(res=>{
+                    tableCollaborateurs.push(res.data.data)
+                    setListCollaborateurs(structureDataCollab(tableCollaborateurs))
+                })
+                .catch(err=>{
+                  return 
+                  console.err(err,'error')
+                })
+            });
+          }
+
+       })
+       .catch(err=>{
+          console.err(err,'error')
+      })
+
+    })
+    .catch(err=>{
+      console.err(err,'error')
+  })
+    
+  },[])
+
+
     return (
         <>
 
@@ -51,7 +113,11 @@ export default function NewEntretien(){
                             /></div> */}
                             
                             <div className="col-12 px-5">
-                                <NewEntretienForm clicker={handleClicker} handleClickerFalse={handleClickerFalse} /> 
+                                <NewEntretienForm 
+                                clicker={handleClicker} 
+                                handleClickerFalse={handleClickerFalse} 
+                                listCollaborateurs={listCollaborateurs}
+                                /> 
                             </div>
                         </div>
 
