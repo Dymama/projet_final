@@ -373,25 +373,41 @@ class NewEntretienForm extends React.Component {
 
 
 handleDateStart = (value)=>{
+  if(value){
   this.props.setDateStart(value)
+  }else{
+    this.props.setDateStart("")
+  }
 }
 
 handleHourStart = (value)=>{
+  if(value){
   this.props.setHourStart(value)
+  }else{
+    this.props.setHourStart("")
+  }
 }
 
 handleDateEnd = (value)=>{
+  if(value){
   this.props.setDateEnd(value)
+  }else{
+    this.props.setDateEnd("")
+  }
 }
 
 handleHourEnd = (value)=>{
-  this.props.setHourEnd(value)
+  if(value){
+    this.props.setHourEnd(value)
+  }else{
+    this.props.setHourEnd("")
+  }
 }
 
 collaborateurChange = (value)=>{
+    if(value){
       this.props.setCollaborateur(value)
       this.setState({collaborateur:value})
-    if(value){
    agendas.getAgenda(value)
    .then(res =>{
       this.setState({itemsCollaborateur:res.data.data.items})
@@ -401,15 +417,20 @@ collaborateurChange = (value)=>{
         
       alertError("Une erreur s'est produite")
     })}
+    else{
+      
+      this.props.setCollaborateur("")
+      this.setState({collaborateur:""})
+    }
 
 }
 
 
 
   concerneChange = (value)=>{
-    this.setState({concerner:value})
-    this.props.setConcerner(value)
     if(value){
+      this.setState({concerner:value})
+      this.props.setConcerner(value)
     agendas.getAgenda(value)
       .then(res =>{
          
@@ -421,6 +442,11 @@ collaborateurChange = (value)=>{
             
           alertError("Une erreur s'est produite")
         })}
+        else{
+          
+          this.setState({concerner:""})
+          this.props.setConcerner("")
+        }
   }
 
 
