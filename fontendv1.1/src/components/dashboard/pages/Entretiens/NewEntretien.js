@@ -12,6 +12,7 @@ import {ButtonToolbar,
     FormControl,
     ControlLabel,
     HelpBlock,
+    Notification
 
 } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
@@ -23,8 +24,56 @@ import entretien1 from '../../../../assets/images/dashboard/entretiens/entretien
 import utilisateurs from "../../../../api/utilisateur";
 import admins from "../../../../api/administrateur";
 import configureStore from "../../../../redux/store";
+import { alertError } from "../../../others/NotificationInfog";
 
 
+function openNotif(funcName,titre) {
+  Notification[funcName]({
+    title: titre,
+    duration: 10000,
+    description: (
+      <div className="py-3">
+        <p> Cette plage horaire est déjà occupée</p>
+        <p className="text-center font-weight-bold">
+         Veuillez la date d'entretien !
+        </p>
+      </div>
+    )
+  });
+}
+
+
+  // verification du temps
+  function verifyDispo(start,end,items){
+
+    if(items){
+      const dayStart = new Date(start).getTime()
+      const dayEnd = new Date(end).getTime()
+      // verifier si items est vide
+      if(items.length === 0){
+        return true
+      }
+      else{ // sinon 
+       
+         const val = items.map(elmt => {
+          
+          const beginEvent= Date.parse(elmt.startDateTime)
+          const endEvent= Date.parse(elmt.endDateTime);
+  
+          if( dayEnd <= beginEvent || endEvent <= dayStart ){
+             return true
+            }
+          else{
+              return false
+          }
+  
+        }).includes(false);
+  
+        return !val
+      }
+  
+    }
+  }
  
 // fonction declassement des utilisateurs
 function structureDataCollab(data){
@@ -48,8 +97,25 @@ function structureDataCollab(data){
 export default function NewEntretien(){
     const store = useStore();
 
+  const [isOk, setIsOk] = useState(true)
+
   const [clicker, setClicker] = useState(false)
   const [listCollaborateurs, setListCollaborateurs] = useState([])
+  
+  const [dateStart, setDateStart] = useState('')
+  const [hourStart, setHourStart] = useState('')
+
+  const [dateEnd, setDateEnd] = useState('')
+  const [hourEnd, setHourEnd] = useState('')
+
+  const [concerner, setConcerner] = useState('')
+  const [collaborateur, setCollaborateur] = useState('')
+  const [entreprise, setEntreprise] = useState('')
+
+  const [itemsConcerner, setItemsConcerner] = useState([])
+  const [itemsCollaborateur, setItemsCollaborateur] = useState([])
+  const [itemsEntreprise, setItemsEntreprise] = useState([])
+
     
     const handleClicker = ()=> {
         setClicker(true)
@@ -58,6 +124,65 @@ export default function NewEntretien(){
         setClicker(false)
     }
 
+    useEffect(() => {
+      
+      if(dateStart && hourStart && dateEnd && hourEnd){
+        
+        const startD= new Date(dateStart);
+        const endD= new Date(dateEnd);
+        const startH= new Date(hourStart);
+        const endH= new Date(hourEnd);
+
+        const startDateT = new Date(startD.getFullYear(), startD.getMonth(), startD.getDate(), startH.getHours(), startH.getMinutes())
+
+        const endDateT  = new Date(endD.getFullYear(), endD.getMonth(), endD.getDate(), endH.getHours(), endH.getMinutes())
+            if(collaborateur){
+              
+              if(!verifyDispo(startDateT,endDateT,itemsCollaborateur)){
+                setIsOk(false)
+                openNotif('error','COLLABORATEUR')
+              
+              }else{
+                setIsOk(true)}
+         
+              if(concerner){
+                if(!verifyDispo(startDateT,endDateT,itemsConcerner)){
+                  setIsOk(false)
+                  openNotif('error','CONCERNER')
+               
+                }else{
+                  setIsOk(true)}
+           
+              }
+            }
+            else{
+
+              if(!verifyDispo(startDateT,endDateT,itemsEntreprise)){
+                setIsOk(false)
+                openNotif('error','ENTREPRISE')
+                
+              }else{
+                setIsOk(true)
+
+              }
+         
+              if(concerner){
+                if(!verifyDispo(startDateT,endDateT,itemsConcerner)){
+                  setIsOk(false)
+                  openNotif('error','CONCERNER')
+               
+                }else{
+                  setIsOk(true)}
+           
+              }
+            }
+            
+
+        }
+          
+
+     
+    }, [dateStart,hourStart,dateEnd,hourEnd,concerner,collaborateur])
     
   useEffect(()=>{
     const tableCollaborateurs=[]
@@ -117,9 +242,21 @@ export default function NewEntretien(){
                                 clicker={handleClicker} 
                                 handleClickerFalse={handleClickerFalse} 
                                 listCollaborateurs={listCollaborateurs}
+                                setItemsConcerner={setItemsConcerner}
+                                setItemsCollaborateur={setItemsCollaborateur}
+                                setItemsEntreprise={setItemsEntreprise}
+                                setConcerner={setConcerner}
+                                setCollaborateur={setCollaborateur}
+                                setEntreprise={setEntreprise}
+                                setDateStart={setDateStart}
+                                setHourStart={setHourStart}
+                                setDateEnd={setDateEnd}
+                                setHourEnd={setHourEnd}
+                                isOk={isOk}
                                 /> 
                             </div>
                         </div>
+ 
 
                         </>
                 ) : (

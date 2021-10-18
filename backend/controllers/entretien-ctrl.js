@@ -8,7 +8,6 @@ const { v4: uuidv4 } = require('uuid');
 exports.create = (req, res, next) => {
 
   const body = req.body;
-  const userSession =  req.session.user;
   console.log(body)
     // verifier si le body contient des données
     if (!body) {
@@ -18,61 +17,33 @@ exports.create = (req, res, next) => {
         })
     }
    
-    
-
-    // verification administrateur
-    Administrateur.findOne({utilisateur: userSession.userId})
-        .then( admin => {
-            if (!admin) {
-                return res.status(401).json({ error: 'administrateur non trouvé !' });
-              }
-
                     // poste container 
-                    const entretien = new Entretien({
+    const entretien = new Entretien({
                         ...body,
-                        employer: admin.utilisateur,
                         lien: `entretien${uuidv4()}`,
-                        entreprise:admin.entreprise
         
                         })
+                        
 
-                        if (!entretien) {
-                            return res.status(400).json({ success: false, error: err })
+    if (!entretien) {
+        return res.status(400).json({ success: false, error: err })
                         }
                     
-                        entretien
-                            .save()
-                            .then(() => {
-                                return res.status(201).json({
+        entretien
+            .save()
+            .then(() => {
+                return res.status(201).json({
                                     success: true,
                                     id: entretien._id,
                                     message: 'entretien creer!',
-                                })
-                            })
-                            .catch(error => {
-                                return res.status(400).json({
+                    })
+                })
+            .catch(error => {
+                return res.status(400).json({
                                     error,
                                     message: 'entretien non creer!',
-                                })
-                            })
-                    
-                
-                       
-                            
-        })
-        .catch(error => {
-            return res.status(400).json({
-                error,
-                message: 'Administrateur non trouvé!',
+                    })
             })
-        })
-        //end verification admin
-
-    
-    
-
-
-   
        
   };
 

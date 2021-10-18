@@ -1,7 +1,8 @@
 import React from 'react';
 import RichTextEditor, { stateToHTML } from "react-rte";
 import parse from 'html-react-parser';
-import { withRouter } from 'react-router';
+import { withRouter,Redirect } from 'react-router';
+
 import { connect } from 'react-redux'
 import {ButtonToolbar,
     IconButton,
@@ -39,7 +40,7 @@ import ModalGeneric from '../generiques/ModalGeneric';
 import agendas from '../../../../api/agenda';
 
 import './NewEntretienForm.css'
-import { alertError } from '../../../others/NotificationInfog';
+import { alertError, alertSuccess } from '../../../others/NotificationInfog';
 import entretiens from '../../../../api/entretien';
 
 const { StringType, NumberType, DateType} = Schema.Types;
@@ -108,7 +109,37 @@ const data = [
     
   }
 
-  
+  // verification du temps
+function verifyDispo(start,end,items){
+
+  if(items){
+    const dayStart = new Date(start).getTime()
+    const dayEnd = new Date(end).getTime()
+    // verifier si items est vide
+    if(items.length === 0){
+      return true
+    }
+    else{ // sinon 
+     
+       const val = items.map(elmt => {
+        
+        const beginEvent= Date.parse(elmt.startDateTime)
+        const endEvent= Date.parse(elmt.endDateTime);
+
+        if( dayEnd <= beginEvent || endEvent <= dayStart ){
+           return true
+          }
+        else{
+            return false
+        }
+
+      }).includes(false);
+
+      return !val
+    }
+
+  }
+}
 
 
 function ShowUserData({data}){
@@ -134,6 +165,24 @@ function ShowUserData({data}){
   )
 }
 
+// const getItemsUser = async(user) =>{
+//   var items
+//   await agendas.getAgenda(user)
+//   .then(res =>{
+//     //  console.log(res.data.data.items,"data agenda")
+//      items = res.data.data.items
+      
+//    })
+//    .catch(err =>{
+       
+//      alertError("Une erreur s'est produite")
+//    })
+
+//    return items
+// }
+
+
+
 const initialState ={
   show: false,
   rows: 0,
@@ -152,9 +201,15 @@ const initialState ={
   type:'',
   data:null,
   disponible:false,
-  choix_date:'',
-  choix_heure:'',
   loadingEtat:false,
+  itemsCollaborateur:[],
+  itemsEntreprise:[],
+  itemsConcerner:[],
+  entrepriseUserId:'',
+  employerId:'',
+  redirect: false,
+
+
 }
 
 class TextField extends React.PureComponent {
@@ -191,88 +246,184 @@ class NewEntretienForm extends React.Component {
   handleActionNewEntretien = () => {
     setTimeout(() => {
         
-      // this.setState(initialState)
+      this.setState({redirect : true})
       this.close()
       
     },2000)
   };
 
   handleSubmit() {
-    const { formValue,concerner,type } = this.state;
+    const { formValue,concerner,type ,collaborateur,entrepriseUserId,employerId} = this.state;  
+
     if (!this.form.check()) {
       console.error('Form Error');
       return;
     }
     
+    const startD= new Date(formValue.date_debut);
+    const endD= new Date(formValue.date_fin);
+    const startH= new Date(formValue.heure_debut);
+    const endH= new Date(formValue.heure_fin);
+
+    const startDateT = new Date(startD.getFullYear(), startD.getMonth(), startD.getDate(), startH.getHours(), startH.getMinutes()) 
+
+    const endDateT  = new Date(endD.getFullYear(), endD.getMonth(), endD.getDate(), endH.getHours(), endH.getMinutes())
+
+
     this.setState({ loadingEtat: true });
     
     const formData ={
-        ...formValue,
-        date_debut: formValue.date_debut,
-        heure_debut: formValue.heure_debut,
-        concerner,
-        type,
-        
+      ...formValue,
+      employer:employerId,
+      entreprise:entrepriseUserId,
+      concerner,
+      type,
+      collaborateur :collaborateur?collaborateur:null
     }
+   
 
-    const startDate= formValue.date_debut;
-    const startHeure= formValue.heure_debut;
+    
+    entretiens.insertEntretien(formData)
+    .then(res =>{
 
-  const agendaData =  {
-     name          : "ENTRETIEN",
-     startDateTime :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours(), startHeure.getMinutes()) ,
-     endDateTime   :new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHeure.getHours()+4, startHeure.getMinutes()+30),
-     classes       : 'color-3 color-2',
-   }
+      const agendaData =  {
+        name          : "ENTRETIEN",
+        startDateTime :startDateT,
+        endDateTime   :endDateT,
+        classes       : 'color-3 color-2',
+        entretien: res.data.id,
+      }
 
-  
-      agendas.modifAgenda(concerner,agendaData)
-        .then(agenda=>{
+      if(collaborateur){
+            agendas.modifAgenda(collaborateur,agendaData)
+              .then(res=>{
+                    
+                    agendas.modifAgenda(concerner,agendaData)
+                    .then(res=>{
 
-            entretiens.insertEntretien(formData)
-                  .then(res =>{
+                        setTimeout(() => {
+
+                          this.open()
+                          this.setState({loadingEtat: false})
+                          
+                          this.handleActionNewEntretien()
+                      }, 3000);
+            
+                    })
+                    .catch(err=>{
+                      console.log(err,'erreur')
+                       this.setState({ loadingEtat: false });
+            
+                    })
+          
+              })
+              .catch(err=>{
+                this.setState({ loadingEtat: false });
+                console.log(err,'erreur')
+      
+              })
+
+      }
+      else{
+
+        
+        agendas.modifAgenda(entrepriseUserId,agendaData)
+        .then(res=>{
+              
+              agendas.modifAgenda(concerner,agendaData)
+              .then(res=>{
+
                   setTimeout(() => {
 
-                      this.open()
-                      this.setState({loadingEtat: false})
-                      
-                      this.handleActionNewEntretien()
-                  }, 3000);
-                  })
-                  .catch(err =>{
-                      
-                  alertError("Une erreur s'est produite")
-                  })
-
+                    this.open()
+                    this.setState({loadingEtat: false})
+                    
+                    this.handleActionNewEntretien()
+                }, 3000);
+      
+              })
+              .catch(err=>{
+                console.log(err,'erreur')
+                this.setState({ loadingEtat: false });
+      
+              })
+    
         })
         .catch(err=>{
           console.log(err,'erreur')
+          this.setState({ loadingEtat: false });
 
         })
+
+      }
+
+      
+
+    })
+    .catch(err=>{
+      alertError("Erreur s'est produite")
+      this.setState({ loadingEtat: false });
+
+    })
+
+
 
   
 }
 
 
+handleDateStart = (value)=>{
+  this.props.setDateStart(value)
+}
+
+handleHourStart = (value)=>{
+  this.props.setHourStart(value)
+}
+
+handleDateEnd = (value)=>{
+  this.props.setDateEnd(value)
+}
+
+handleHourEnd = (value)=>{
+  this.props.setHourEnd(value)
+}
 
 collaborateurChange = (value)=>{
+      this.props.setCollaborateur(value)
+      this.setState({collaborateur:value})
+    if(value){
    agendas.getAgenda(value)
    .then(res =>{
-       console.log(res.data.data.items,"data agenda")
-      // alertError("Une erreur s'est produite")
+      this.setState({itemsCollaborateur:res.data.data.items})
+      this.props.setItemsCollaborateur(res.data.data.items)
     })
     .catch(err =>{
         
       alertError("Une erreur s'est produite")
-    })
-  // this.setState({collaborateur:value})
+    })}
+
 }
 
 
-  
+
   concerneChange = (value)=>{
     this.setState({concerner:value})
+    this.props.setConcerner(value)
+    if(value){
+    agendas.getAgenda(value)
+      .then(res =>{
+         
+          this.setState({itemsConcerner:res.data.data.items})
+          this.props.setItemsConcerner(res.data.data.items)
+          
+        })
+        .catch(err =>{
+            
+          alertError("Une erreur s'est produite")
+        })}
   }
+
+
 
   typeChange = (value)=>{
     this.setState({type:value})
@@ -288,7 +439,7 @@ collaborateurChange = (value)=>{
           console.error(err)
         })
 
-      };
+        };
 
       case "entreprise":{
         entreprises.getAllEntreprise()
@@ -309,11 +460,40 @@ collaborateurChange = (value)=>{
   }
 
 
+
+  componentDidMount(){
+    this.setState({employerId:store.getState().connected.user.data._id})
+      
+    utilisateurs.getUserEntreprise(store.getState().connected.user.data._id)
+      .then( res =>{
+        this.setState({entrepriseUserId:res.data.data._id})
+
+        this.props.setEntreprise(res.data.data._id)
+
+        agendas.getAgenda(res.data.data._id)
+        .then(res =>{
+           
+            this.setState({itemsEntreprise:res.data.data.items})
+            this.props.setItemsEntreprise(res.data.data.items)
+            
+          })
+          .catch(err =>{
+            alertError("Une erreur s'est produite")
+          })
+
+      })
+      .catch( err =>{
+        console.error(err)
+      })
+  }
   
 
-
   render() {
-    const { formError, formValue } = this.state;
+    const { formError, formValue,collaborateur,itemsConcerner,concerner,itemsEntreprise ,redirect,type} = this.state;
+
+    if (redirect) {
+      return <Redirect to={type ==="entreprise"?'/dashboard/entretiens_b_to_b':'/dashboard/entretiens_candidat'}/>;
+    }
 
     return (
 
@@ -435,7 +615,8 @@ collaborateurChange = (value)=>{
                     <TextField 
                     oneTap
                     placement="auto"
-                    name="date_debut" 
+                    name="date_debut"
+                    onChange={(value)=> this.handleDateStart(value)}
                     accepter={DatePicker} 
                     placement="auto"
                     placeholder="selectionner" 
@@ -449,6 +630,7 @@ collaborateurChange = (value)=>{
               <Col md={12} sm={12} xs={24} className="mt-md-0 mt-4 px-md-4 px-2">
                 <TextField name="heure_debut"
                     
+                    onChange={(value)=> this.handleHourStart(value)}
                     placement="auto" 
                     accepter={DatePicker} 
                     size="lg"
@@ -469,6 +651,7 @@ collaborateurChange = (value)=>{
                     size="lg"
                     placement="auto"
                     name="date_fin" 
+                    onChange={(value)=> this.handleDateEnd(value)}
                     accepter={DatePicker} 
                     placement="auto"
                     placeholder="selectionner"
@@ -484,6 +667,7 @@ collaborateurChange = (value)=>{
                     placement="auto" 
                     accepter={DatePicker} 
                    
+                    onChange={(value)=> this.handleHourEnd(value)}
                     size="lg"
                     placeholder="selectionner"
                     className="input-style-entretien"
@@ -515,7 +699,7 @@ collaborateurChange = (value)=>{
                && this.state.type
                && this.state.formValue.titre !==" "
                && this.state.formValue.description !==" "
-               
+               && this.props.isOk
               )
               ?false
               :true}

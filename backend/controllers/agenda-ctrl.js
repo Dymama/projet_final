@@ -170,7 +170,7 @@ exports.addEvent = async (req, res) => {
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a body to update',
+            error: 'aucune donnée ',
         })
     }
 
@@ -184,11 +184,9 @@ exports.addEvent = async (req, res) => {
 
 
       var agendaData = {
+          ...body,
         _id            : uuidv4() ,
-         name          : body.name,
-         startDateTime : body.startDateTime,
-         endDateTime   : body.startDateTime,
-         classes       : body.color
+
        }
 
        agenda.items.push(agendaData);

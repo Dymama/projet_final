@@ -11,6 +11,7 @@ var agendaSchema = new Schema(
              startDateTime :{ type: Date, required: false },
              endDateTime   :{ type: Date, required: false },
              classes       :{ type: String, required: false },
+             entretien       :{ type: Schema.Types.ObjectId, required:false,ref:"Entretien" },
            }] ,
         selected:[],
         cellHeight:{ type: Number, required: false ,default:30},

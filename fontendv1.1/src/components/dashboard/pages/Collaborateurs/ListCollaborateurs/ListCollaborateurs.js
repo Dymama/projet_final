@@ -74,6 +74,11 @@ export default function ListCollaborateurs(props) {
   }
 
 
+  const handleNewCollaborateur = ()=>{
+    history.push({
+        pathname: `/dashboard/new_collaborateur`,
+    });
+  }
   
   const dataClickerCollaborateur = (value)=>{
     history.push({
@@ -178,7 +183,7 @@ export default function ListCollaborateurs(props) {
                     <Col className=""  md={12} sm={12} sx={24} >
                       
                           <ButtonToolbar className="float-md-right mx-auto mt-2 mt-md-0">
-                              <IconButton icon={<Icon icon="plus" />} appearance="ghost" placement="right">
+                              <IconButton onClick={()=>handleNewCollaborateur()} icon={<Icon icon="plus" />} appearance="ghost" placement="right">
                                   Nouveau collaborateur
                               </IconButton>
                           </ButtonToolbar>
