@@ -23,6 +23,7 @@ import {ButtonToolbar,
 
 import 'rsuite/dist/styles/rsuite-default.css';
 import './ModalEntretienDetails.css'
+import TablesModalEntretien from './Tables/TablesModalEntretien';
 
 
 export default function ModalEntretienDetails(props){
@@ -35,8 +36,13 @@ export default function ModalEntretienDetails(props){
             <Modal.Header>
               <Modal.Title>Modal Title</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                rien
+            <Modal.Body className="px-3">
+            <Row>
+            <Col md={24} >
+              <TablesModalEntretien />
+            </Col>
+            </Row>
+              
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={() =>props.closeModalDetail(props.titre)} appearance="primary">
