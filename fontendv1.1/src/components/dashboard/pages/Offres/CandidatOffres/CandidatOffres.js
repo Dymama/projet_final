@@ -9,6 +9,9 @@ import {ButtonToolbar,
         InputPicker,
         Button,
         Loader,
+        Row,
+        Col,
+        
 
     } from 'rsuite';
 
@@ -95,35 +98,19 @@ export default function CandidatOffres(){
         
 
     useEffect(()=>{
+        console.log(offres,"offres")
         
-        if(offres){
         var timer1 = setTimeout(() => {
             
-            if(offres.length !== 0 ){
                 setLoading(false)
-                setUmptyData(false)
-
                 setAllOffres(trieOffreOwn(offres,user._id))
-            
                 
-            
-            }
-            if(offres.length === 0){
-                
-                setLoading(false)
-                setUmptyData(true)
-
-            }
-            
         }, 1000);
 
         return () => {
             clearTimeout(timer1);
-        }; }
-        else{
-            setLoading(false)
-            setUmptyData(true)
-        }
+        }; 
+       
         
     },[offres,updateOffre])
   
@@ -134,29 +121,31 @@ export default function CandidatOffres(){
         <>
         
         <OffreModal rows={rows} updateOffreFunc={updateOffreFunc} show={show} close={close} dataClicker={cardClickData} resetRows={resetRows}/>
-        <div className="container">
-                <div className="header-offres-own-candidat mx-auto row py-4">
-                   <div className="col-12 col-md-4 px-3">
-                        <ButtonToolbar className="bg-white ">
-                        
-                                
-                    <IconButton appearance='ghost' className="mr-3"  icon={<Icon icon="magic" />} color="cyan" circle />
-                                                
-                                Offres 
-                        </ButtonToolbar>
-                   </div>
+        <div className="container bg-white p-2">
+                <Row  className="p-3">
+                    <Col md={24} sm={24} className="mx-auto">
+                        <h4 className="">
+                        <Icon icon="magic" />
+                            Liste des offres aux quelles vous avez postulé
+                        </h4>
+                    </Col>
+                </Row>
+                <Row className="header-offres-own-candidat mx-auto row py-4">
+                    <Col md={12} sm={12} className="mx-auto">
+                        <InputGroup inside>
+                                <Input size="lg" placeholder="Recherche..." />
+                                <InputGroup.Button>
+                                    <Icon icon="search" />
+                                </InputGroup.Button>
+                            </InputGroup>
+                    </Col>
+                    <Col md={12} sm={12}  className="">
+                            <InputPicker size="lg" className="float-md-right" data={data} block placeholder="Trier par ..."/>
 
-                   <div className="col-12 col-md-4 mx-auto">
-                       <InputGroup inside>
-                            <Input placeholder="Recherche..." />
-                            <InputGroup.Button>
-                                <Icon icon="search" />
-                            </InputGroup.Button>
-                        </InputGroup>
-                   </div>
+                    </Col>
 
                   
-                </div>
+                </Row>
                 <div className="body-offres-own-candidat mt-1">
                     <div className="body-offres-header-own-candidat py-2 mt-2">
                         <div className="row">
@@ -179,15 +168,7 @@ export default function CandidatOffres(){
                         ):(
                             <>
 
-                            {umptyData ? (
-                                <>
-                                <div className="mx-auto text-center mt-5" >
-                                    <p>Aucune offres </p>
-                                </div>
-                                </>
-                            ):(
-                                <>
-                            {(  allOffres.map((item,index) => {
+                            {(allOffres.map((item,index) => {
                                  
                                     return  <OffreCards updateOffre={updateOffre} open={open} key={item._id} index={index} dataOffre={item} />
                                     
@@ -195,16 +176,14 @@ export default function CandidatOffres(){
                             
                                 </>
 
-                            )}
-
-                            </>
+                            
 
                         )}
                         </div>
  
 
                     </div>
-                    <div className="body-offres-pagination pt-2">
+                    {/* <div className="body-offres-pagination pt-2">
                         <div className="row">
                             <div className="col-md-4">
                                 <ButtonToolbar className="float-md-left">
@@ -224,7 +203,7 @@ export default function CandidatOffres(){
                                 </ButtonToolbar>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
 
                 </div>

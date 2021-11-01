@@ -1,6 +1,6 @@
 import {Header,Container,Content} from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
-import WelcomeComponent from './WelcomeComponent'
+import WelcomeComponent from './PanelEvents'
 
 
 import './Home.css';
@@ -15,7 +15,7 @@ export default function Home() {
         <Container className="bg-white">
             <Content>
               {/* <ModalHome/> */}
-              <WelcomeComponent/>
+             
               <BodyHome/>
                 
             </Content>

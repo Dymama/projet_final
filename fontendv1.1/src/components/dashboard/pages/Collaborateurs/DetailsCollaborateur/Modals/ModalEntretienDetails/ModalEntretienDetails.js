@@ -38,7 +38,7 @@ export default function ModalEntretienDetails(props){
             </Modal.Header>
             <Modal.Body className="px-3">
             <Row>
-            <Col md={24} >
+            <Col md={24} className="px-3" >
               <TablesModalEntretien />
             </Col>
             </Row>

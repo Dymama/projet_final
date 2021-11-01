@@ -1,0 +1,75 @@
+.panel-event-home{
+    width: 300px;
+    justify-self: center;
+    transition:transform  500ms ease-in-out 100ms;
+    -webkit-transition:transform  500ms ease-in-out 100ms;
+    -moz-transition:transform  500ms ease-in-out 100ms;
+    -ms-transition:transform  500ms ease-in-out 100ms;
+    -o-transition:transform  500ms ease-in-out 100ms;
+}
+
+.panel-event-home:hover{
+    cursor: pointer;
+    transform:translateY(10px) ;
+    -webkit-transform:translateY(10px) ;
+    -moz-transform:translateY(10px) ;
+    -ms-transform:translateY(10px) ;
+    -o-transform:translateY(10px) ;
+}
+
+.panel-event-home-2{
+    transition:transform  500ms ease-in-out 100ms;
+    -webkit-transition:transform  500ms ease-in-out 100ms;
+    -moz-transition:transform  500ms ease-in-out 100ms;
+    -ms-transition:transform  500ms ease-in-out 100ms;
+    -o-transition:transform  500ms ease-in-out 100ms;
+}
+
+.panel-event-home-2:hover{
+    cursor: pointer;
+    transform:translateY(10px) ;
+    -webkit-transform:translateY(10px) ;
+    -moz-transform:translateY(10px) ;
+    -ms-transform:translateY(10px) ;
+    -o-transform:translateY(10px) ;
+}
+
+
+
+.truncate{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+.col-line-clamp{
+    height: 5em;
+    
+    margin: auto;
+}
+
+.line-clamp{
+    line-clamp: 3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.style-data-debut{
+    font-size: 13px;
+    font-weight: bolder;
+    color: purple;
+
+}
+
+.style-data-heure{
+    font-size: 13px;
+    font-weight: bolder;
+    color: purple;
+
+}

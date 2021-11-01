@@ -99,26 +99,23 @@ export default function SideBar({ ...props }) {
           <div className="">
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             
-              <Sidenav {...props} className="ml-2"  style={{backgroundColor:'white',overflowX:'hidden'}}>
+              <Sidenav {...props} className="ml-2"  style={{backgroundColor:'white',overflowX:'hidden',height:"38em"}}>
               <Sidenav.Body>
                 <Nav>
                  
-              {userData && userData.admin ===true  && userData.type_compte ==="entreprise" 
-                ? 
-                (<NavLink eventKey="1" icon={<Icon icon="gears2"/>} componentClass={Link} to="/dashboard/manage_accueil">Accueil</NavLink>)
-                : ""
-              }
+             <NavLink eventKey="1" icon={<Icon icon="home"/>} componentClass={Link} to="/dashboard/">Accueil</NavLink>)
+               
                
                 {userData && userData.admin ===true && userData.type_compte ==="entreprise" 
-                ? 
+                &&
                 (<Dropdown eventKey="2" title="Evénements" icon={<Icon icon="signing" />}>
 
                     <Dropdown.Item eventKey="2-1" componentClass={Link} to="/dashboard/new_event">Nouvel événement</Dropdown.Item>
                     <Dropdown.Item eventKey="2-2" componentClass={Link} to="/dashboard/list_events">Liste événement</Dropdown.Item>
 
                   </Dropdown>)
-                : ( <NavLink eventKey="2" icon={<Icon icon="signing"/>} componentClass={Link} to="/dashboard/events">Evénements</NavLink>
-                )
+                // : ( <NavLink eventKey="2" icon={<Icon icon="signing"/>} componentClass={Link} to="/dashboard/events">Evénements</NavLink>
+                // )
                 }
 
                 

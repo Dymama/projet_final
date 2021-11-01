@@ -27,7 +27,7 @@ export function dateStartEvent(date,heure){
   }
 
   
-  // compare deux dates(date ,minutes)
+  // compare egalité entres deux dates(date ,minutes)
 export function dayEqualToNow(date,heure){
     var date1 = dateStartEvent(date,heure)
     var dateNow = new Date()
@@ -35,7 +35,7 @@ export function dayEqualToNow(date,heure){
     return date1.getTime() === dateNow.getTime()
   }
 
-  // compare deux dates(date ,minutes)
+  // compare date a la date actuelle dates(date ,minutes)
 export function daySupToNow(date,heure){
     var date1 = dateStartEvent(date,heure)
     var dateNow = new Date()
@@ -43,12 +43,13 @@ export function daySupToNow(date,heure){
     return date1.getTime() > dateNow.getTime()
   }
 
-  // compare deux dates(date ,minutes)
+
+  // compare  date a la date actuelle (date ,minutes)
 export function dayMinToNow(date,heure){
     var date1 = dateStartEvent(date,heure)
     var dateNow = new Date()
 
-    return date1.getTime() < dateNow.getTime()
+    return date1.getTime() <= dateNow.getTime()
   }
 
 
@@ -94,6 +95,7 @@ export function restTime(date,heure){
             return item != undefined
         })
     }
+    else{ return []}
 }
 
 

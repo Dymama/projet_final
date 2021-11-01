@@ -14,9 +14,14 @@ import NewConference from './../../components/dashboard/pages/Conferences/NewCon
 import Page from './Voir';
 
 
+
 // importation des components dynamiquement
 const Home = lazy(() => import('../../components/dashboard/pages/Home/Home'));
+
 const Events = lazy(() => import('../../components/dashboard/pages/Events/Events'));
+
+const EventHome = lazy(() => import('../../components/dashboard/pages/Home/Events-home/EventHome'));
+
 const Conferences = lazy(() => import('../../components/dashboard/pages/Conferences/Conferences'));
 const AllConferences = lazy(() => import('../../components/dashboard/pages/Conferences/AllConferences'));
 const Entretiens = lazy(() => import('../../components/dashboard/pages/Entretiens/Entretiens'));
@@ -81,6 +86,8 @@ export default function Dashboard({match}){
             <Route exact path={`${match.url}`} component={Home}/>
 
             <Route path={`${match.url}/events`} component={Events}/>
+
+            <Route path={`${match.url}/event_detail_dash`} component={EventHome}/>
 
             <Route path={`${match.url}/conferences`} component={Conferences}/>
 
